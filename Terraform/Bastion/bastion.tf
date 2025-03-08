@@ -17,6 +17,11 @@ variable "vm_username" {
   default = "administrateur"
 }
 
+variable "vm_ip" {
+  type = string
+  default = "192.168.0.10"
+}
+
 # Configure the Azure provider
 provider "azurerm" {
   features {}
@@ -50,7 +55,8 @@ resource "azurerm_network_interface" "vm_bastion_nic_1" {
   ip_configuration {
     name                          = "internal"
     subnet_id                     = data.azurerm_subnet.vnet_sub1.id
-    private_ip_address_allocation = "Dynamic"
+    private_ip_address_allocation = "Static"
+    private_ip_address            = var.vm_ip
     public_ip_address_id          = azurerm_public_ip.vnet_pip_bastion.id
   }
 }
@@ -79,7 +85,7 @@ resource "azurerm_network_interface_security_group_association" "nsg_nic_associa
 }
 
 resource "azurerm_linux_virtual_machine" "vm_bastion_01" {
-  name                = "vm-bastion-01"
+  name                = "vm-bastion"
   resource_group_name = azurerm_resource_group.rg_bastion.name
   location            = azurerm_resource_group.rg_bastion.location
   size                = var.vm_size
