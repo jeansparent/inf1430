@@ -1,5 +1,5 @@
 *.lock.*
 *.tfstate
 *.tfstate.backup
-Terraform/*/.terraform
+**/.terraform
 *.plan
