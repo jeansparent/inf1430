@@ -22,9 +22,9 @@ if [[ -z "${TF_VAR_public_rsa}" ]]; then
 fi
 
 # Déploiement du Terraform pour VNET
-#terraform -chdir=$SCRIPTPATH/VNET init
-#terraform -chdir=$SCRIPTPATH/VNET plan -out vnet.plan
-#terraform -chdir=$SCRIPTPATH/VNET apply "vnet.plan"
+terraform -chdir=$SCRIPTPATH/VNET init
+terraform -chdir=$SCRIPTPATH/VNET plan -out vnet.plan
+terraform -chdir=$SCRIPTPATH/VNET apply "vnet.plan"
 
 # Déploiement du Terraform pour Bastion
 terraform -chdir=$SCRIPTPATH/Bastion init
