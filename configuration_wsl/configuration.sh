@@ -25,3 +25,7 @@ sudo apt install -y terraform
 
 # Installation d'Azure CLI
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+# SSH-agent
+eval $(ssh-agent -s)
+ssh-add ~/.ssh/id_rsa
