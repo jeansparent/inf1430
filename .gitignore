@@ -1,5 +1,5 @@
-terraform/exemple/.terraform.lock.hcl
-terraform/exemple/terraform.tfstate
-terraform/exemple/terraform.tfstate.backup
-terraform/exemple/.terraform/providers/registry.terraform.io/hashicorp/azurerm/4.17.0/linux_amd64/LICENSE.txt
-terraform/exemple/.terraform/providers/registry.terraform.io/hashicorp/azurerm/4.17.0/linux_amd64/terraform-provider-azurerm_v4.17.0_x5
+*.lock.hcl
+*.tfstate
+*.tfstate.backup
+terraform/exemple/.terraform
+
