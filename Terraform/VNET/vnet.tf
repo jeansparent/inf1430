@@ -30,29 +30,29 @@ resource "azurerm_subnet" "vnet_sub1" {
   address_prefixes     = ["192.168.0.0/24"]
 }
 
-# Adresse publique pour le NAT gateway
-resource "azurerm_public_ip" "nat_public_ip" {
-  name                = "nat-public-ip"
-  location            = azurerm_resource_group.rg_vnet.location
-  resource_group_name = azurerm_resource_group.rg_vnet.name
-  allocation_method   = "Static"
-  sku                 = "Standard"
-}
+# # Adresse publique pour le NAT gateway
+# resource "azurerm_public_ip" "nat_public_ip" {
+#   name                = "nat-public-ip"
+#   location            = azurerm_resource_group.rg_vnet.location
+#   resource_group_name = azurerm_resource_group.rg_vnet.name
+#   allocation_method   = "Static"
+#   sku                 = "Standard"
+# }
 
-resource "azurerm_nat_gateway" "vnet_nat" {
-  name                    = "nat-gateway"
-  location                = azurerm_resource_group.rg_vnet.location
-  resource_group_name     = azurerm_resource_group.rg_vnet.name
-}
+# resource "azurerm_nat_gateway" "vnet_nat" {
+#   name                    = "nat-gateway"
+#   location                = azurerm_resource_group.rg_vnet.location
+#   resource_group_name     = azurerm_resource_group.rg_vnet.name
+# }
 
-# Associer l'IP publique avec le NAT Gateway
-resource "azurerm_nat_gateway_public_ip_association" "ip_nat" {
-  nat_gateway_id       = azurerm_nat_gateway.vnet_nat.id
-  public_ip_address_id = azurerm_public_ip.nat_public_ip.id
-}
+# # Associer l'IP publique avec le NAT Gateway
+# resource "azurerm_nat_gateway_public_ip_association" "ip_nat" {
+#   nat_gateway_id       = azurerm_nat_gateway.vnet_nat.id
+#   public_ip_address_id = azurerm_public_ip.nat_public_ip.id
+# }
 
-# Associer le NAT gateway avec un subnet
-resource "azurerm_subnet_nat_gateway_association" "nat_subnet" {
-  subnet_id      = azurerm_subnet.vnet_sub1.id
-  nat_gateway_id = azurerm_nat_gateway.vnet_nat.id
-}
+# # Associer le NAT gateway avec un subnet
+# resource "azurerm_subnet_nat_gateway_association" "nat_subnet" {
+#   subnet_id      = azurerm_subnet.vnet_sub1.id
+#   nat_gateway_id = azurerm_nat_gateway.vnet_nat.id
+# }
