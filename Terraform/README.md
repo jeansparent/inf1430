@@ -24,6 +24,8 @@ Pour utiliser Terraform, il faut se connecter à Azure. Il est possible d'utilis
 ### À partir de WSL
 Ma configuration WSL 2 me donnait des erreurs, alors j'ai ajouté la commande --use-device-code afin de pouvoir faire la connexion.
 
+**** à revoir ***
+
 ```
 az login --use-device-code --allow-no-subscriptions
 az account set --subscription $TF_VAR_subscription_id
