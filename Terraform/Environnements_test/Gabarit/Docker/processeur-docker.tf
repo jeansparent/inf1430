@@ -34,15 +34,15 @@ data "azurerm_subnet" "vnet_sub1" {
 }
 
 # Create a resource group
-resource "azurerm_resource_group" rg_processeur_docker {
-  name     = "rg-inf1430-processeur-docker"
+resource "azurerm_resource_group" rg_gabarit_docker {
+  name     = "rg-inf1430-gabarit-docker"
   location = "Canada Central"
 }
 
-resource "azurerm_network_interface" "vm_processeur_docker_nic_1" {
-  name                = "vm-processeur-docker-nic-1"
-  location            = azurerm_resource_group.rg_processeur_docker.location
-  resource_group_name = azurerm_resource_group.rg_processeur_docker.name
+resource "azurerm_network_interface" "vm_gabarit_docker_nic_1" {
+  name                = "vm-gabarit-docker-nic-1"
+  location            = azurerm_resource_group.rg_gabarit_docker.location
+  resource_group_name = azurerm_resource_group.rg_gabarit_docker.name
 
   ip_configuration {
     name                          = "internal"
@@ -52,13 +52,13 @@ resource "azurerm_network_interface" "vm_processeur_docker_nic_1" {
   }
 }
 
-resource "azurerm_network_security_group" "nsg_processeur_docker" {
-  name                = "nsg-vm-processeur-docker"
-  location            = azurerm_resource_group.rg_processeur_docker.location
-  resource_group_name = azurerm_resource_group.rg_processeur_docker.name
+resource "azurerm_network_security_group" "nsg_gabarit_docker" {
+  name                = "nsg-vm-gabarit-docker"
+  location            = azurerm_resource_group.rg_gabarit_docker.location
+  resource_group_name = azurerm_resource_group.rg_gabarit_docker.name
 }
 
-resource "azurerm_network_security_rule" "nsg_processeur_docker_ssh" {
+resource "azurerm_network_security_rule" "nsg_gabarit_docker_ssh" {
   name                        = "SSH"
   priority                    = 100
   direction                   = "Inbound"
@@ -68,23 +68,23 @@ resource "azurerm_network_security_rule" "nsg_processeur_docker_ssh" {
   destination_port_range      = "22"
   source_address_prefix       = "192.168.0.10/32"
   destination_address_prefix  = "*"
-  resource_group_name         = azurerm_resource_group.rg_processeur_docker.name
-  network_security_group_name = azurerm_network_security_group.nsg_processeur_docker.name
+  resource_group_name         = azurerm_resource_group.rg_gabarit_docker.name
+  network_security_group_name = azurerm_network_security_group.nsg_gabarit_docker.name
 }
 
-resource "azurerm_network_interface_security_group_association" "nsg_processeur_docker_association" {
-  network_interface_id      = azurerm_network_interface.vm_processeur_docker_nic_1.id
-  network_security_group_id = azurerm_network_security_group.nsg_processeur_docker.id
+resource "azurerm_network_interface_security_group_association" "nsg_gabarit_docker_association" {
+  network_interface_id      = azurerm_network_interface.vm_gabarit_docker_nic_1.id
+  network_security_group_id = azurerm_network_security_group.nsg_gabarit_docker.id
 }
 
-resource "azurerm_linux_virtual_machine" "vm_processeur-docker" {
-  name                = "vm-processeur-docker"
-  resource_group_name = azurerm_resource_group.rg_processeur_docker.name
-  location            = azurerm_resource_group.rg_processeur_docker.location
+resource "azurerm_linux_virtual_machine" "vm_gabarit-docker" {
+  name                = "vm-gabarit-docker"
+  resource_group_name = azurerm_resource_group.rg_gabarit_docker.name
+  location            = azurerm_resource_group.rg_gabarit_docker.location
   size                = var.vm_size
   admin_username      = var.vm_username
   network_interface_ids = [
-    azurerm_network_interface.vm_processeur_docker_nic_1.id,
+    azurerm_network_interface.vm_gabarit_docker_nic_1.id,
   ]
 
   admin_ssh_key {

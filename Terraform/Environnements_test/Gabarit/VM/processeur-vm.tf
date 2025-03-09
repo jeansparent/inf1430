@@ -34,15 +34,15 @@ data "azurerm_subnet" "vnet_sub1" {
 }
 
 # Create a resource group
-resource "azurerm_resource_group" rg_processeur_vm {
-  name     = "rg-inf1430-processeur-vm"
+resource "azurerm_resource_group" rg_gabarit_vm {
+  name     = "rg-inf1430-gabarit-vm"
   location = "Canada Central"
 }
 
-resource "azurerm_network_interface" "vm_processeur_vm_nic_1" {
-  name                = "vm-processeur-vm-nic-1"
-  location            = azurerm_resource_group.rg_processeur_vm.location
-  resource_group_name = azurerm_resource_group.rg_processeur_vm.name
+resource "azurerm_network_interface" "vm_gabarit_vm_nic_1" {
+  name                = "vm-gabarit-vm-nic-1"
+  location            = azurerm_resource_group.rg_gabarit_vm.location
+  resource_group_name = azurerm_resource_group.rg_gabarit_vm.name
 
   ip_configuration {
     name                          = "internal"
@@ -52,13 +52,13 @@ resource "azurerm_network_interface" "vm_processeur_vm_nic_1" {
   }
 }
 
-resource "azurerm_network_security_group" "nsg_processeur_vm" {
-  name                = "nsg-vm-processeur-vm"
-  location            = azurerm_resource_group.rg_processeur_vm.location
-  resource_group_name = azurerm_resource_group.rg_processeur_vm.name
+resource "azurerm_network_security_group" "nsg_gabarit_vm" {
+  name                = "nsg-vm-gabarit-vm"
+  location            = azurerm_resource_group.rg_gabarit_vm.location
+  resource_group_name = azurerm_resource_group.rg_gabarit_vm.name
 }
 
-resource "azurerm_network_security_rule" "nsg_processeur_vm_ssh" {
+resource "azurerm_network_security_rule" "nsg_gabarit_vm_ssh" {
   name                        = "SSH"
   priority                    = 100
   direction                   = "Inbound"
@@ -68,23 +68,23 @@ resource "azurerm_network_security_rule" "nsg_processeur_vm_ssh" {
   destination_port_range      = "22"
   source_address_prefix       = "192.168.0.10/32"
   destination_address_prefix  = "*"
-  resource_group_name         = azurerm_resource_group.rg_processeur_vm.name
-  network_security_group_name = azurerm_network_security_group.nsg_processeur_vm.name
+  resource_group_name         = azurerm_resource_group.rg_gabarit_vm.name
+  network_security_group_name = azurerm_network_security_group.nsg_gabarit_vm.name
 }
 
-resource "azurerm_network_interface_security_group_association" "nsg_processeur_vm_association" {
-  network_interface_id      = azurerm_network_interface.vm_processeur_vm_nic_1.id
-  network_security_group_id = azurerm_network_security_group.nsg_processeur_vm.id
+resource "azurerm_network_interface_security_group_association" "nsg_gabarit_vm_association" {
+  network_interface_id      = azurerm_network_interface.vm_gabarit_vm_nic_1.id
+  network_security_group_id = azurerm_network_security_group.nsg_gabarit_vm.id
 }
 
-resource "azurerm_linux_virtual_machine" "vm_processeur-vm" {
-  name                = "vm-processeur-vm"
-  resource_group_name = azurerm_resource_group.rg_processeur_vm.name
-  location            = azurerm_resource_group.rg_processeur_vm.location
+resource "azurerm_linux_virtual_machine" "vm_gabarit-vm" {
+  name                = "vm-gabarit-vm"
+  resource_group_name = azurerm_resource_group.rg_gabarit_vm.name
+  location            = azurerm_resource_group.rg_gabarit_vm.location
   size                = var.vm_size
   admin_username      = var.vm_username
   network_interface_ids = [
-    azurerm_network_interface.vm_processeur_vm_nic_1.id,
+    azurerm_network_interface.vm_gabarit_vm_nic_1.id,
   ]
 
   admin_ssh_key {
