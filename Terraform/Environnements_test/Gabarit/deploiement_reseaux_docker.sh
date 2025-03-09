@@ -41,7 +41,7 @@ fi
 SCRIPT=$(realpath "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
 
-# Déploiement du Terraform pour Processeur
+# Déploiement du Terraform pour Gabarit
 terraform -chdir=$SCRIPTPATH/Docker init
-terraform -chdir=$SCRIPTPATH/Docker plan -out processeur-docker.plan
-terraform -chdir=$SCRIPTPATH/Docker apply "processeur-docker.plan"
+terraform -chdir=$SCRIPTPATH/Docker plan -out gabarit-docker.plan
+terraform -chdir=$SCRIPTPATH/Docker apply "gabarit-docker.plan"

@@ -41,7 +41,7 @@ if [[ -z "${TF_VAR_public_rsa}" ]]; then
   exit 1
 fi
 
-# Déploiement du Terraform pour Processeur
+# Déploiement du Terraform pour Gabarit
 terraform -chdir=$SCRIPTPATH/VM init
-terraform -chdir=$SCRIPTPATH/VM plan -out processeur-vm.plan
-terraform -chdir=$SCRIPTPATH/VM apply "processeur-vm.plan"
+terraform -chdir=$SCRIPTPATH/VM plan -out gabarit-vm.plan
+terraform -chdir=$SCRIPTPATH/VM apply "gabarit-vm.plan"
