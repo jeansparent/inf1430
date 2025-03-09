@@ -16,7 +16,12 @@ Cette variable permet de spécifier l'organisation Azure qui sera utilisé.
 export TF_VAR_public_rsa='Clé RSA publique'
 export TF_VAR_subscription_id='ORG ID'
 ```
+## Lister les types d'instance disponible
+Cette commmande permet de voir les types d'instance disponible dans Canada Central.
 
+```
+az vm list-sizes --location canadacentral --query "[?starts_with(name, 'Standard_D')]" --output table
+```
 
 ## Connexion à Azure
 Pour utiliser Terraform, il faut se connecter à Azure. Il est possible d'utiliser des variables d'environnements. Toutefois, dans le cadre de ce projet, je ne voulais pas inclure ce type d’information dans un dépôt Git public. Donc, il faut utiliser la commande az afin de faire la connexion.
