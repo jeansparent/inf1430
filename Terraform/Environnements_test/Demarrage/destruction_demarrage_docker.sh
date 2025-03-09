@@ -6,4 +6,4 @@
 SCRIPT=$(realpath "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
 
-terraform -chdir=$SCRIPTPATH/VM destroy -auto-approve
+terraform -chdir=$SCRIPTPATH/Docker destroy -auto-approve
