@@ -10,6 +10,12 @@ terraform -chdir=$SCRIPTPATH/Environnements_test/Demarrage/VM destroy -auto-appr
 terraform -chdir=$SCRIPTPATH/Environnements_test/Demarrage/Docker destroy -auto-approve || true
 terraform -chdir=$SCRIPTPATH/Environnements_test/Reseaux/VM destroy -auto-approve || true
 terraform -chdir=$SCRIPTPATH/Environnements_test/Reseaux/Docker destroy -auto-approve || true
+terraform -chdir=$SCRIPTPATH/Environnements_test/Disque/VM destroy -auto-approve || true
+terraform -chdir=$SCRIPTPATH/Environnements_test/Disque/Docker destroy -auto-approve || true
+terraform -chdir=$SCRIPTPATH/Environnements_test/Memoire/VM destroy -auto-approve || true
+terraform -chdir=$SCRIPTPATH/Environnements_test/Memoire/Docker destroy -auto-approve || true
+terraform -chdir=$SCRIPTPATH/Environnements_test/Processeur/VM destroy -auto-approve || true
+terraform -chdir=$SCRIPTPATH/Environnements_test/Processeur/Docker destroy -auto-approve || true
 terraform -chdir=$SCRIPTPATH/Bastion destroy -auto-approve || true
 terraform -chdir=$SCRIPTPATH/VNET destroy -auto-approve || true
 
