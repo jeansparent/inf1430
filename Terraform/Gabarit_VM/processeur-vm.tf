@@ -18,7 +18,7 @@ variable "vm_username" {
 
 variable "vm_ip" {
   type = string
-  default = "192.168.0.102"
+  default = "192.168.0.150"
 }
 
 # Configure the Azure provider
