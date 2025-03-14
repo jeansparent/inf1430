@@ -1,3 +1,6 @@
+# Introduction
+*********  à faire ***********
+
 # Clé RSA
 *********  à faire ***********
 
@@ -24,3 +27,9 @@ Ma configuration WSL 2 me donnait des erreurs, alors j'ai ajouté la commande --
 az login --use-device-code --allow-no-subscriptions
 az account set --subscription $TF_VAR_subscription_id
 ```
+
+# Déploiement des environnements
+[Script Bash](Bash.md)
+
+# Terraform
+[Terraform](Terraform.md)
