@@ -1,0 +1,3 @@
+additionals_applications:
+  - 'postgresql-client'
+  - 'apache2-utils'
