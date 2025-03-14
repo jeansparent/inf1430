@@ -1,76 +1,96 @@
 ---
+Dev:
+  hosts:
+    dev-server:
+      ansible_host: 1.1.1.1
+      ansible_user: 'administrateur'
 
 Bastion:
   hosts:
-    ansible_host: 192.168.0.10
-    ansible_user: 'administrateur'
+    bastion-server:
+      ansible_host: 192.168.0.10
+      ansible_user: 'administrateur'
 
 vm-demarrage:
   hosts:
-    ansible_host: 192.168.0.100
-    ansible_user: 'administrateur'
+    vm-demarrage-server:
+      ansible_host: 192.168.0.100
+      ansible_user: 'administrateur'
 
 vm-demarrage-docker:
   hosts:
-    ansible_host: 192.168.0.200
-    ansible_user: 'administrateur'
+    vm-demarrage-docker-server:
+      ansible_host: 192.168.0.200
+      ansible_user: 'administrateur'
 
 vm-reseau:
   hosts:
-    ansible_host: 192.168.0.101
-    ansible_user: 'administrateur'
+    vm-reseau-server:
+      ansible_host: 192.168.0.101
+      ansible_user: 'administrateur'
 
 vm-reseau-docker:
   hosts:
-    ansible_host: 192.168.0.201
-    ansible_user: 'administrateur'
+    vm-reseau-docker-server:
+      ansible_host: 192.168.0.201
+      ansible_user: 'administrateur'
 
 vm-processeur:
   hosts:
-    ansible_host: 192.168.0.102
-    ansible_user: 'administrateur'
+    vm-processeur-server:
+      ansible_host: 192.168.0.102
+      ansible_user: 'administrateur'
 
 vm-processeur-docker:
   hosts:
-    ansible_host: 192.168.0.202
-    ansible_user: 'administrateur'
+    vm-processeur-docker-server:
+      ansible_host: 192.168.0.202
+      ansible_user: 'administrateur'
 
 vm-disque:
   hosts:
-    ansible_host: 192.168.0.103
-    ansible_user: 'administrateur'
+    vm-disque-server:
+      ansible_host: 192.168.0.103
+      ansible_user: 'administrateur'
 
 vm-disque-docker:
   hosts:
-    ansible_host: 192.168.0.203
-    ansible_user: 'administrateur'
+    vm-disque-docker-server:
+      ansible_host: 192.168.0.203
+      ansible_user: 'administrateur'
 
 vm-memoire:
   hosts:
-    ansible_host: 192.168.0.104
-    ansible_user: 'administrateur'
+    vm-memoire-server:
+      ansible_host: 192.168.0.104
+      ansible_user: 'administrateur'
 
 vm-memoire-docker:
   hosts:
-    ansible_host: 192.168.0.204
-    ansible_user: 'administrateur'
+    vm-memoire-docker-server:
+      ansible_host: 192.168.0.204
+      ansible_user: 'administrateur'
 
 vm-sftp:
   hosts:
-    ansible_host: 192.168.0.105
-    ansible_user: 'administrateur'
+    vm-sftp-server:
+      ansible_host: 192.168.0.105
+      ansible_user: 'administrateur'
 
 vm-sftp-docker:
   hosts:
-    ansible_host: 192.168.0.205
-    ansible_user: 'administrateur'
+    vm-sftp-docker-server:
+      ansible_host: 192.168.0.205
+      ansible_user: 'administrateur'
 
 vm-applicatif:
   hosts:
-    ansible_host: 192.168.0.106
-    ansible_user: 'administrateur'
+    vm-applicatif-server:
+      ansible_host: 192.168.0.106
+      ansible_user: 'administrateur'
 
 vm-applicatif-docker:
   hosts:
-    ansible_host: 192.168.0.206
-    ansible_user: 'administrateur'
+    vm-applicatif-docker-server:
+      ansible_host: 192.168.0.206
+      ansible_user: 'administrateur'
