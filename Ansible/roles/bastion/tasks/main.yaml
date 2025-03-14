@@ -1,0 +1,23 @@
+---
+
+- name: Installation des applications pour le bastion
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: latest
+  loop: "{{ bastion_applications }}"
+
+- name: Créer le dossier .ssh pour administrateur
+  ansible.builtin.file:
+    path: "/home/{{lookup('env', 'USER') }}/.ssh"
+    state: directory
+    owner: 'administrateur'
+    group: 'administrateur'
+    mode: '0700'
+     
+- name: Copier la clé RSA privé
+  ansible.builtin.copy:
+    src: "/home/{{lookup('env', 'USER') }}/.ssh/id_rsa"
+    dest: '/home/administrateur/.ssh/id_rsa'
+    owner: 'administrateur'
+    group: 'administrateur'
+    mode: 0600
