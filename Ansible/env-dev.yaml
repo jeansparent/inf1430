@@ -1,18 +1,18 @@
 ---
-- name: Update web servers
-  hosts: Dev
+- name: Installation environnement dev
+  hosts: dev
   become: true
 
   tasks:
-    - name: Mise à jour de l'OS
-      apt:
-        upgrade: yes
-        update_cache: yes
-        cache_valid_time: 86400
-    
-    - name: Redemarrer la VM
-      reboot:
+    - name: Appel du role commun
+      ansible.builtin.include_role:
+        name: commun
+      vars:
+        commun_applications: "{{ applications }}"
+        commun_hosts: "{{ hosts }}"
 
-    - name: debug
-      debug:
-        var: ansible_facts
+    - name: Appel du role bastion
+      ansible.builtin.include_role:
+        name: bastion
+      vars:
+        bastion_applications: "{{ additionals_applications }}"
