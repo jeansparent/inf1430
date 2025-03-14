@@ -41,3 +41,10 @@ Voir les [Script Bash](Bash.md) disponible dans le dossier Bash à la racine.
 |Reseaux_VM|192.168.0.101|non|vm-reseau-vm.inf1430|
 |SCP_Docker|192.168.0.205|non|vm-scp-docker.inf1430|
 |SCP_VM|192.168.0.105|non|vm-scp-vm.inf1430|
+
+# Lister les types d'instance disponible
+Cette commmande permet de voir les types d'instance disponible dans Canada Central.
+
+```
+az vm list-sizes --location canadacentral --query "[?starts_with(name, 'Standard_D')]" --output table
+```
