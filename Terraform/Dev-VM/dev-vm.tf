@@ -24,50 +24,50 @@ provider "azurerm" {
 }
 
 # Create a resource group
-resource "azurerm_resource_group" rg_testenv {
-  name     = "rg-inf1430-testenv"
+resource "azurerm_resource_group" rg_dev-env {
+  name     = "rg-inf1430-dev-env"
   location = "Canada Central"
 }
 
 resource "azurerm_virtual_network" "vnet" {
-  name                = "vnet-inf1430-testenv"
+  name                = "vnet-inf1430-dev-env"
   address_space       = ["192.168.160.0/20"]
-  location            = azurerm_resource_group.rg_testenv.location
-  resource_group_name = azurerm_resource_group.rg_testenv.name
+  location            = azurerm_resource_group.rg_dev-env.location
+  resource_group_name = azurerm_resource_group.rg_dev-env.name
 }
 
 resource "azurerm_subnet" "vnet_sub1" {
   name                 = "vnet-sub1"
-  resource_group_name  = azurerm_resource_group.rg_testenv.name
+  resource_group_name  = azurerm_resource_group.rg_dev-env.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = ["192.168.160.0/24"]
 }
 
 
-resource "azurerm_public_ip" "vnet_pip_testvm" {
-  name                = "pip-testvm"
-  resource_group_name = azurerm_resource_group.rg_testenv.name
-  location            = azurerm_resource_group.rg_testenv.location
+resource "azurerm_public_ip" "vnet_pip_dev-vm" {
+  name                = "pip-dev-vm"
+  resource_group_name = azurerm_resource_group.rg_dev-env.name
+  location            = azurerm_resource_group.rg_dev-env.location
   allocation_method   = "Static"
 }
 
-resource "azurerm_network_interface" "vm_testvm_nic_1" {
-  name                = "vm-testvm-nic-1"
-  location            = azurerm_resource_group.rg_testenv.location
-  resource_group_name = azurerm_resource_group.rg_testenv.name
+resource "azurerm_network_interface" "vm_dev-vm_nic_1" {
+  name                = "vm-dev-vm-nic-1"
+  location            = azurerm_resource_group.rg_dev-env.location
+  resource_group_name = azurerm_resource_group.rg_dev-env.name
 
   ip_configuration {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.vnet_sub1.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.vnet_pip_testvm.id
+    public_ip_address_id          = azurerm_public_ip.vnet_pip_dev-vm.id
   }
 }
 
-resource "azurerm_network_security_group" "nsg_testvm" {
-  name                = "nsg-vm-testvm"
-  location            = azurerm_resource_group.rg_testenv.location
-  resource_group_name = azurerm_resource_group.rg_testenv.name
+resource "azurerm_network_security_group" "nsg_dev-vm" {
+  name                = "nsg-vm-dev-vm"
+  location            = azurerm_resource_group.rg_dev-env.location
+  resource_group_name = azurerm_resource_group.rg_dev-env.name
 
   security_rule {
     name                       = "SSH"
@@ -83,18 +83,18 @@ resource "azurerm_network_security_group" "nsg_testvm" {
 }
 
 resource "azurerm_network_interface_security_group_association" "nsg_nic_association" {
-  network_interface_id      = azurerm_network_interface.vm_testvm_nic_1.id
-  network_security_group_id = azurerm_network_security_group.nsg_testvm.id
+  network_interface_id      = azurerm_network_interface.vm_dev-vm_nic_1.id
+  network_security_group_id = azurerm_network_security_group.nsg_dev-vm.id
 }
 
-resource "azurerm_linux_virtual_machine" "vm_testvm_01" {
-  name                = "vm-testvm-01"
-  resource_group_name = azurerm_resource_group.rg_testenv.name
-  location            = azurerm_resource_group.rg_testenv.location
+resource "azurerm_linux_virtual_machine" "vm_dev-vm_01" {
+  name                = "vm-dev-vm-01"
+  resource_group_name = azurerm_resource_group.rg_dev-env.name
+  location            = azurerm_resource_group.rg_dev-env.location
   size                = var.vm_size
   admin_username      = var.vm_username
   network_interface_ids = [
-    azurerm_network_interface.vm_testvm_nic_1.id,
+    azurerm_network_interface.vm_dev-vm_nic_1.id,
   ]
 
   admin_ssh_key {
@@ -117,5 +117,5 @@ resource "azurerm_linux_virtual_machine" "vm_testvm_01" {
 }
 
 output "public_ip" {
-  value = azurerm_public_ip.vnet_pip_testvm.ip_address
+  value = azurerm_public_ip.vnet_pip_dev-vm.ip_address
 }
