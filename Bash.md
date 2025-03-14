@@ -13,8 +13,8 @@ Pour utiliser Terraform, il faut se connecter à Azure. Il est possible d'utilis
 # Scripts pour Terraform
 Les scripts deploiement_env.sh et destruction_env.sh permettent de gérer la création et la destruction des environnements dans Azure en appelant Terraform. 
 
-## deploiement_env.sh
-Ce script a trois options possibles:
+## deploiement_env.sh et destruction_env.sh
+Ces scripts ont trois options possibles:
 
 - --instance : cette option permet de préciser le type d'instance. <br> 
 Si aucune instance n'est déclarée, Standard_B1s sera utilisé.
@@ -31,6 +31,8 @@ Les scripts à la racine de dossier Bash permettent de déployer un environnemen
 2- deploiement_*env*.sh : Déploiement d'un environnement de test spécifique.
 
 ### Utilisation des scripts
+Des scripts ansible sont déclarés dans les scripts d'environnement afin de compléter la configuration des instances. La documentation pour ansible est disponible ici: [ansible](Ansible.md)
+
 ```
 export TF_VAR_public_rsa='*** Clé RSA publique ***'
 export TF_VAR_subscription_id='*** Azure Organization ID ***'
