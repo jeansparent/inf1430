@@ -1,6 +1,6 @@
 ---
 - name: Installation environnement dev
-  hosts: dev
+  hosts: dev-server
   become: true
 
   tasks:
@@ -23,8 +23,8 @@
       vars:
         docker_ce_version: "{{ docker_version }}"
 
-    # - name: Appel du role docker-nginx
-    #   ansible.builtin.include_role:
-    #     name: docker-ce
-    #   vars:
-    #     docker-nginx_version: "{{ nginx_version }}"
+    - name: Appel du role docker-nginx
+      ansible.builtin.include_role:
+        name: docker-nginx
+      vars:
+        docker_nginx_version: "{{ nginx_version }}"
