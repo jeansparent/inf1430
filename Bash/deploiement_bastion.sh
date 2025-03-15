@@ -9,6 +9,12 @@ bash $PWD/Bash/Terraform/deploiement_env.sh --env VNET
 bash $PWD/Bash/Terraform/deploiement_env.sh --env Bastion
 external_ip=$(terraform -chdir="$PWD/Terraform/Bastion" output -raw public_ip)
 
+echo "Attente de la disponibilité de SSH sur $HOST..."
+while ! nc -z $external_ip 22; do
+  echo "SSH pas encore disponible. Attente..."
+  sleep 5
+done
+
 sed -i -e "s/x.x.x.x/$external_ip/g" $PWD/Ansible/inventory.yaml
 ansible-playbook -i $PWD/Ansible/inventory.yaml $PWD/Ansible/env-dev.yaml
 sed -i -e "s/$external_ip/x.x.x.x/g" $PWD/Ansible/inventory.yaml
