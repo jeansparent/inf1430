@@ -16,3 +16,15 @@
         name: bastion
       vars:
         bastion_applications: "{{ additionals_applications }}"
+
+    - name: Appel du role docker-ce
+      ansible.builtin.include_role:
+        name: docker-ce
+      vars:
+        docker_ce_version: "{{ docker_version }}"
+
+    # - name: Appel du role docker-nginx
+    #   ansible.builtin.include_role:
+    #     name: docker-ce
+    #   vars:
+    #     docker-nginx_version: "{{ nginx_version }}"
