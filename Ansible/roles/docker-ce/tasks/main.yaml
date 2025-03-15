@@ -1,0 +1,42 @@
+- name: Installation des dépendances
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop: "{{ docker_ce_dependencies }}"
+
+- name: Télécharger la clé GPG de Docker
+  ansible.builtin.get_url:
+    url: "{{ docker_ce_gpg_url }}"
+    dest: "/etc/apt/trusted.gpg.d/docker.asc"
+    mode: '0644'
+
+- name: Ajouter le dépôt Docker
+  ansible.builtin.apt_repository:
+    repo: "deb {{ docker_ce_repo_url }} {{ ansible_distribution_release }} stable"
+    state: present
+    filename: docker
+
+- name: Installation du logiciel Docker
+  ansible.builtin.apt:
+    name: "docker-ce={{ docker_version }}"
+    state: present
+    update_cache: yes
+
+- name: Bloquer la version de Docker pour éviter les mises à jour
+  ansible.builtin.dpkg_selections:
+    name: docker-ce
+    selection: hold
+
+- name: Configuration de systemd
+  ansible.builtin.systemd:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Ajout d'administrateur dans le groupe docker
+  ansible.builtin.user:
+    name: 'administrateur'
+    groups: docker
+    append: yes
+  

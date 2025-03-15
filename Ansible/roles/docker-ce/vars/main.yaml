@@ -1,0 +1,10 @@
+docker_ce_gpg_url: 'https://download.docker.com/linux/ubuntu/gpg'
+
+docker_ce_repo_url: 'https://download.docker.com/linux/ubuntu'
+
+docker_ce_dependencies:      
+  - 'apt-transport-https'
+  - 'ca-certificates'
+  - 'curl'
+  - 'software-properties-common'
+
