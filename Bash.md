@@ -2,10 +2,39 @@
 Le déploiement de ce projet est complètement automatisé avec les applications Ansible, Bash et Terraform. Ce document explique le fonctionnement du code afin de faire ces déploiements. 
 
 # Clé RSA
-*********  à faire ***********
+La paire de clés privé/public RSA permet la connexion SSH automatiquement vers les instances. La clé publique est copiée dans toutes les instances lors de l'exécution du code Terraform. 
+<br>
+Génération de la paire de clés:
+```
+ssh-keygen -t rsa -b 2048 
+```
+Dans le cadre du projet, il est recommandé d'utiliser le nom par défaut afin de ne pas avoir à gérer cet aspect.
 
 # SSH Agent
-*********  à faire ***********
+L'agent SSH est un logiciel qui permet de transporter les informations de clé privée à travers une connexion SSH afin de l'utiliser pour d'autre connexion. 
+<br>
+Activation:
+```
+vi ~/.bashrc
+
+# Ajouter ces lignes à la fin
+eval $(ssh-agent -s)
+ssh-add ~/.ssh/id_rsa
+
+# Relancer le .bashrc
+source ~/.bashrc
+```
+<br>
+Pour que l’agent fonctionne, il faut ajouter une configuration dans le fichier config de SSH.
+<br>
+
+```
+vi ~/.ssh/config
+
+# Ajouter le bloc de code suivant:
+ Host *
+   ForwardAgent yes
+```
 
 # Connexion à Azure
 Pour utiliser Terraform, il faut se connecter à Azure. Il est possible d'utiliser des variables d'environnements. Toutefois, dans le cadre de ce projet, je ne voulais pas inclure ce type d’information dans un dépôt Git public. Donc, il faut utiliser la commande az afin de faire la connexion.
