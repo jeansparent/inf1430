@@ -1,13 +1,13 @@
 - name: Télécharger l'image Nginx depuis Docker Hub
   community.docker.docker_image:
     name: nginx
-    tag: latest
+    tag: "{{ docker_nginx_version }}"
     source: pull
 
 - name: Démarrer le conteneur Nginx avec auto-restart
   community.docker.docker_container:
-    name: my_nginx
-    image: nginx:latest
+    name: nginx
+    image: "nginx:{{ docker_nginx_version }}"
     state: started
     restart_policy: always
     ports:
