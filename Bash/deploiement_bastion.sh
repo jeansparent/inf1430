@@ -3,7 +3,6 @@
 # Auteur : Jean-Sébastien Parent
 # Date: 8 mars 2025
 
-
 # Script
 export ANSIBLE_HOST_KEY_CHECKING=False
 bash $PWD/Bash/Terraform/deploiement_env.sh --env VNET

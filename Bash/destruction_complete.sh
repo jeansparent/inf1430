@@ -3,6 +3,7 @@
 # Auteur : Jean-Sébastien Parent
 # Date: 8 mars 2025
 
+# Scripts
 bash $PWD/Bash/Terraform/destruction_env.sh --env Dev_VM 
 bash $PWD/Bash/Terraform/destruction_env.sh --env Demarrage_Docker
 bash $PWD/Bash/Terraform/destruction_env.sh --env Demarrage_VM

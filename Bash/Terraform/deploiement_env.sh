@@ -3,10 +3,12 @@
 # Auteur : Jean-Sébastien Parent
 # Date: 8 mars 2025
 
+# Variables
 export TF_VAR_vm_size="Standard_B1s"
 ENVIRONNEMENT=""
 help=false
 
+# Options du script
 while [[ "$#" -gt 0 ]]; do
     case "$1" in
         --instance)
