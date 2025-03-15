@@ -65,21 +65,37 @@ resource "azurerm_network_interface" "vm_dev-vm_nic_1" {
 }
 
 resource "azurerm_network_security_group" "nsg_dev-vm" {
-  name                = "nsg-vm-dev-vm"
+  name                = "nsg-vm-demarrage-docker"
   location            = azurerm_resource_group.rg_dev-env.location
   resource_group_name = azurerm_resource_group.rg_dev-env.name
+}
 
-  security_rule {
-    name                       = "SSH"
-    priority                   = 1000
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "*"
-    source_port_range          = "*"
-    destination_port_range     = "22"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
+resource "azurerm_network_security_rule" "nsg_dev-vm_ssh" {
+  name                        = "SSH"
+  priority                    = 100
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "*"
+  source_port_range           = "*"
+  destination_port_range      = "22"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.rg_dev-env.name
+  network_security_group_name = azurerm_network_security_group.nsg_dev-vm.name
+}
+
+resource "azurerm_network_security_rule" "nsg_dev-vm_http" {
+  name                        = "HTTP"
+  priority                    = 200
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "*"
+  source_port_range           = "*"
+  destination_port_range      = "80"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.rg_dev-env.name
+  network_security_group_name = azurerm_network_security_group.nsg_dev-vm.name
 }
 
 resource "azurerm_network_interface_security_group_association" "nsg_nic_association" {
