@@ -32,3 +32,7 @@ hosts:
     fqdn: 'vm-scp-docker.inf1430'
   - ip: '192.168.0.206'
     fqdn: 'vm-applicatif-docker.inf1430'
+
+docker_version: '5:27.5.1-1~ubuntu.24.04~noble'
+
+nginx_version: '1.24.0'
