@@ -51,4 +51,7 @@ Cette page contient aussi les informations de toutes les instances qui seront ut
 
 
 # Ansible
-****** À venir ******  [Ansible](Ansible.md) 
+La documentation pour [Ansible](Ansible.md) explique son fonctionnement et sa structure.
+
+# Docker
+La documentation pour [Docker](Docker.md) explique comment les images sont construites et utilisées dans le cadre du projet. 
