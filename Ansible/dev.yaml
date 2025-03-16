@@ -35,3 +35,21 @@
       vars:
         git_clone_url: "{{ git_url }}"
         git_clone_local_path: "{{ git_local_path }}"
+
+    - name: Appel du role docker-iperf3
+      ansible.builtin.include_role:
+        name: docker-iperf3
+      vars:
+        docker_iperf3_repo: "{{ iperf3_repo }}"
+
+    - name: Appel du role docker-scp
+      ansible.builtin.include_role:
+        name: docker-scp
+      vars:
+        docker_scp_repo: "{{ scp_repo }}"
+
+    - name: Appel du role docker-sysbench
+      ansible.builtin.include_role:
+        name: docker-sysbench
+      vars:
+        docker_sysbench_repo: "{{ sysbench_repo }}"
