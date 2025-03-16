@@ -28,3 +28,10 @@
         name: docker-nginx
       vars:
         docker_nginx_version: "{{ nginx_version }}"
+
+    - name: Appel du role git-clone
+      ansible.builtin.include_role:
+        name: git-clone
+      vars:
+        git_clone_url: "{{ git_url }}"
+        git_clone_local_path: "{{ git_local_path }}"
