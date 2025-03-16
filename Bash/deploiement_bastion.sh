@@ -15,6 +15,6 @@ while ! nc -z $external_ip 22; do
   sleep 5
 done
 
-sed -i -e "s/x.x.x.x/$external_ip/g" $PWD/Ansible/inventory.yaml
-ansible-playbook -i $PWD/Ansible/inventory.yaml $PWD/Ansible/env-dev.yaml
-sed -i -e "s/$external_ip/x.x.x.x/g" $PWD/Ansible/inventory.yaml
+sed -i -e "s/b.b.b.b/$external_ip/g" $PWD/Ansible/inventory.yaml
+ansible-playbook -i $PWD/Ansible/inventory.yaml $PWD/Ansible/bastion.yaml
+sed -i -e "s/$external_ip/b.b.b.b/g" $PWD/Ansible/inventory.yaml
