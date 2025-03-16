@@ -4,11 +4,11 @@
     tag: 'latest'
     source: pull
 
-# - name: Démarrer le conteneur Nginx avec auto-restart
-#   community.docker.docker_container:
-#     name: nginx
-#     image: "nginx:{{ docker_nginx_version }}"
-#     state: started
-#     restart_policy: always
-#     ports:
-#       - "80:80"
+- name: Démarrer le conteneur iperf3 avec auto-restart
+  community.docker.docker_container:
+    name: "iperf3"
+    image: "{{ docker_iperf3_repo }}:latest"
+    state: started
+    restart_policy: always
+    ports:
+      - "5201:5201"
