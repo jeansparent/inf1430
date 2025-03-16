@@ -1,0 +1,14 @@
+- name: Télécharger l'image scp depuis Docker Hub
+  community.docker.docker_image:
+    name: "{{ docker_scp_repo }}"
+    tag: 'latest'
+    source: pull
+
+# - name: Démarrer le conteneur Nginx avec auto-restart
+#   community.docker.docker_container:
+#     name: nginx
+#     image: "nginx:{{ docker_nginx_version }}"
+#     state: started
+#     restart_policy: always
+#     ports:
+#       - "80:80"
