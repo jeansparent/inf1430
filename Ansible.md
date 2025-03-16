@@ -4,8 +4,20 @@ Cette section explique le fonctionnement d’Ansible et des rôles disponibles d
 # Structure
 ```
 Ansible
-├── env-bastion.yaml
-├── env-dev.yaml
+├── Demarrage_Docker.yaml
+├── Demarrage_VM.yaml
+├── Disque_Docker.yaml
+├── Disque_VM.yaml
+├── Memoire_Docker.yaml
+├── Memoire_VM.yaml
+├── Processeur_Docker.yaml
+├── Processeur_VM.yaml
+├── Reseaux_Docker.yaml
+├── Reseaux_VM.yaml
+├── SCP_Docker.yaml
+├── SCP_VM.yaml
+├── bastion.yaml
+├── dev.yaml
 ├── group_vars
 │   ├── all
 │   │   └── vars.yaml
@@ -28,11 +40,25 @@ Ansible
     │   │   └── main.yaml
     │   └── templates
     │       └── hosts.j2
-    └── demarrage
+    ├── demarrage
+    │   ├── defaults
+    │   │   └── main.yaml
+    │   └── tasks
+    │       └── main.yaml
+    ├── docker-ce
+    │   ├── defaults
+    │   │   └── main.yaml
+    │   ├── tasks
+    │   │   └── main.yaml
+    │   └── vars
+    │       └── main.yaml
+    └── docker-nginx
         ├── defaults
         │   └── main.yaml
-        └── tasks
-            └── main.yaml
+        ├── tasks
+        │   └── main.yaml
+        └── templates
+            └── dummy.j2
 
 ```
 
