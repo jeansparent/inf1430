@@ -119,3 +119,7 @@ resource "azurerm_linux_virtual_machine" "vm_demarrage-docker" {
   }
 
 }
+
+output "private_ip" {
+  value = var.vm_ip
+}

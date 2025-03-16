@@ -105,3 +105,7 @@ resource "azurerm_linux_virtual_machine" "vm_processeur-vm" {
   }
 
 }
+
+output "private_ip" {
+  value = var.vm_ip
+}

@@ -105,3 +105,8 @@ resource "azurerm_linux_virtual_machine" "vm_disque-docker" {
   }
 
 }
+
+
+output "private_ip" {
+  value = var.vm_ip
+}
