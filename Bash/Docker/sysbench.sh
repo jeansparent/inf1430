@@ -3,6 +3,7 @@
 # Auteur : Jean-Sébastien Parent
 # Date: 16 mars 2025
 
+docker_repo="jseb00"
 help=false
 
 # Options du script
@@ -31,9 +32,9 @@ if $help; then
     exit 0
 fi
 
-docker build -t jseb00/sysbench:$VERSION -t jseb00/sysbench:latest /home/administrateur/inf1430/Docker/sysbench/
+docker build -t $docker_repo/sysbench:$VERSION -t $docker_repo/sysbench:latest /home/administrateur/inf1430/Docker/sysbench/
 
 docker login
 
-docker push jseb00/sysbench:$VERSION
-docker push jseb00/sysbench:latest
+docker push $docker_repo/sysbench:$VERSION
+docker push $docker_repo/sysbench:latest

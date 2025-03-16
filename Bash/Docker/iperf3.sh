@@ -3,6 +3,7 @@
 # Auteur : Jean-Sébastien Parent
 # Date: 16 mars 2025
 
+docker_repo="jseb00"
 help=false
 
 # Options du script
@@ -31,9 +32,9 @@ if $help; then
     exit 0
 fi
 
-docker build -t jseb00/iperf3:$VERSION -t jseb00/iperf3:latest /home/administrateur/inf1430/Docker/iperf3/
+docker build -t $docker_repo/iperf3:$VERSION -t $docker_repo/iperf3:latest /home/administrateur/inf1430/Docker/iperf3/
 
 docker login
 
-docker push jseb00/iperf3:$VERSION
-docker push jseb00/iperf3:latest
+docker push $docker_repo/iperf3:$VERSION
+docker push $docker_repo/iperf3:latest
