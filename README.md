@@ -48,3 +48,7 @@ Voici la liste des environnements disponibles:
 Terraform est utilisé comme outils de déploiement de IaaS. Chaque environnement à son propre fichier afin de simplifier la gestion des tfstates. Les explications sont disponibles ici: [Terraform](Terraform.md) 
 <br><br>
 Cette page contient aussi les informations de toutes les instances qui seront utilisées dans le cadre de ce projet. 
+
+
+# Ansible
+****** À venir ******  [Ansible](Ansible.md) 
