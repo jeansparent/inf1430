@@ -1,9 +1,0 @@
----
-- name: Update web servers
-  hosts: bastion
-  become: true
-
-  tasks:
-    - name: Appel du role Commun
-      ansible.builtin.include_role:
-        name: commun

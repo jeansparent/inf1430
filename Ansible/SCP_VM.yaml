@@ -1,0 +1,12 @@
+---
+- name: Installation environnement SCP_VM
+  hosts: SCP_VM
+  become: true
+
+  tasks:
+    - name: Appel du role commun
+      ansible.builtin.include_role:
+        name: commun
+      vars:
+        commun_applications: "{{ applications }}"
+        commun_hosts: "{{ hosts }}"

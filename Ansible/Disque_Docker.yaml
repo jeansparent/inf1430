@@ -1,0 +1,12 @@
+---
+- name: Installation environnement Disque_Docker
+  hosts: Disque_Docker
+  become: true
+
+  tasks:
+    - name: Appel du role commun
+      ansible.builtin.include_role:
+        name: commun
+      vars:
+        commun_applications: "{{ applications }}"
+        commun_hosts: "{{ hosts }}"

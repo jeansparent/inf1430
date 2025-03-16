@@ -1,0 +1,30 @@
+---
+- name: Installation environnement Disque_Docker
+  hosts: bastion
+  become: true
+
+  tasks:
+    - name: Appel du role commun
+      ansible.builtin.include_role:
+        name: commun
+      vars:
+        commun_applications: "{{ applications }}"
+        commun_hosts: "{{ hosts }}"
+
+    - name: Appel du role bastion
+      ansible.builtin.include_role:
+        name: bastion
+      vars:
+        bastion_applications: "{{ additionals_applications }}"
+
+    - name: Appel du role docker-ce
+      ansible.builtin.include_role:
+        name: docker-ce
+      vars:
+        docker_ce_version: "{{ docker_version }}"
+
+    - name: Appel du role docker-nginx
+      ansible.builtin.include_role:
+        name: docker-nginx
+      vars:
+        docker_nginx_version: "{{ nginx_version }}"
