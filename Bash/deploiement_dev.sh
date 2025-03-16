@@ -15,5 +15,5 @@ while ! nc -z $external_ip 22; do
 done
 
 sed -i -e "s/x.x.x.x/$external_ip/g" $PWD/Ansible/inventory.yaml
-ansible-playbook -i $PWD/Ansible/inventory.yaml $PWD/Ansible/env-dev.yaml
+ansible-playbook -i $PWD/Ansible/inventory.yaml $PWD/Ansible/dev.yaml
 sed -i -e "s/$external_ip/x.x.x.x/g" $PWD/Ansible/inventory.yaml
