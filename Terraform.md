@@ -21,7 +21,7 @@ Voir les [Script Bash](Bash.md) disponible dans le dossier Bash à la racine.
 | SCP_Docker <br> SCP_VM   | VNET    | Code IaaS pour les tests de transfert de fichier |
 
 # Plan d'adressage
-| Environnement | IP | IP Publique (oui/non)|FQDN|
+| Environnements | IP | IP Publique (oui/non)|FQDN|
 | -------- | ------- |------- |------- |
 |Bastion|192.168.0.10|oui|bastion.inf1430|
 |Dev_VM|DHCP (192.168.160.0/24)|oui|.inf1430|
