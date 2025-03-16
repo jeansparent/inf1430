@@ -88,6 +88,6 @@ common_hosts: []
 # Utilisation des recettes (playbook)
 Les playbook sont appelés en ligne de commande selon l'exemple suivant:
 ```
-ansible-playbook -i ./Ansible/inventory.yaml ./Ansible/env-dev.yaml
+ansible-playbook -i ./Ansible/inventory.yaml ./Ansible/dev.yaml
 ```
 Ils peuvent être appelés autant de fois que voulu puisqu'ils sont idempotents. Chaque étape a été validée de modifier ce qui est nécessaire seulement. 
