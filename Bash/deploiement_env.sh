@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+# Auteur : Jean-Sébastien Parent
+# Date: 8 mars 2025
+
+ENVIRONNEMENT=""
+help=false
+
+# Options du script
+while [[ "$#" -gt 0 ]]; do
+    case "$1" in
+        --env) 
+            if [[ -n "$2" && ! "$2" =~ ^-- ]]; then
+                ENVIRONNEMENT="$2"
+                shift  
+            else
+                echo "Erreur : --env nécessite une valeur (ex: --env dev)"
+                exit 1
+            fi
+            ;;
+        --help) help=true ;;
+        --) shift; break ;;
+        *) echo "Option inconnue : $1"; exit 1 ;;
+    esac
+    shift
+done
+
+if $help; then
+    echo "Usage: $0 [--env <valeur>] [--help]"
+    echo "  --env val    Spécifie l'environnement"
+    echo "  --help         Affiche cette aide"
+    exit 0
+fi
+
+
+# Script
+export ANSIBLE_HOST_KEY_CHECKING=False
+bash $PWD/Bash/Terraform/deploiement_env.sh --env $ENVIRONNEMENT
+internal_ip=$(terraform -chdir="$PWD/Terraform/$ENVIRONNEMENT" output -raw private_ip)
+external_ip=$(terraform -chdir="$PWD/Terraform/Bastion" output -raw public_ip)
+
+echo "Attente de la disponibilité de SSH"
+while ! ssh -o StrictHostKeyChecking=no -o ProxyCommand="ssh -W %h:%p administrateur@$external_ip" \
+         -o ConnectTimeout=5 administrateur@$internal_ip exit 2>/dev/null; do
+    echo "SSH pas encore disponible. Attente..."
+    sleep 5
+done
+
+
+ansible-playbook -i $PWD/Ansible/inventory.yaml $PWD/Ansible/$ENVIRONNEMENT.yaml  --ssh-common-args="-o StrictHostKeyChecking=no -o ProxyJump=administrateur@$external_ip"
