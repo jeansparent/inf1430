@@ -31,9 +31,9 @@ if $help; then
     exit 0
 fi
 
-docker build -t jseb00/iperf:$VERSION -t jseb00/scp:latest /home/administrateur/inf1430/Docker/iperf/
+docker build -t jseb00/iperf3:$VERSION -t jseb00/scp:latest /home/administrateur/inf1430/Docker/iperf3/
 
 docker login
 
-docker push jseb00/iperf:$VERSION
-docker push jseb00/iperf:latest
+docker push jseb00/iperf3:$VERSION
+docker push jseb00/iperf3:latest
