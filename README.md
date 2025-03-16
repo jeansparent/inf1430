@@ -26,22 +26,22 @@ bash ./Bash/deploiement_bastion.sh
 bash ./Bash/deploiement_env.sh --env "env"
 ```
 Voici la liste des environnements disponibles:
-| Environnements |
-| -------- |
-|Applicatif_Docker|
-|Applicatif_VM|
-|Demarrage_Docker|
-|Demarrage_VM|
-|Disque_Docker|
-|Disque_VM|
-|Memoire_Docker|
-|Memoire_VM|
-|Processeur_Docker|
-|Processeur_VM|
-|Reseaux_Docker|
-|Reseaux_VM|
-|SCP_Docker|1
-|SCP_VM|
+| Environnements | Commande|
+| -------- | -------- |
+|Applicatif_Docker|bash ./Bash/deploiement_env.sh --env Applicatif_Docker |
+|Applicatif_VM|bash ./Bash/deploiement_env.sh --env Applicatif_VM |
+|Demarrage_Docker|bash ./Bash/deploiement_env.sh --env Demarrage_Docker |
+|Demarrage_VM|bash ./Bash/deploiement_env.sh --env Demarrage_VM |
+|Disque_Docker|bash ./Bash/deploiement_env.sh --env Disque_Docker |
+|Disque_VM|bash ./Bash/deploiement_env.sh --env Disque_VM |
+|Memoire_Docker|bash ./Bash/deploiement_env.sh --env Memoire_Docker |
+|Memoire_VM|bash ./Bash/deploiement_env.sh --env Memoire_VM |
+|Processeur_Docker|bash ./Bash/deploiement_env.sh --env Processeur_Docker |
+|Processeur_VM|bash ./Bash/deploiement_env.sh --env Processeur_VM |
+|Reseaux_Docker|bash ./Bash/deploiement_env.sh --env Reseaux_Docker |
+|Reseaux_VM|bash ./Bash/deploiement_env.sh --env Reseaux_VM |
+|SCP_Docker|bash ./Bash/deploiement_env.sh --env SCP_Docker |
+|SCP_VM|bash ./Bash/deploiement_env.sh --env SCP_VM |
 
 
 # Terraform
