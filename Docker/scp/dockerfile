@@ -1,0 +1,16 @@
+FROM alpine:3.21.3
+
+RUN apk add --no-cache \
+    openssh-client \
+    bash \
+    && rm -rf /var/cache/apk/*
+
+RUN mkdir -p /root/.ssh
+
+COPY ~/.ssh/authorized_keys /root/.ssh/authorized_keys
+
+RUN chmod 600 /root/.ssh/authorized_keys
+
+WORKDIR /data
+
+ENTRYPOINT ["/bin/bash"]
