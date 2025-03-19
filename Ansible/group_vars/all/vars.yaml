@@ -37,6 +37,8 @@ docker_version: '5:27.5.1-1~ubuntu.24.04~noble'
 
 nginx_version: '1.24.0'
 
+postgresql_version: '17.4'
+
 git_url: 'https://github.com/jeansparent/inf1430.git'
 
 git_local_path: '/home/administrateur/inf1430'
