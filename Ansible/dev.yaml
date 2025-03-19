@@ -28,6 +28,9 @@
         name: docker-nginx
       vars:
         docker_nginx_version: "{{ nginx_version }}"
+        docker_nginx_server_name: "{{ nginx_server_name | default('') }}"
+        docker_nginx_backend_servers: "{{ nginx_backend_servers | default([]) }}"
+        docker_nginx_volumes: "{{ nginx_volumes | default([]) }}"
 
     - name: Appel du role git-clone
       ansible.builtin.include_role:
@@ -53,3 +56,13 @@
         name: docker-sysbench
       vars:
         docker_sysbench_repo: "{{ sysbench_repo }}"
+
+    - name: Appel du role docker-postgresql
+      ansible.builtin.include_role:
+        name: docker-postgresql
+      vars:
+        docker_postgresql_version: "{{ postgresql_version }}"
+        docker_postgresql_user: "{{ postgresql_user }}"
+        docker_postgresql_password: "{{ postgresql_password }}"
+        docker_postgresql_db: "{{ postgresql_db }}"
+        docker_postgresql_volumes : "{{ postgresql_volumes | default([]) }}"
