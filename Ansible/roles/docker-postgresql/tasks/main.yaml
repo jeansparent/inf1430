@@ -1,0 +1,19 @@
+- name: Télécharger l'image PostgreSQL depuis Docker Hub
+  community.docker.docker_image:
+    name: postgres
+    tag: "{{ docker_postgresql_version }}-alpine3.21"
+    source: pull
+
+- name: Démarrer le conteneur PostgreSQL avec auto-restart
+  community.docker.docker_container:
+    name: postgresql
+    image: "postgres:{{ docker_postgresql_version }}-alpine3.21"
+    state: started
+    restart_policy: always
+    env:
+      POSTGRES_USER: "{{ docker_postgresql_user }}"
+      POSTGRES_PASSWORD: "{{ docker_postgresql_password }}"
+      POSTGRES_DB: "{{ docker_postgresql_db }}"
+    ports:
+      - "5432:5432"
+    volumes: "{{ docker_postgresql_volumes }}"
