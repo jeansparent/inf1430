@@ -1,1 +1,4 @@
 docker_nginx_version: ''
+docker_nginx_server_name: ''
+docker_nginx_backend_servers: ''
+docker_nginx_volumes: []

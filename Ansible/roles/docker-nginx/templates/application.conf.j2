@@ -1,0 +1,14 @@
+upstream backend_servers {
+    {% for backend_servers in nginx_backend_servers %}
+        server {{ backend_servers }};
+    {% endfor %}
+}
+
+server {
+    listen 80;
+    server_name {{ docker_nginx_server_name }};
+
+    location / {
+        proxy_pass http://backend_servers;
+    }
+}
