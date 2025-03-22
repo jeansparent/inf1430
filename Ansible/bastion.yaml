@@ -23,3 +23,7 @@
       vars:
         git_clone_url: "{{ git_url }}"
         git_clone_local_path: "{{ git_local_path }}"
+
+    - name: Appel du role commun
+      ansible.builtin.include_role:
+        name: azure-cli
