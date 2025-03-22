@@ -5,6 +5,7 @@
 # Ce script doit être exécuter à partir d'un instance bastion afin d'avoir test valide sans prendre Internet en compte.
 
 help=false
+
 # Options du script
 while [[ "$#" -gt 0 ]]; do
     case "$1" in
@@ -12,21 +13,37 @@ while [[ "$#" -gt 0 ]]; do
             if [[ -n "$2" && ! "$2" =~ ^-- ]]; then
                 IP="$2"
                 shift  
-            else
-                echo "Erreur : --ip nécessite une valeur (ex: --ip 1.1.1.1)"
-                exit 1
+            ;;
+        --vm) 
+            if [[ -n "$2" && ! "$2" =~ ^-- ]]; then
+                VM="$2"
+                shift  
+            ;;
+        --resourcegroup)
+            if [[ -n "$2" && ! "$2" =~ ^-- ]]; then
+                RG="$2"
+                shift  
             fi
             ;;
-        --help) help=true ;;
-        --) shift; break ;;
-        *) echo "Option inconnue : $1"; exit 1 ;;
+        --help) 
+            help=true
+            ;;
+        --) 
+            shift
+            break
+            ;;
+        *) 
+            echo "Option inconnue : $1"
+            exit 1
+            ;;
     esac
     shift
 done
 
 if $help; then
-    echo "Usage: $0 [--env <valeur>] [--help]"
-    echo "  --ip val    Spécifie l'adresse IP'"
+    echo "Usage: $0 [--env <valeur>] [--instance <valeur>] [--region <valeur>] [--help]"
+    echo "  --vm val    Spécifie la VM"
+    echo "  --resourcegroup val    Spécifie le resource group"
     echo "  --help         Affiche cette aide"
     exit 0
 fi
@@ -45,11 +62,11 @@ else
 fi
 
 # Vérifier l'état de la VM
-VM_STATUS=$(az vm get-instance-view --resource-group rg-inf1430-dev-env --name vm-dev-vm-01 --query "instanceView.statuses[1].displayStatus" -o tsv)
+VM_STATUS=$(az vm get-instance-view --resource-group $RG --name $VM --query "instanceView.statuses[1].displayStatus" -o tsv)
 
 if [[ "$VM_STATUS" == "VM running" ]]; then
     echo "La VM est en cours d'exécution."
-    az vm stop --resource-group rg-inf1430-dev-env --name vm-dev-vm-01
+    az vm stop --resource-group $RG --name $VM
 else
     echo "La VM n'est pas en cours d'exécution."
 fi
@@ -60,7 +77,7 @@ START=$(date +%s.%N)
 
 # Démarrer la VM
 echo "Démarrage de la VM"
-az vm start --resource-group rg-inf1430-dev-env --name vm-dev-vm-01 --no-wait
+az vm start --resource-group $RG --name $VM --no-wait
 
 # wait nginx answer
 echo "En attente du serveur HTTP ..."
@@ -76,4 +93,4 @@ DURATION=$(echo "$END - $START * 1000" | bc)
 echo "Temps d'exécution : $DURATION ms"
 
 # Arreter la VM
-az vm stop --resource-group rg-inf1430-dev-env --name vm-dev-vm-01 --no-wait
+az vm stop --resource-group $RG --name $VM --no-wait
