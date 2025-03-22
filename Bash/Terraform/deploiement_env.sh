@@ -4,7 +4,6 @@
 # Date: 8 mars 2025
 
 # Variables
-export TF_VAR_vm_size="Standard_B1s"
 ENVIRONNEMENT=""
 help=false
 
@@ -14,6 +13,12 @@ while [[ "$#" -gt 0 ]]; do
         --instance)
             if [[ -n "$2" && ! "$2" =~ ^-- ]]; then
                 export TF_VAR_vm_size="$2"
+                shift  
+            fi
+            ;;
+        --region)
+            if [[ -n "$2" && ! "$2" =~ ^-- ]]; then
+                export TF_VAR_region="$2"
                 shift  
             fi
             ;;
@@ -36,6 +41,7 @@ done
 if $help; then
     echo "Usage: $0 [--instance <valeur>] [--env <valeur>] [--help]"
     echo "  --instance val      Specifie le type d'instance"
+    echo "  --region val      Specifie la region"
     echo "  --env val    Spécifie l'environnement"
     echo "  --help         Affiche cette aide"
     exit 0

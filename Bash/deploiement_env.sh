@@ -4,6 +4,8 @@
 # Date: 8 mars 2025
 
 ENVIRONNEMENT=""
+REGION=""
+SIZE=""
 help=false
 
 # Options du script
@@ -18,6 +20,18 @@ while [[ "$#" -gt 0 ]]; do
                 exit 1
             fi
             ;;
+        --instance)
+            if [[ -n "$2" && ! "$2" =~ ^-- ]]; then
+                SIZE="$2"
+                shift  
+            fi
+            ;;
+        --region)
+            if [[ -n "$2" && ! "$2" =~ ^-- ]]; then
+                REGION="$2"
+                shift  
+            fi
+            ;;
         --help) help=true ;;
         --) shift; break ;;
         *) echo "Option inconnue : $1"; exit 1 ;;
@@ -28,6 +42,8 @@ done
 if $help; then
     echo "Usage: $0 [--env <valeur>] [--help]"
     echo "  --env val    Spécifie l'environnement"
+    echo "  --instance val    Spécifie l'instance"
+    echo "  --region val    Spécifie l'environnement"
     echo "  --help         Affiche cette aide"
     exit 0
 fi
@@ -35,7 +51,7 @@ fi
 
 # Script
 export ANSIBLE_HOST_KEY_CHECKING=False
-bash $PWD/Bash/Terraform/deploiement_env.sh --env $ENVIRONNEMENT
+bash $PWD/Bash/Terraform/deploiement_env.sh --env $ENVIRONNEMENT --env $REGION --env $SIZE
 internal_ip=$(terraform -chdir="$PWD/Terraform/$ENVIRONNEMENT" output -raw private_ip)
 external_ip=$(terraform -chdir="$PWD/Terraform/Bastion" output -raw public_ip)
 
