@@ -42,6 +42,7 @@
     image: "nginx:{{ docker_nginx_version }}"
     state: started
     restart_policy: always
+    recreate: true
     ports:
       - "80:80"
     volumes: "{{ docker_nginx_volumes }}"
