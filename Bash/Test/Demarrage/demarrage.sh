@@ -43,9 +43,10 @@ while [[ "$#" -gt 0 ]]; do
 done
 
 if $help; then
-    echo "Usage: $0 [--env <valeur>] [--instance <valeur>] [--region <valeur>] [--help]"
+    echo "Usage: $0 [--vm <valeur>] [--resourcegroup <valeur>] [--ip <valeur>] [--help]"
     echo "  --vm val    Spécifie la VM"
     echo "  --resourcegroup val    Spécifie le resource group"
+    echo "  --ip val    Spécifie l'ip ou FQDN"
     echo "  --help         Affiche cette aide"
     exit 0
 fi
