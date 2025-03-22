@@ -17,14 +17,9 @@
       vars:
         bastion_applications: "{{ additionals_applications }}"
 
-    - name: Appel du role docker-ce
+    - name: Appel du role git-clone
       ansible.builtin.include_role:
-        name: docker-ce
+        name: git-clone
       vars:
-        docker_ce_version: "{{ docker_version }}"
-
-    - name: Appel du role docker-nginx
-      ansible.builtin.include_role:
-        name: docker-nginx
-      vars:
-        docker_nginx_version: "{{ nginx_version }}"
+        git_clone_url: "{{ git_url }}"
+        git_clone_local_path: "{{ git_local_path }}"
