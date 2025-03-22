@@ -17,6 +17,11 @@ variable "vm_username" {
   default = "administrateur"
 }
 
+variable "region" {
+  type = string
+  default = "Canada Central"
+}
+
 # Configure the Azure provider
 provider "azurerm" {
   features {}
@@ -26,7 +31,7 @@ provider "azurerm" {
 # Create a resource group
 resource "azurerm_resource_group" rg_dev-env {
   name     = "rg-inf1430-dev-env"
-  location = "Canada Central"
+  location = var.region
 }
 
 resource "azurerm_virtual_network" "vnet" {

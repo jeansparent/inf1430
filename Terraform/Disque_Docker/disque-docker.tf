@@ -9,6 +9,7 @@ variable "public_rsa" {
 
 variable "vm_size" {
   type = string
+  default = "Standard_B1s"
 }
 
 variable "vm_username" {
@@ -19,6 +20,11 @@ variable "vm_username" {
 variable "vm_ip" {
   type = string
   default = "192.168.0.203"
+}
+
+variable "region" {
+  type = string
+  default = "Canada Central"
 }
 
 # Configure the Azure provider
@@ -36,7 +42,7 @@ data "azurerm_subnet" "vnet_sub1" {
 # Create a resource group
 resource "azurerm_resource_group" rg_disque_docker {
   name     = "rg-inf1430-disque-docker"
-  location = "Canada Central"
+  location = var.region
 }
 
 resource "azurerm_network_interface" "vm_disque_docker_nic_1" {
