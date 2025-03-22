@@ -1,0 +1,14 @@
+- name: Mettre à jour la liste des paquets
+  apt:
+    update_cache: yes
+
+- name: Installer une version spécifique de Nginx
+  apt:
+    name: "nginx"
+    state: present
+
+- name: Configuration de systemd
+  ansible.builtin.systemd:
+    name: nginx
+    state: started
+    enabled: yes
