@@ -75,7 +75,7 @@ fi
 
 # Partir compteur
 echo "Démarrage du compteur"
-START=$(date +%s)
+START=$(date +%s.%N)
 
 # Démarrer la VM
 echo "Démarrage de la VM"
@@ -90,8 +90,8 @@ done
 echo "Le serveur HTTP est prêt !"
 
 # Afficher le compteur en Milliseconde
-END=$(date +%s)
-DURATION=$((END - START)* 1000)
+END=$(date +%s.%N)
+DURATION=$(echo "($END - $START) * 1000" | bc)
 echo "Temps d'exécution : $DURATION ms"
 
 # Arreter la VM
