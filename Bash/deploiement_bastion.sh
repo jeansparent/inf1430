@@ -11,15 +11,6 @@ help=false
 # Options du script
 while [[ "$#" -gt 0 ]]; do
     case "$1" in
-        --env) 
-            if [[ -n "$2" && ! "$2" =~ ^-- ]]; then
-                ENVIRONNEMENT="$2"
-                shift  
-            else
-                echo "Erreur : --env nécessite une valeur (ex: --env dev)"
-                exit 1
-            fi
-            ;;
         --instance)
             if [[ -n "$2" && ! "$2" =~ ^-- ]]; then
                 SIZE="$2"
@@ -41,7 +32,6 @@ done
 
 if $help; then
     echo "Usage: $0 [--env <valeur>] [--help]"
-    echo "  --env val    Spécifie l'environnement"
     echo "  --instance val    Spécifie l'instance"
     echo "  --region val    Spécifie l'environnement"
     echo "  --help         Affiche cette aide"
