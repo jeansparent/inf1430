@@ -1,0 +1,26 @@
+- name: Installation des applications de base
+  ansible.builtin.apt:
+    name:
+      - curl
+      - apt-transport-https
+    state: present
+    update_cache: yes
+
+- name: Vérification azure-cli est téléchargé
+  stat:
+    path: '/opt/InstallAzureCLIDeb.sh'
+  register: fichier_azure
+
+- name: Téléchargement du fichier d'installation pour Azure CLI
+  ansible.builtin.get_url:
+    url: https://aka.ms/InstallAzureCLIDeb
+    dest: /opt/InstallAzureCLIDeb.sh
+    owner: 'root'
+    group: 'root'
+    mode: '0755'
+  when: not fichier_azure.stat.exists
+
+- name: Installation d'Azure CLI
+  ansible.builtin.command: 
+    cmd: /bin/bash /opt/InstallAzureCLIDeb.sh
+  when: not fichier_azure.stat.exists
