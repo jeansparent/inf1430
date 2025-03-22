@@ -12,12 +12,14 @@ while [[ "$#" -gt 0 ]]; do
         --ip) 
             if [[ -n "$2" && ! "$2" =~ ^-- ]]; then
                 IP="$2"
-                shift  
+                shift
+            fi
             ;;
         --vm) 
             if [[ -n "$2" && ! "$2" =~ ^-- ]]; then
                 VM="$2"
-                shift  
+                shift 
+            fi
             ;;
         --resourcegroup)
             if [[ -n "$2" && ! "$2" =~ ^-- ]]; then
