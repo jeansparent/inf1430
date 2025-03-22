@@ -1,6 +1,6 @@
 ---
-- name: Installation environnement Demarrage_VM
-  hosts: Demarrage_VM
+- name: Installation environnement Demarrage_Docker
+  hosts: Demarrage_Docker
   become: true
 
   tasks:
