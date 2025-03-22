@@ -10,3 +10,12 @@
       vars:
         commun_applications: "{{ applications }}"
         commun_hosts: "{{ hosts }}"
+
+    - name: Appel du role docker-nginx
+      ansible.builtin.include_role:
+        name: docker-nginx
+      vars:
+        docker_nginx_version: "{{ nginx_version }}"
+        docker_nginx_server_name: "{{ nginx_server_name | default('') }}"
+        docker_nginx_backend_servers: "{{ nginx_backend_servers | default([]) }}"
+        docker_nginx_volumes: "{{ nginx_volumes | default([]) }}"

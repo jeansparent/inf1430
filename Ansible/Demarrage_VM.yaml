@@ -10,3 +10,7 @@
       vars:
         commun_applications: "{{ applications }}"
         commun_hosts: "{{ hosts }}"
+
+    - name: Appel du role nginx
+      ansible.builtin.include_role:
+        name: nginx
