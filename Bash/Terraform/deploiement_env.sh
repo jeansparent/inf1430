@@ -10,6 +10,15 @@ help=false
 # Options du script
 while [[ "$#" -gt 0 ]]; do
     case "$1" in
+        --env) 
+            if [[ -n "$2" && ! "$2" =~ ^-- ]]; then
+                ENVIRONNEMENT="$2"
+                shift  
+            else
+                echo "Erreur : --env nécessite une valeur (ex: --env dev)"
+                exit 1
+            fi
+            ;;
         --instance)
             if [[ -n "$2" && ! "$2" =~ ^-- ]]; then
                 export TF_VAR_vm_size="$2"
@@ -22,27 +31,26 @@ while [[ "$#" -gt 0 ]]; do
                 shift  
             fi
             ;;
-        --env) 
-            if [[ -n "$2" && ! "$2" =~ ^-- ]]; then
-                ENVIRONNEMENT="$2"
-                shift  
-            else
-                echo "Erreur : --env nécessite une valeur (ex: --env dev)"
-                exit 1
-            fi
+        --help) 
+            help=true
             ;;
-        --help) help=true ;;
-        --) shift; break ;;
-        *) echo "Option inconnue : $1"; exit 1 ;;
+        --) 
+            shift
+            break
+            ;;
+        *) 
+            echo "Option inconnue : $1"
+            exit 1
+            ;;
     esac
     shift
 done
 
 if $help; then
-    echo "Usage: $0 [--instance <valeur>] [--env <valeur>] [--help]"
-    echo "  --instance val      Specifie le type d'instance"
-    echo "  --region val      Specifie la region"
+    echo "Usage: $0 [--env <valeur>] [--instance <valeur>] [--region <valeur>] [--help]"
     echo "  --env val    Spécifie l'environnement"
+    echo "  --instance val    Spécifie l'instance"
+    echo "  --region val    Spécifie la région (ex: eastus)"
     echo "  --help         Affiche cette aide"
     exit 0
 fi

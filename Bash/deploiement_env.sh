@@ -9,6 +9,7 @@ SIZE=""
 help=false
 
 # Options du script
+# Options du script
 while [[ "$#" -gt 0 ]]; do
     case "$1" in
         --env) 
@@ -32,26 +33,40 @@ while [[ "$#" -gt 0 ]]; do
                 shift  
             fi
             ;;
-        --help) help=true ;;
-        --) shift; break ;;
-        *) echo "Option inconnue : $1"; exit 1 ;;
+        --help) 
+            help=true
+            ;;
+        --) 
+            shift
+            break
+            ;;
+        *) 
+            echo "Option inconnue : $1"
+            exit 1
+            ;;
     esac
     shift
 done
 
 if $help; then
-    echo "Usage: $0 [--env <valeur>] [--help]"
+    echo "Usage: $0 [--env <valeur>] [--instance <valeur>] [--region <valeur>] [--help]"
     echo "  --env val    Spécifie l'environnement"
     echo "  --instance val    Spécifie l'instance"
-    echo "  --region val    Spécifie l'environnement"
+    echo "  --region val    Spécifie la région (ex: eastus)"
     echo "  --help         Affiche cette aide"
     exit 0
+fi
+
+# Vérifier si la région est spécifiée
+if [[ -z "$REGION" ]]; then
+    echo "Erreur : --region est requis."
+    exit 1
 fi
 
 
 # Script
 export ANSIBLE_HOST_KEY_CHECKING=False
-bash $PWD/Bash/Terraform/deploiement_env.sh --env $ENVIRONNEMENT --env $REGION --env $SIZE
+bash $PWD/Bash/Terraform/deploiement_env.sh --env $ENVIRONNEMENT --region $REGION --instance $SIZE
 internal_ip=$(terraform -chdir="$PWD/Terraform/$ENVIRONNEMENT" output -raw private_ip)
 external_ip=$(terraform -chdir="$PWD/Terraform/Bastion" output -raw public_ip)
 
