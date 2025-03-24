@@ -103,6 +103,20 @@ resource "azurerm_network_security_rule" "nsg_dev-vm_http" {
   network_security_group_name = azurerm_network_security_group.nsg_dev-vm.name
 }
 
+resource "azurerm_network_security_rule" "nsg_reseaux_vm_iperf" {
+  name                        = "IPERF3"
+  priority                    = 300
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "*"
+  source_port_range           = "*"
+  destination_port_range      = "5201"
+  source_address_prefix       = "*"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.rg_dev-env.name
+  network_security_group_name = azurerm_network_security_group.nsg_dev-vm.name
+}
+
 resource "azurerm_network_interface_security_group_association" "nsg_nic_association" {
   network_interface_id      = azurerm_network_interface.vm_dev-vm_nic_1.id
   network_security_group_id = azurerm_network_security_group.nsg_dev-vm.id

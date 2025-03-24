@@ -6,6 +6,7 @@ additionals_applications:
   - 'python3-pip'
   - 'python3-fastapi'
   - 'uvicorn'
+  - 'net-tools'
 
 # nginx_server_name: 'demo.inf1430'
 # nginx_backend_servers: 
@@ -19,3 +20,5 @@ postgresql_password: 'Bonjour123!'
 postgresql_db: 'inf1430-dev'
 postgresql_volumes:
   - '/var/lib/postgresql/data:/var/lib/postgresql/data'
+
+iperf3_repo: 'jseb00/iperf3'

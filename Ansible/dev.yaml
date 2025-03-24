@@ -17,11 +17,11 @@
     #   vars:
     #     bastion_applications: "{{ additionals_applications }}"
 
-    # - name: Appel du role docker-ce
-    #   ansible.builtin.include_role:
-    #     name: docker-ce
-    #   vars:
-    #     docker_ce_version: "{{ docker_version }}"
+    - name: Appel du role docker-ce
+      ansible.builtin.include_role:
+        name: docker-ce
+      vars:
+        docker_ce_version: "{{ docker_version }}"
 
     # - name: Appel du role docker-nginx
     #   ansible.builtin.include_role:
@@ -43,11 +43,11 @@
     #     git_clone_url: "{{ git_url }}"
     #     git_clone_local_path: "{{ git_local_path }}"
 
-    # - name: Appel du role docker-iperf3
-    #   ansible.builtin.include_role:
-    #     name: docker-iperf3
-    #   vars:
-    #     docker_iperf3_repo: "{{ iperf3_repo }}"
+    - name: Appel du role docker-iperf3
+      ansible.builtin.include_role:
+        name: docker-iperf3
+      vars:
+        docker_iperf3_repo: "{{ iperf3_repo }}"
 
     # - name: Appel du role docker-scp
     #   ansible.builtin.include_role:
@@ -74,3 +74,8 @@
     # - name: Appel du role commun
     #   ansible.builtin.include_role:
     #     name: azure-cli
+
+    - name: Appel du role commun
+      ansible.builtin.include_role:
+        name: iperf3
+

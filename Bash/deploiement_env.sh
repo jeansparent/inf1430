@@ -63,6 +63,18 @@ if [[ -z "$REGION" ]]; then
     exit 1
 fi
 
+# Validation si connecter à azure 
+if ! az account show > /dev/null 2>&1; then
+    echo "Azure is not connected, attempting login..."
+    az login --use-device-code --allow-no-subscriptions
+    if [ $? -eq 0 ]; then
+        echo "Login successful!"
+    else
+        echo "Login failed, please check your credentials."
+    fi
+else
+    echo "Azure is already connected."
+fi
 
 # Script
 export ANSIBLE_HOST_KEY_CHECKING=False
