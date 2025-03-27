@@ -1,3 +1,9 @@
+#!/usr/bin/env bash
+
+# Auteur : Jean-Sébastien Parent
+# Date: 27 mars 2025
+# Ce script doit être exécuter à partir d'un instance bastion afin d'avoir test valide sans prendre Internet en compte.
+
 FQDN='vm-reseau-docker.inf1430'
 
 # iperf for udp
