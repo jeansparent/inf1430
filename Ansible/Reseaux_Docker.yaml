@@ -10,3 +10,15 @@
       vars:
         commun_applications: "{{ applications }}"
         commun_hosts: "{{ hosts }}"
+
+    - name: Appel du role docker-ce
+      ansible.builtin.include_role:
+        name: docker-ce
+      vars:
+        docker_ce_version: "{{ docker_version }}"
+
+    - name: Appel du role docker-iperf3
+      ansible.builtin.include_role:
+        name: docker-iperf3
+      vars:
+        docker_iperf3_repo: "{{ iperf3_repo }}"
