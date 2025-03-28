@@ -19,14 +19,14 @@ echo ""
 echo "******************************************"
 
 # sequential write
-echo "Starting sequential write for 1 file test with $FQDN"
+echo "Starting sequential write for 1 file with $FQDN"
 echo ""
 ssh -t administrateur@$FQDN "docker exec $docker_name sysbench fileio --file-total-size=$size --file-num=1 prepare"
 echo ""
 echo "******************************************"
 
 # sequential read
-echo "Starting sequential read for 1 file test with $FQDN"
+echo "Starting sequential read for 1 file with $FQDN"
 echo ""
 ssh -t administrateur@$FQDN "docker exec $docker_name sysbench fileio --file-total-size=$size --file-num=1 --file-block-size=16M --file-test-mode=seqrd --time=$time run"
 echo ""
@@ -48,28 +48,28 @@ echo ""
 echo "******************************************"
 
 # sequential write
-echo "Starting sequential write for 10 file test with $FQDN"
+echo "Starting sequential write for 10 file with $FQDN"
 echo ""
 ssh administrateur@$FQDN "docker exec $docker_name sysbench fileio --file-total-size=$size --file-num=10 prepare"
 echo ""
 echo "******************************************"
 
 # sequential read
-echo "Starting sequential read for 10 file test with $FQDN"
+echo "Starting sequential read for 10 file with $FQDN"
 echo ""
 ssh administrateur@$FQDN "docker exec $docker_name sysbench fileio --file-total-size=$size --file-num=10 --file-block-size=16M --file-test-mode=seqrd --time=$time run"
 echo ""
 echo "******************************************"
 
 # Random Read
-echo "Starting random read for 10 file test with $FQDN"
+echo "Starting random read for 10 file with $FQDN"
 echo ""
 ssh administrateur@$FQDN "docker exec $docker_name sysbench fileio --file-total-size=$size --file-num=10 --file-test-mode=rndrd --time=$time --max-requests=0 run"
 echo ""
 echo "******************************************"
 
 # Random write
-echo "Starting sequential write for 1 file test with $FQDN"
+echo "Starting random write for 10 file with $FQDN"
 echo ""
 ssh administrateur@$FQDN "docker exec $docker_name sysbench fileio --file-total-size=$size --file-num=10 --file-test-mode=rndwr --time=$time --max-requests=0  run"
 echo ""
@@ -82,6 +82,3 @@ ssh administrateur@$FQDN "docker kill $docker_name"
 ssh administrateur@$FQDN 'docker system prune -a -f'
 echo ""
 echo "******************************************"
-
-
-
