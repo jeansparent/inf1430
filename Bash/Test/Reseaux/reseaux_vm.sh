@@ -7,10 +7,10 @@
 FQDN='vm-reseau-vm.inf1430'
 
 # Start iperf3
-echo "Starting iperf3 in deamon mode remotly on $FQDN"
-ssh administrateur@$FQDN 'iperf3 -s -D'
-echo ""
-echo "******************************************"
+# echo "Starting iperf3 in deamon mode remotly on $FQDN"
+# ssh administrateur@$FQDN 'iperf3 -s -D'
+# echo ""
+# echo "******************************************"
 
 # iperf for udp
 echo "Starting udp test with $FQDN"
