@@ -4,12 +4,12 @@
   become: true
 
   tasks:
-    # - name: Appel du role commun
-    #   ansible.builtin.include_role:
-    #     name: commun
-    #   vars:
-    #     commun_applications: "{{ applications }}"
-    #     commun_hosts: "{{ hosts }}"
+    - name: Appel du role commun
+      ansible.builtin.include_role:
+        name: commun
+      vars:
+        commun_applications: "{{ applications }}"
+        commun_hosts: "{{ hosts }}"
 
     # - name: Appel du role bastion
     #   ansible.builtin.include_role:
@@ -32,9 +32,9 @@
     #     docker_nginx_backend_servers: "{{ nginx_backend_servers | default([]) }}"
     #     docker_nginx_volumes: "{{ nginx_volumes | default([]) }}"
 
-    - name: Appel du role nginx
-      ansible.builtin.include_role:
-        name: nginx
+    # - name: Appel du role nginx
+    #   ansible.builtin.include_role:
+    #     name: nginx
 
     # - name: Appel du role git-clone
     #   ansible.builtin.include_role:
@@ -43,11 +43,11 @@
     #     git_clone_url: "{{ git_url }}"
     #     git_clone_local_path: "{{ git_local_path }}"
 
-    - name: Appel du role docker-iperf3
-      ansible.builtin.include_role:
-        name: docker-iperf3
-      vars:
-        docker_iperf3_repo: "{{ iperf3_repo }}"
+    # - name: Appel du role docker-iperf3
+    #   ansible.builtin.include_role:
+    #     name: docker-iperf3
+    #   vars:
+    #     docker_iperf3_repo: "{{ iperf3_repo }}"
 
     # - name: Appel du role docker-scp
     #   ansible.builtin.include_role:
@@ -75,7 +75,14 @@
     #   ansible.builtin.include_role:
     #     name: azure-cli
 
-    - name: Appel du role iperf3
-      ansible.builtin.include_role:
-        name: iperf3
+    # - name: Appel du role iperf3
+    #   ansible.builtin.include_role:
+    #     name: iperf3
 
+    - name: Appel du role sysbench
+      ansible.builtin.include_role:
+        name: sysbench
+
+    - name: Appel du role docker-sysbench
+      ansible.builtin.include_role:
+        name: docker-sysbench
