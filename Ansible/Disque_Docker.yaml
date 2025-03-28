@@ -20,3 +20,5 @@
     - name: Appel du role docker-sysbench
       ansible.builtin.include_role:
         name: docker-sysbench
+      vars: 
+        docker_sysbench_repo: "{{ sysbench_repo }}"
