@@ -20,5 +20,3 @@ postgresql_password: 'Bonjour123!'
 postgresql_db: 'inf1430-dev'
 postgresql_volumes:
   - '/var/lib/postgresql/data:/var/lib/postgresql/data'
-
-iperf3_repo: 'jseb00/iperf3'
