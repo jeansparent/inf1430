@@ -4,8 +4,7 @@
 # Date: 28 mars 2025
 # Ce script doit être exécuter à partir d'un instance bastion afin d'avoir test valide sans prendre Internet en compte.
 
-#FQDN='vm-disque-vm.inf1430'
-FQDN='4.205.161.113'
+FQDN='vm-disque-vm.inf1430'
 sysbench_repo='jseb00/sysbench'
 size='10G'
 time='180'
