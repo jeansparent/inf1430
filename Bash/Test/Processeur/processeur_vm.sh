@@ -13,14 +13,14 @@ for i in {1..5}; do
     # 1 cpu
     echo "Starting cpu test for 1 core #$i with $FQDN"
     echo ""
-    ssh administrateur@$FQDN "sysbench cpu --threads=1 --cpu-max-prime=20000 --time=$time run"
+    ssh administrateur@$FQDN "sysbench cpu --threads=1 --time=$time run"
     echo ""
     echo "******************************************"
 
     # all cpu
     echo "Starting cpu test for $threads cores #$i with $FQDN"
     echo ""
-    ssh administrateur@$FQDN "sysbench cpu --threads=$threads --cpu-max-prime=20000 --time=$time run"
+    ssh administrateur@$FQDN "sysbench cpu --threads=$threads --time=$time run"
     echo ""
     echo "******************************************"
 
