@@ -2,7 +2,7 @@
   apt:
     update_cache: yes
 
-- name: Installer une version spécifique de Nginx
+- name: Installer de sysbench
   apt:
     name: 'sysbench'
     state: present
