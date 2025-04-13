@@ -4,7 +4,7 @@
 # Date: 13 avril 2025
 # Ce script doit être exécuter à partir d'un instance bastion afin d'avoir test valide sans prendre Internet en compte.
 
-FQDN='vm-disque-vm.inf1430'
+FQDN='vm-processeur-vm.inf1430'
 size='100G'
 
 

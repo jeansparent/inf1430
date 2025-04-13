@@ -4,7 +4,7 @@
 # Date: 28 mars 2025
 # Ce script doit être exécuter à partir d'un instance bastion afin d'avoir test valide sans prendre Internet en compte.
 
-FQDN='vm-disque-docker.inf1430'
+FQDN='vm-memoire-docker.inf1430'
 size='100G'
 sysbench_repo='jseb00/sysbench'
 docker_number=$RANDOM
