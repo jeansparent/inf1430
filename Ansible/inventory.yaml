@@ -35,13 +35,13 @@ Reseaux_Docker:
       ansible_host: 192.168.0.201
       ansible_user: 'administrateur'
 
-Processeur_Docker:
+Processeur_VM:
   hosts:
     vm-processeur-server:
       ansible_host: 192.168.0.102
       ansible_user: 'administrateur'
 
-Processeur_VM:
+Processeur_Docker:
   hosts:
     vm-processeur-docker-server:
       ansible_host: 192.168.0.202
