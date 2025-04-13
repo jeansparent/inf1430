@@ -70,7 +70,7 @@ resource "azurerm_network_interface" "vm_dev-vm_nic_1" {
 }
 
 resource "azurerm_network_security_group" "nsg_dev-vm" {
-  name                = "nsg-vm-demarrage-docker"
+  name                = "nsg-vm-dev-vm"
   location            = azurerm_resource_group.rg_dev-env.location
   resource_group_name = azurerm_resource_group.rg_dev-env.name
 }
