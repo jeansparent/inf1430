@@ -6,20 +6,21 @@
 
 FQDN='vm-memoire-vm.inf1430'
 size='100G'
+time=60
 
 
 for i in {1..5}; do
     # sequential write
     echo "Starting memory write #$i with $FQDN"
     echo ""
-    ssh administrateur@$FQDN "sysbench memory --memory-oper=write --memory-total-size=$size run"
+    ssh administrateur@$FQDN "sysbench memory --time=$time --memory-oper=write --memory-total-size=$size run"
     echo ""
     echo "******************************************"
 
     # sequential read
     echo "Starting read write #$i with $FQDN"
     echo ""
-    ssh administrateur@$FQDN "sysbench memory --memory-oper=read --memory-total-size=$size run"
+    ssh administrateur@$FQDN "sysbench memory --time=$time --memory-oper=read --memory-total-size=$size run"
     echo ""
     echo "******************************************"
 

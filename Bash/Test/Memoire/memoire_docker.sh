@@ -6,6 +6,7 @@
 
 FQDN='vm-memoire-docker.inf1430'
 size='100G'
+time=60
 sysbench_repo='jseb00/sysbench'
 docker_number=$RANDOM
 docker_name="sysbench_$docker_number"
@@ -22,14 +23,14 @@ for i in {1..5}; do
     # sequential write
     echo "Starting memory write #$i with $FQDN"
     echo ""
-    ssh -t administrateur@$FQDN "docker exec $docker_name sysbench memory --time=60 --memory-oper=write --memory-total-size=$size run"
+    ssh -t administrateur@$FQDN "docker exec $docker_name sysbench memory --time=$time --memory-oper=write --memory-total-size=$size run"
     echo ""
     echo "******************************************"
 
     # sequential read
     echo "Starting read write #$i with $FQDN"
     echo ""
-    ssh -t administrateur@$FQDN "docker exec $docker_name sysbench memory --time=60 --memory-oper=read --memory-total-size=$size run"
+    ssh -t administrateur@$FQDN "docker exec $docker_name sysbench memory --time=$time --memory-oper=read --memory-total-size=$size run"
     echo ""
     echo "******************************************"
 
