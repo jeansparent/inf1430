@@ -19,19 +19,20 @@ echo "******************************************"
 
 
 for i in {1..5}; do
-    # sequential write
-    echo "Starting memory write #$i with $FQDN"
+    # 1 cpu
+    echo "Starting cpu test for 1 core #$i with $FQDN"
     echo ""
-    ssh -t administrateur@$FQDN "docker exec $docker_name sysbench memory --time=60 --memory-oper=write --memory-total-size=$size run"
+    ssh -t administrateur@$FQDN "docker exec $docker_name sysbench cpu --threads=1 --time=$time run"
     echo ""
     echo "******************************************"
 
-    # sequential read
-    echo "Starting read write #$i with $FQDN"
+    # all cpu
+    echo "Starting cpu test for $threads cores #$i with $FQDN"
     echo ""
-    ssh -t administrateur@$FQDN "docker exec $docker_name sysbench memory --time=60 --memory-oper=read --memory-total-size=$size run"
+    ssh -t administrateur@$FQDN "docker exec $docker_name sysbench cpu --threads=$threads --time=$time run"
     echo ""
     echo "******************************************"
 
     sleep 60
 done
+
