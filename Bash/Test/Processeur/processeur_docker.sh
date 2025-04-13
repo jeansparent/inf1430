@@ -8,6 +8,7 @@ FQDN='vm-processeur-docker.inf1430'
 sysbench_repo='jseb00/sysbench'
 docker_number=$RANDOM
 docker_name="sysbench_$docker_number"
+time=120
 
 # Start Docker image
 echo "Start Docker image on $FQDN"
