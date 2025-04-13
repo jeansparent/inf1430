@@ -18,7 +18,7 @@ for i in {1..5}; do
     echo "******************************************"
 
     # sequential read
-    echo "Starting read write #$i with $FQDN"
+    echo "Starting read read #$i with $FQDN"
     echo ""
     ssh administrateur@$FQDN "sysbench memory --time=$time --memory-oper=read --memory-total-size=$size run"
     echo ""
