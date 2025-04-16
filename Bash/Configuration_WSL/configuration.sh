@@ -9,7 +9,7 @@ sudo apt update -y
 sudo apt upgrade -y
 
 # Installation des packages communs
-sudo apt install -y software-properties-common tree
+sudo apt install -y software-properties-common tree curl
 
 # Ajout des répos
 sudo add-apt-repository --yes --update ppa:ansible/ansible

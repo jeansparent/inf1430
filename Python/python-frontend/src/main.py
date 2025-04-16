@@ -19,26 +19,20 @@ columns = [
 # === GLOBAL STATE ===
 page = 1
 record_per_page = default_records
-search_term = ""  # Default search term
 
 
 # === TABLE RENDERING ===
 @ui.refreshable
 def refreshable_table():
-    # Filter rows based on search term
-    filtered_df = df[df.apply(lambda row: row.astype(str).str.contains(search_term, case=False).any(), axis=1)]
-    
-    # Pagination logic on filtered data
     start = (page - 1) * record_per_page
     end = start + record_per_page
-    current_rows = [row.to_dict() for _, row in filtered_df.iloc[start:end].iterrows()]
-    
+    current_rows = [row.to_dict() for _, row in df.iloc[start:end].iterrows()]
     return ui.table(columns=columns, rows=current_rows, row_key=df.columns[0])
 
 
 # === UTILS ===
 def load_rows():
-    refreshable_table.refresh()  # Refresh the table after a search or page change
+    refreshable_table.refresh()
     start = (page - 1) * record_per_page
     end = min(start + record_per_page, len(df))
     print(f'Loaded Page {page}: rows {start + 1} to {end}')
@@ -59,16 +53,13 @@ def load_previous_rows():
 
 
 def update_search(value: str):
-    global search_term
-    search_term = value
-    page = 1  # Reset to page 1 after search
-    load_rows()
+    print(f"Search input: {value}")  # You can add actual filtering logic here
 
 
 # === MAIN UI PAGE ===
 @ui.page('/')
 async def main_page(request: Request):
-    global record_per_page, page, search_term
+    global record_per_page, page
 
     # Handle query param ?records=...
     records_str = request.query_params.get('records')
