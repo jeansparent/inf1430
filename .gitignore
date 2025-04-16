@@ -3,3 +3,6 @@
 *.tfstate.backup
 **/.terraform
 *.plan
+venv/
+__pycache__/
+*.pyc
