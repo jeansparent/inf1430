@@ -1,3 +1,10 @@
+#!/usr/bin/env python
+# encoding: utf-8
+
+# Auteur : Jean-Sébastien Parent
+# Date: 19 avril 2025
+
+
 import os
 import pandas as pd
 from nicegui import ui
@@ -10,7 +17,7 @@ frontend_source = os.getenv('PYTHON_FRONTEND_SOURCE')
 csv_path = os.getenv('PYTHON_FRONTEND_CSV_PATH')
 default_records = int(os.getenv('PYTHON_FRONTEND_RECORDS_PER_PAGE', '10'))
 API_URL = os.getenv('PYTHON_FRONTEND_API_URL')
-
+API_SOURCE = ""
 
 
 def get_csv_data(page, record_per_page):
@@ -25,7 +32,33 @@ def get_csv_data(page, record_per_page):
         print(f"CSV error: {e}")
         return []
 
-def get_api_data(page, record_per_page):
+def get_api_db_data(page, record_per_page):
+    global API_SOURCE 
+    try:
+        response = requests.get(f"{API_URL}/DB?start={(page - 1) * record_per_page}&end={page * record_per_page}")
+        response.raise_for_status()
+        response.encoding = 'utf-8'
+        data = response.json()
+
+        df = pd.DataFrame(data)
+
+        df.reset_index(drop=True, inplace=True)
+
+        column_order_by_index = [0, 1, 5, 4, 2, 3]
+
+
+        df = df.iloc[:, column_order_by_index]
+
+        API_SOURCE = 'DB'
+
+        return df.to_dict(orient='records')
+
+    except requests.exceptions.RequestException as e:
+        print(f"API error: {e}")
+        return []
+    
+def get_api_csv_data(page, record_per_page):
+    global API_SOURCE 
     try:
         response = requests.get(f"{API_URL}/CSV?start={(page - 1) * record_per_page}&end={page * record_per_page}")
         response.raise_for_status()
@@ -36,9 +69,7 @@ def get_api_data(page, record_per_page):
 
         df.reset_index(drop=True, inplace=True)
 
-        column_order_by_index = [1, 0, 5, 4, 3, 2]
-
-        df = df.iloc[:, column_order_by_index]
+        API_SOURCE = 'CSV'
 
         return df.to_dict(orient='records')
 
@@ -51,6 +82,8 @@ def make_columns(rows):
     sample = rows[0] if rows else {}
     return [{'name': col, 'label': str(col).rsplit('-', 1)[-1], 'field': col} for col in sample.keys()]
 
+
+import os
 
 def create_page(data_loader):
     async def page_fn(request: Request):
@@ -73,7 +106,6 @@ def create_page(data_loader):
 
         def load_next():
             nonlocal page
-            
             if isinstance(all_data, pd.DataFrame):
                 max_page = (total + record_per_page - 1) // record_per_page
                 if page < max_page:
@@ -93,8 +125,22 @@ def create_page(data_loader):
                 query = urlencode({'records': record_per_page, 'page': page})
                 ui.navigate.to(f"{request.url.path}?{query}")
 
+        global API_SOURCE 
 
-        columns = make_columns(all_data)
+        fallback_headers = [
+            {"name": "Numéro du brevet etranger / national", "label": "Numéro du brevet etranger / national", "field": "0"},
+            {"name": "Numéro du brevet", "label": "Numéro du brevet", "field": "1"},
+            {"name": "Date de revendications de priorité", "label": "Date de revendications de priorité", "field": "2"},
+            {"name": "Pays d'origine de revendications de priorité", "label": "Pays d'origine de revendications de priorité", "field": "3"},
+            {"name": "Code du pays d'origine de revendications de priorité", "label": "Code du pays d'origine de revendications de priorité", "field": "4"},
+            {"name": "Code de type de revendications de priorité", "label": "Code de type de revendications de priorité", "field": "5"},
+        ]
+
+        if (API_SOURCE == "DB"):
+            columns = fallback_headers
+        else:
+            columns = make_columns(all_data)
+
         row_key = list(all_data[0].keys())[0] if all_data else "id"
 
         with ui.column().classes('w-full p-4'):
@@ -120,6 +166,7 @@ def create_page(data_loader):
 
 
 ui.page('/CSV')(create_page(get_csv_data))
-ui.page('/API')(create_page(get_api_data))
+ui.page('/DB-API')(create_page(get_api_db_data))
+ui.page('/CSV-API')(create_page(get_api_csv_data))
 
 ui.run()

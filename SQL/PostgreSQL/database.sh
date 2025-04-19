@@ -1,6 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-DB_HOST='localhost'
+# Auteur : Jean-Sébastien Parent
+# Date: 16 avril 2025
+
+DB_HOST=%1
 DB_PORT='5432'
 DB_USER='postgres'
 DB_PASS='Bonjour123!'
@@ -16,12 +19,12 @@ PGPASSWORD=$DB_PASS psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d postgres -c "CRE
 echo "Creating table 'patent'..."
 PGPASSWORD=$DB_PASS psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d $DB_NAME -c "
 CREATE TABLE IF NOT EXISTS patent (
-    id INT,
-    NumBrevetINT TEXT,
-    CodeRevendications TEXT,
-    Origine TEXT,
-    PaysPriorite TEXT,
-    DateRevendication TEXT
+    \"Numéro du brevet\" INT,
+    \"Numéro du brevet etranger / national\" TEXT,
+    \"Code de type de revendications de priorité\" TEXT,
+    \"Code du pays d'origine de revendications de priorité\" TEXT,
+    \"Pays d'origine de revendications de priorité\" TEXT,
+    \"Date de revendications de priorité\" TEXT
 );"
 
 # Step 3: Import the CSV
@@ -29,3 +32,4 @@ echo "Importing CSV..."
 PGPASSWORD=$DB_PASS psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d $DB_NAME -c "\copy patent FROM '$CSV_FILE' DELIMITER '|' CSV HEADER;"
 
 echo "Done."
+

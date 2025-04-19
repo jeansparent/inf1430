@@ -1,3 +1,4 @@
 Flask
 pandas
 jsonify
+psycopg2-binary
