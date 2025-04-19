@@ -22,6 +22,10 @@ API_SOURCE = ""
 
 def get_csv_data(page, record_per_page):
     try:
+        if not os.path.exists(csv_path):
+            print(f"CSV file not found at path: {csv_path}")
+            return []
+
         df = pd.read_csv(csv_path, sep="|")
         df.reset_index(drop=True, inplace=True)
         start = (page - 1) * record_per_page
@@ -31,6 +35,7 @@ def get_csv_data(page, record_per_page):
     except Exception as e:
         print(f"CSV error: {e}")
         return []
+
 
 def get_api_db_data(page, record_per_page):
     global API_SOURCE 

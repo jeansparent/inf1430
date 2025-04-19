@@ -3,12 +3,51 @@
 # Auteur : Jean-Sébastien Parent
 # Date: 16 avril 2025
 
-DB_HOST=%1
+help=false
+
+# Options du script
+while [[ "$#" -gt 0 ]]; do
+    case "$1" in
+        --host) 
+            if [[ -n "$2" && ! "$2" =~ ^-- ]]; then
+                DB_HOST="$2"
+                shift
+            fi
+            ;;
+        --csv) 
+            if [[ -n "$2" && ! "$2" =~ ^-- ]]; then
+                CSV_FILE="$2"
+                shift
+            fi
+            ;;
+        --help) 
+            help=true
+            ;;
+        --) 
+            shift
+            break
+            ;;
+        *) 
+            echo "Option inconnue : $1"
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+if $help; then
+    echo "Usage: $0 [--ip <valeur>] [--help]"
+    echo "  --host val    Spécifie l'ip ou FQDN de la BD"
+    echo "  --csv val    Spécifie le chemin pour le fichier CSV"
+    echo "  --help         Affiche cette aide"
+    exit 0
+fi
+
 DB_PORT='5432'
 DB_USER='postgres'
 DB_PASS='Bonjour123!'
 DB_NAME='patent'
-CSV_FILE="/home/jsparent/repos/inf1430/SQL/Dataset/PT_priority_claim_2000001_to_4000000_2024-10-11.csv"
+
 
 # Step 1: Create database if it doesn't exist
 echo "Creating database if not exists..."
