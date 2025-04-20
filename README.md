@@ -3,7 +3,7 @@ Ce projet propose une méthode pour calculer la surcharge de Docker, afin de ré
 
 # Infonuagique
 Tous les tests seront faits dans Azure puisque j'avais droit à un crédit. L’utilisation d’un autre service infonuagique est possible, mais il faudra tout de même modifier tout le code Terrafom.
-<br><br>
+
 Deux enregistrements chez Azure seront utilisés afin de faire ce projet. La conception du projet sera faite dans un compte étudiant ayant le crédit. Les tests de surcharge seront faits dans un enregistrement "Pay as you go" car un enregistrement étudiant ne donne pas accès à tous les types d'instances. 
 
 # Déploiement des environnements
@@ -11,7 +11,7 @@ Tous les déploiements sont faits à partir de script bash afin de les simplifie
 
 ## Déploiement d'un environnement
 Le déploiement de l'environnement se fait en quelques étapes:
-<br>
+
 ```
 export TF_VAR_public_rsa='*** Clé RSA publique ***'
 
@@ -45,8 +45,8 @@ Voici la liste des environnements disponibles:
 
 
 # Terraform
-Terraform est utilisé comme outils de déploiement de IaaS. Chaque environnement à son propre fichier afin de simplifier la gestion des tfstates. Les explications sont disponibles ici: [Terraform](Terraform.md) 
-<br><br>
+Terraform est utilisé comme outils de déploiement de IaaS. Chaque environnement à son propre fichier afin de simplifier la gestion des tfstates. Les explications sont disponibles ici: [Terraform](Terraform.md).
+
 Cette page contient aussi les informations de toutes les instances qui seront utilisées dans le cadre de ce projet. 
 
 
@@ -54,4 +54,7 @@ Cette page contient aussi les informations de toutes les instances qui seront ut
 La documentation pour [Ansible](Ansible.md) explique son fonctionnement et sa structure.
 
 # Docker
-La documentation pour [Docker](Docker.md) explique comment les images sont construites et utilisées dans le cadre du projet. 
+La documentation pour [Docker](Docker.md) explique comment les images sont construites et utilisées dans le cadre du projet.
+
+# SQL
+La documentation pour [SQL](SQL.md) explique l'utilisation de SQL et l'importation des données. 
