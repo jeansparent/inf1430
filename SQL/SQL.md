@@ -2,10 +2,10 @@
 Ce document explique l'utilisation et l'importation des données dans SQL
 
 # Engin SQL
-Dans le cadre de ce projet, l'engin SQL PostgreSQL a été choisi pour sa simplicité et sa disponibilité en tant qu'image Docker. PostgreSQL est un logiciel libre alors ce projet n'a pas besoin de licence non plus.
+Dans le cadre de ce projet, l'engin SQL PostgreSQL a été choisi pour sa simplicité et sa disponibilité en tant qu'image Docker. PostgreSQL est un logiciel libre, alors ce projet n'a pas besoin de licence non plus.
 
 # Jeu de données
-Le jeu de données provient des jeu de données publics disponible sur le site du gouvernement du canada.
+Le jeu de données provient des jeux de données publiques disponibles sur le site du gouvernement du Canada.
 
 URL: https://ouvert.canada.ca/data/fr/dataset/fe1dfbb9-0fc3-42ca-b2a9-6ca4c05dbac9/resource/cb593c67-af12-4fb7-ae19-22e3a5c1cebc
 
@@ -29,13 +29,13 @@ sudo apt install postgresql-17
 ```
 
 ## Docker
-Voici la commandes pour télécharger PostgreSQL 17 avec l'OS Alpine:
+Voici la commande pour télécharger PostgreSQL 17 avec l'OS Alpine:
 
 ```
 docker pull postgres:17.4-alpine3.21
 ```
 
-Afin de partir le containeur en mode détaché, voici un exemple de commande:
+Afin de partir le conteneur en mode détaché, voici un exemple de commande:
 
 ```
 docker run -e POSTGRES_PASSWORD=Bonjour123! -p 5432:5432 -d postgres:17.4-alpine3.21
@@ -48,7 +48,7 @@ Le script à deux options:
 
 | Options | Explication |
 | -------- | -------- |
-|--host| Addresse IP ou FQDN du serveur PostgreSQL |
+|--host| Adresse IP ou FQDN du serveur PostgreSQL |
 |--csv| Chemin d'accès au jeu de données |
 
 Exemple:

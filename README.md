@@ -58,3 +58,6 @@ La documentation pour [Docker](Docker/Docker.md) explique comment les images son
 
 # SQL
 La documentation pour [SQL](SQL/SQL.md) explique l'utilisation de SQL et l'importation des données. 
+
+# Python
+La documentation pour [Python](Python/Python.md) explique le fonctionnement de python-frontend et de python-backend.

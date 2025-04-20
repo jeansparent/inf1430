@@ -13,7 +13,6 @@ import requests
 from io import StringIO
 from urllib.parse import urlencode
 
-frontend_source = os.getenv('PYTHON_FRONTEND_SOURCE')
 csv_path = os.getenv('PYTHON_FRONTEND_CSV_PATH')
 default_records = int(os.getenv('PYTHON_FRONTEND_RECORDS_PER_PAGE', '10'))
 API_URL = os.getenv('PYTHON_FRONTEND_API_URL')
