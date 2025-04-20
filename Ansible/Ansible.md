@@ -4,20 +4,15 @@ Cette section explique le fonctionnement d’Ansible et des rôles disponibles d
 # Structure
 ```
 Ansible
+├── Ansible.md
+├── Application_PostgreSQL_Docker.yaml
+├── Application_PostgreSQL_VM.yaml
+├── bastion.yaml
 ├── Demarrage_Docker.yaml
 ├── Demarrage_VM.yaml
+├── dev.yaml
 ├── Disque_Docker.yaml
 ├── Disque_VM.yaml
-├── Memoire_Docker.yaml
-├── Memoire_VM.yaml
-├── Processeur_Docker.yaml
-├── Processeur_VM.yaml
-├── Reseaux_Docker.yaml
-├── Reseaux_VM.yaml
-├── SCP_Docker.yaml
-├── SCP_VM.yaml
-├── bastion.yaml
-├── dev.yaml
 ├── group_vars
 │   ├── all
 │   │   └── vars.yaml
@@ -26,39 +21,89 @@ Ansible
 │   └── dev
 │       └── vars.yaml
 ├── inventory.yaml
-└── roles
-    ├── bastion
-    │   ├── defaults
-    │   │   └── main.yaml
-    │   ├── tasks
-    │   │   └── main.yaml
-    │   └── templates
-    ├── commun
-    │   ├── defaults
-    │   │   └── main.yaml
-    │   ├── tasks
-    │   │   └── main.yaml
-    │   └── templates
-    │       └── hosts.j2
-    ├── demarrage
-    │   ├── defaults
-    │   │   └── main.yaml
-    │   └── tasks
-    │       └── main.yaml
-    ├── docker-ce
-    │   ├── defaults
-    │   │   └── main.yaml
-    │   ├── tasks
-    │   │   └── main.yaml
-    │   └── vars
-    │       └── main.yaml
-    └── docker-nginx
-        ├── defaults
-        │   └── main.yaml
-        ├── tasks
-        │   └── main.yaml
-        └── templates
-            └── dummy.j2
+├── Memoire_Docker.yaml
+├── Memoire_VM.yaml
+├── Processeur_Docker.yaml
+├── Processeur_VM.yaml
+├── Reseaux_Docker.yaml
+├── Reseaux_VM.yaml
+├── roles
+│   ├── azure-cli
+│   │   └── tasks
+│   │       └── main.yaml
+│   ├── bastion
+│   │   ├── defaults
+│   │   │   └── main.yaml
+│   │   └── tasks
+│   │       └── main.yaml
+│   ├── commun
+│   │   ├── defaults
+│   │   │   └── main.yaml
+│   │   ├── tasks
+│   │   │   └── main.yaml
+│   │   └── templates
+│   │       └── hosts.j2
+│   ├── demarrage
+│   │   ├── defaults
+│   │   │   └── main.yaml
+│   │   └── tasks
+│   │       └── main.yaml
+│   ├── docker-ce
+│   │   ├── defaults
+│   │   │   └── main.yaml
+│   │   ├── tasks
+│   │   │   └── main.yaml
+│   │   └── vars
+│   │       └── main.yaml
+│   ├── docker-iperf3
+│   │   ├── defaults
+│   │   │   └── main.yaml
+│   │   └── tasks
+│   │       └── main.yaml
+│   ├── docker-nginx
+│   │   ├── defaults
+│   │   │   └── main.yaml
+│   │   ├── tasks
+│   │   │   └── main.yaml
+│   │   └── templates
+│   │       ├── application.conf.j2
+│   │       └── nginx.conf.j2
+│   ├── docker-postgresql
+│   │   ├── defaults
+│   │   │   └── main.yaml
+│   │   └── tasks
+│   │       └── main.yaml
+│   ├── docker-python
+│   │   ├── defaults
+│   │   │   └── main.yaml
+│   │   └── tasks
+│   │       └── main.yaml
+│   ├── docker-scp
+│   │   ├── defaults
+│   │   │   └── main.yaml
+│   │   └── tasks
+│   │       └── main.yaml
+│   ├── docker-sysbench
+│   │   ├── defaults
+│   │   │   └── main.yaml
+│   │   └── tasks
+│   │       └── main.yaml
+│   ├── git-clone
+│   │   ├── defaults
+│   │   │   └── main.yaml
+│   │   └── tasks
+│   │       └── main.yaml
+│   ├── iperf3
+│   │   └── tasks
+│   │       └── main.yaml
+│   ├── nginx
+│   │   └── tasks
+│   │       └── main.yaml
+│   └── sysbench
+│       └── tasks
+│           └── main.yaml
+├── SCP_Docker.yaml
+└── SCP_VM.yaml
 
 ```
 
