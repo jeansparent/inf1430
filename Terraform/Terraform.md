@@ -48,3 +48,40 @@ Cette commmande permet de voir les types d'instance disponible dans Canada Centr
 ```
 az vm list-sizes --location canadacentral --query "[?starts_with(name, 'Standard_D')]" --output table
 ```
+
+# Déploiement des environnements
+Tous les déploiements sont faits à partir de script bash afin de les simplifier et aussi de s'assurer du bon ordonnancement. Les explications sont disponibles ici: [Bash](Bash/Bash.md)
+
+## Déploiement d'un environnement
+Le déploiement de l'environnement se fait en quelques étapes:
+
+```
+export TF_VAR_public_rsa='*** Clé RSA publique ***'
+
+export TF_VAR_subscription_id='*** Azure Organization ID ***'
+
+az login --use-device-code --allow-no-subscriptions
+
+az account set --subscription $TF_VAR_subscription_id
+
+bash ./Bash/deploiement_bastion.sh
+
+bash ./Bash/deploiement_env.sh --env "env"
+```
+Voici la liste des environnements disponibles:
+| Environnements | Commande|
+| -------- | -------- |
+|Applicatif_Docker|bash ./Bash/deploiement_env.sh --env Applicatif_Docker |
+|Applicatif_VM|bash ./Bash/deploiement_env.sh --env Applicatif_VM |
+|Demarrage_Docker|bash ./Bash/deploiement_env.sh --env Demarrage_Docker |
+|Demarrage_VM|bash ./Bash/deploiement_env.sh --env Demarrage_VM |
+|Disque_Docker|bash ./Bash/deploiement_env.sh --env Disque_Docker |
+|Disque_VM|bash ./Bash/deploiement_env.sh --env Disque_VM |
+|Memoire_Docker|bash ./Bash/deploiement_env.sh --env Memoire_Docker |
+|Memoire_VM|bash ./Bash/deploiement_env.sh --env Memoire_VM |
+|Processeur_Docker|bash ./Bash/deploiement_env.sh --env Processeur_Docker |
+|Processeur_VM|bash ./Bash/deploiement_env.sh --env Processeur_VM |
+|Reseaux_Docker|bash ./Bash/deploiement_env.sh --env Reseaux_Docker |
+|Reseaux_VM|bash ./Bash/deploiement_env.sh --env Reseaux_VM |
+|SCP_Docker|bash ./Bash/deploiement_env.sh --env SCP_Docker |
+|SCP_VM|bash ./Bash/deploiement_env.sh --env SCP_VM |
