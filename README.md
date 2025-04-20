@@ -24,3 +24,30 @@ La documentation pour [SQL](SQL/SQL.md) explique l'utilisation de SQL et l'impor
 
 # Python
 La documentation pour [Python](Python/Python.md) explique le fonctionnement de python-frontend et de python-backend.
+
+# Déploiement d'un environnement
+Le déploiment d'un environnement de test se fait à l'aide de deux scripts Bash. Les deux scripts auraient peu être un seul fichier mais je trouve qu'il est mieux de les séparer afin d'avoir un meilleur contrôle selon mes limitations personnelles. Le script accepte tous les types d'instance disponible dans une région Azure cependant, il faut faire une demande d'augmentation de quota afin de pouvoir les utiliser.
+
+| Déploiment de VNET et Bastion |
+| -------- | 
+|./Bash/deploiement_bastion.sh --region eastus --instance Standard_D2s_v6|
+
+| Déploiement des environnements de test VM |
+| -------- | 
+|./Bash/deploiement_env.sh --region eastus --instance Standard_D2s_v6 --env Demarrage_VM| 
+|./Bash/deploiement_env.sh --region eastus --instance Standard_D2s_v6 --env Reseaux_VM|
+|./Bash/deploiement_env.sh --region eastus --instance Standard_D2s_v6 --env Disque_VM| 
+|./Bash/deploiement_env.sh --region eastus --instance Standard_D2s_v6 --env Memoire_VM|
+|./Bash/deploiement_env.sh --region eastus --instance Standard_D2s_v6 --env Processeur_VM| 
+|./Bash/deploiement_env.sh --region eastus --instance Standard_D2s_v6 --env SCP_VM|
+|./Bash/deploiement_env.sh --region eastus --instance Standard_D2s_v6 --env Applicatif_VM|
+
+| Déploiement des environnements de test Docker |
+| -------- | 
+|./Bash/deploiement_env.sh --region eastus --instance Standard_D2s_v6 --env Demarrage_Docker| 
+|./Bash/deploiement_env.sh --region eastus --instance Standard_D2s_v6 --env Reseaux_Docker|
+|./Bash/deploiement_env.sh --region eastus --instance Standard_D2s_v6 --env Disque_Docker| 
+|./Bash/deploiement_env.sh --region eastus --instance Standard_D2s_v6 --env Memoire_Docker|
+|./Bash/deploiement_env.sh --region eastus --instance Standard_D2s_v6 --env Demarrage_Docker| 
+|./Bash/deploiement_env.sh --region eastus --instance Standard_D2s_v6 --env SCP_Docker|
+|./Bash/deploiement_env.sh --region eastus --instance Standard_D2s_v6 --env Applicatif_Docker|
