@@ -47,6 +47,6 @@ python3 src/main.py
 ## Fonctionnement de l'interface
 L'interface affiche par défaut le nombre de résultat selon la variable PYTHON_FRONTEND_RECORDS_PER_PAGE. L'interface permet de faire une recherche, d'aller au prochain résultat ou de reculer. De plus, il est possible de change le nombre de résultat entre 10, 100, 1000 et 10000.
 
-![Interface](Python/images/interface.png)
+![Interface](images/interface.png)
 
 
