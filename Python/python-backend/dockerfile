@@ -1,19 +1,13 @@
-FROM alpine:3.21.3
+FROM python:3.12.10-alpine3.21
 
-RUN apk add --no-cache \
-    openssh \
-    bash \
-    && rm -rf /var/cache/apk/*
+WORKDIR /app
 
-RUN mkdir -p /root/.ssh && \
-    mkdir -p /var/run/sshd
+COPY requirements.txt .
 
-RUN ssh-keygen -A
+RUN pip install -r requirements.txt
 
-COPY ./ssh_keys/authorized_keys /root/.ssh/authorized_keys
+COPY . .
 
-RUN chmod 600 /root/.ssh/authorized_keys
+EXPOSE 5000
 
-EXPOSE 22
-
-CMD ["/usr/sbin/sshd", "-D"]
+CMD ["python", "src/main.py"]
