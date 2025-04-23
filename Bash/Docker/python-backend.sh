@@ -32,9 +32,9 @@ if $help; then
     exit 0
 fi
 
-docker build -t $docker_repo/python-frontend:$VERSION -t $docker_repo/python-frontend:latest ./Python/python-frontend/
+docker build -t $docker_repo/python-backend:$VERSION -t $docker_repo/python-backend:latest ./Python/python-backend/
 
 docker login
 
-docker push $docker_repo/python-frontend:$VERSION
-docker push $docker_repo/python-frontend:latest
+docker push $docker_repo/python-backend:$VERSION
+docker push $docker_repo/python-backend:latest
