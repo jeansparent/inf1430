@@ -82,7 +82,7 @@ docker run --rm jseb00/sysbench:1.0 cpu run
 ## python-frontend
 ```
 # Récupérer le conteneur
-docker pull python-frontend:latest
+docker pull jseb00/python-frontend:latest
 
 # Démarrer le conteneur et recevoir la sortie
 docker run -d -p 8080:8080 \
@@ -90,6 +90,23 @@ docker run -d -p 8080:8080 \
     -e PYTHON_FRONTEND_RECORDS_PER_PAGE=1000 \
     -e PYTHON_FRONTEND_API_URL='http://192.168.18.250:5000' \
     -v '/home/jsparent/repos/inf1430/SQL/Dataset/PT_priority_claim_2000001_to_4000000_2024-10-11.csv:/app/PT_priority_claim_2000001_to_4000000_2024-10-11.csv' \
-    python-frontend:latest
+    jseb00/python-frontend:latest
+
+```
+
+## python-backend
+```
+# Récupérer le conteneur
+docker pull jseb00/python-backend:latest
+
+# Démarrer le conteneur et recevoir la sortie
+docker run -d -p 5000:5000 \
+    -e PYTHON_BACKEND_CSV_PATH='/app/PT_priority_claim_2000001_to_4000000_2024-10-11.csv' \
+    -e PYTHON_BACKEND_POSTGRES_HOST='192.168.18.250' \
+    -e PYTHON_BACKEND_POSTGRES_DB='patent' \
+    -e PYTHON_BACKEND_POSTGRES_USER='postgres' \
+    -e PYTHON_BACKEND_POSTGRES_PASSWORD='Bonjour123!' \
+    -v '/home/jsparent/repos/inf1430/SQL/Dataset/PT_priority_claim_2000001_to_4000000_2024-10-11.csv:/app/PT_priority_claim_2000001_to_4000000_2024-10-11.csv' \
+    jseb00/python-backend:latest
 
 ```
