@@ -34,6 +34,7 @@ Liste des scripts disponible:
 |iperf3|./Bash/Docker/iperf3.sh --version x.x|
 |scp|./Bash/Docker/scp.sh --version x.x|
 |sysbench|./Bash/Docker/sysbench.sh --version x.x|
+|python-frontend|./Bash/Docker/python-frontend.sh --version x.x|
 <br>
 
 Tour les images sont étiquettées avec latest et la version spécifiée.
@@ -75,5 +76,20 @@ docker pull jseb00/sysbench:latest
 
 # Démarrer le conteneur et recevoir la sortie
 docker run --rm jseb00/sysbench:1.0 cpu run
+
+```
+
+## python-frontend
+```
+# Récupérer le conteneur
+docker pull python-frontend:latest
+
+# Démarrer le conteneur et recevoir la sortie
+docker run -d -p 8080:8080 \
+    -e PYTHON_FRONTEND_CSV_PATH='/app/PT_priority_claim_2000001_to_4000000_2024-10-11.csv' \
+    -e PYTHON_FRONTEND_RECORDS_PER_PAGE=1000 \
+    -e PYTHON_FRONTEND_API_URL='http://192.168.18.250:5000' \
+    -v '/home/jsparent/repos/inf1430/SQL/Dataset/PT_priority_claim_2000001_to_4000000_2024-10-11.csv:/app/PT_priority_claim_2000001_to_4000000_2024-10-11.csv' \
+    python-frontend:latest
 
 ```
