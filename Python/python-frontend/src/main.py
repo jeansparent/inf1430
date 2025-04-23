@@ -87,8 +87,6 @@ def make_columns(rows):
     return [{'name': col, 'label': str(col).rsplit('-', 1)[-1], 'field': col} for col in sample.keys()]
 
 
-import os
-
 def create_page(data_loader):
     async def page_fn(request: Request):
         try:
@@ -100,12 +98,14 @@ def create_page(data_loader):
 
         all_data = data_loader(page, record_per_page)
         total = len(all_data)
+        filtered_data = all_data.copy()  # Holds filtered results
 
         def refresh_table():
-            nonlocal all_data, total
+            nonlocal all_data, total, filtered_data
             all_data = data_loader(page, record_per_page)
             total = len(all_data)
-            table.rows = all_data
+            filtered_data = all_data.copy()
+            table.rows = filtered_data
             table.update()
 
         def load_next():
@@ -147,26 +147,47 @@ def create_page(data_loader):
 
         row_key = list(all_data[0].keys())[0] if all_data else "id"
 
+        search_input = None  # So clear button can access it
+        table = None         # Needed to update table externally
+
+        def filter_data(query):
+            nonlocal filtered_data
+            query_lower = query.lower()
+            filtered_data = [
+                row for row in all_data
+                if any(query_lower in str(value).lower() for value in row.values())
+            ]
+            table.rows = filtered_data
+            table.update()
+
+        def clear_search():
+            nonlocal filtered_data
+            search_input.value = ''
+            filtered_data = all_data.copy()
+            table.rows = filtered_data
+            table.update()
+
         with ui.column().classes('w-full p-4'):
             with ui.row().classes('items-center justify-between w-full gap-4'):
-                ui.input(
-                    placeholder="Search all columns...",
-                    on_change=lambda e: print(f"Search: {e.value}")
-                ).classes('w-1/3')
+                with ui.row().classes('items-center w-1/2 gap-2'):
+                    search_input = ui.input(
+                        placeholder="Recherche ...",
+                        on_change=lambda e: filter_data(e.value)
+                    ).props('debounce=300')
+                    ui.button("Effacer", on_click=clear_search).props("flat").classes("min-w-fit")
+                    ui.button('Précédent', on_click=load_prev).classes('w-1/6')
+                    ui.button('Suivant', on_click=load_next).classes('w-1/6')
+                    with ui.dropdown_button(str(record_per_page), auto_close=True).classes('w-1/6'):
+                        for val in [10, 100, 1000, 10000]:
+                            ui.item(
+                                str(val),
+                                on_click=lambda v=val: ui.navigate.to(f"{request.url.path}?records={v}&page={page}")
+                            )
 
-                ui.button('Précédent', on_click=load_prev).classes('w-1/6')
-                ui.button('Suivant', on_click=load_next).classes('w-1/6')
-
-                with ui.dropdown_button(str(record_per_page), auto_close=True).classes('w-1/6'):
-                    for val in [10, 100, 1000, 10000]:
-                        ui.item(
-                            str(val),
-                            on_click=lambda v=val: ui.navigate.to(f"{request.url.path}?records={v}&page={page}")
-                        )
-
-            table = ui.table(columns=columns, rows=all_data, row_key=row_key).classes('w-full')
+            table = ui.table(columns=columns, rows=filtered_data, row_key=row_key).classes('w-full')
 
     return page_fn
+
 
 
 ui.page('/CSV')(create_page(get_csv_data))
