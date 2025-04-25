@@ -1,0 +1,4 @@
+docker_postgresql_with_data_version: '17.4-alpine3.21'
+docker_postgresql_with_data_password: ''
+docker_postgresql_with_data_script_path: ''
+docker_postgresql_with_data_csv_path: ''

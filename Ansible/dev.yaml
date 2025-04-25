@@ -61,16 +61,6 @@
     #   vars:
     #     docker_sysbench_repo: "{{ sysbench_repo }}"
 
-    # - name: Appel du role docker-postgresql
-    #   ansible.builtin.include_role:
-    #     name: docker-postgresql
-    #   vars:
-    #     docker_postgresql_version: "{{ postgresql_version }}"
-    #     docker_postgresql_user: "{{ postgresql_user }}"
-    #     docker_postgresql_password: "{{ postgresql_password }}"
-    #     docker_postgresql_db: "{{ postgresql_db }}"
-    #     docker_postgresql_volumes : "{{ postgresql_volumes | default([]) }}"
-
     # - name: Appel du role commun
     #   ansible.builtin.include_role:
     #     name: azure-cli
@@ -120,32 +110,39 @@
     #     python_backend_postgres_user: "{{ backend_postgres_user }}"
     #     python_backend_postgres_password: "{{ backend_postgres_password }}"        
 
-    - name: Appel du role docker-postgresql-with-data
-      ansible.builtin.include_role:
-        name: docker-postgresql-with-data
-      vars:
-        docker_postgresql_with_data_password: "{{ postgresql_with_data_password }}"
-        docker_postgresql_with_data_script_path: "{{ postgres_script_path }}"
-        docker_postgresql_with_data_csv_path: "{{ postgres_csv_path }}"
+    # - name: Appel du role docker-postgresql-with-data
+    #   ansible.builtin.include_role:
+    #     name: docker-postgresql-with-data
+    #   vars:
+    #     docker_postgresql_with_data_password: "{{ postgresql_with_data_password }}"
+    #     docker_postgresql_with_data_script_path: "{{ postgres_script_path }}"
+    #     docker_postgresql_with_data_csv_path: "{{ postgres_csv_path }}"
 
-    - name: Appel du role docker-python-frontend
-      ansible.builtin.include_role:
-        name: docker-python-frontend
-      vars:
-        docker_python_frontend_repo: "{{ docker_frontend_repo }}"
-        docker_python_frontend_csv_path: "{{ frontend_csv_path }}"
-        docker_python_frontend_csv_name: "{{ docker_frontend_csv_name }}"
-        docker_python_frontend_records_per_page: "{{ frontend_records_per_page }}"
-        docker_python_frontend_api_url : "{{ docker_frontend_api }}"
+    # - name: Appel du role docker-python-frontend
+    #   ansible.builtin.include_role:
+    #     name: docker-python-frontend
+    #   vars:
+    #     docker_python_frontend_repo: "{{ docker_frontend_repo }}"
+    #     docker_python_frontend_csv_path: "{{ frontend_csv_path }}"
+    #     docker_python_frontend_csv_name: "{{ docker_frontend_csv_name }}"
+    #     docker_python_frontend_records_per_page: "{{ frontend_records_per_page }}"
+    #     docker_python_frontend_api_url : "{{ docker_frontend_api }}"
 
-    - name: Appel du role docker-python-backend
+    # - name: Appel du role docker-python-backend
+    #   ansible.builtin.include_role:
+    #     name: docker-python-backend
+    #   vars:
+    #     docker_python_backend_repo: "{{ docker_backend_repo }}"
+    #     docker_python_backend_csv_path: "{{ backend_csv_path }}"
+    #     docker_python_backend_csv_name: "{{ docker_backend_csv_name }}"
+    #     docker_python_backend_postgres_host: "{{ docker_backend_postgres_host }}"
+    #     docker_python_backend_postgres_db: "{{ backend_postgres_db }}"
+    #     docker_python_backend_postgres_user: "{{ backend_postgres_user }}"
+    #     docker_python_backend_postgres_password: "{{ backend_postgres_password }}"     
+
+
+    - name: Appel du role docker-postgresql
       ansible.builtin.include_role:
-        name: docker-python-backend
+        name: docker-postgresql
       vars:
-        docker_python_backend_repo: "{{ docker_backend_repo }}"
-        docker_python_backend_csv_path: "{{ backend_csv_path }}"
-        docker_python_backend_csv_name: "{{ docker_backend_csv_name }}"
-        docker_python_backend_postgres_host: "{{ docker_backend_postgres_host }}"
-        docker_python_backend_postgres_db: "{{ backend_postgres_db }}"
-        docker_python_backend_postgres_user: "{{ backend_postgres_user }}"
-        docker_python_backend_postgres_password: "{{ backend_postgres_password }}"     
+        docker_postgresql_password: "{{ postgresql_password }}"

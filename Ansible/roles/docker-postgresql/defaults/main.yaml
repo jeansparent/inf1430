@@ -1,5 +1,2 @@
-docker_postgresql_version: ''
-docker_postgresql_user: ''
+docker_postgresql_version: '17.4-alpine3.21'
 docker_postgresql_password: ''
-docker_postgresql_db: ''
-docker_postgresql_volumes: []
