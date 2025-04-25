@@ -1,2 +1,2 @@
-postgresql_with_data_user: ''
-postgresql_with_data_password: ''
+postgresql_user: ''
+postgresql_password: ''

@@ -141,8 +141,15 @@
     #     docker_python_backend_postgres_password: "{{ backend_postgres_password }}"     
 
 
-    - name: Appel du role docker-postgresql
+    # - name: Appel du role docker-postgresql
+    #   ansible.builtin.include_role:
+    #     name: docker-postgresql
+    #   vars:
+    #     docker_postgresql_password: "{{ postgresql_password }}"
+
+    - name: Appel du role postgresql
       ansible.builtin.include_role:
-        name: docker-postgresql
+        name: postgresql
       vars:
-        docker_postgresql_password: "{{ postgresql_password }}"
+        postgresql_user: "{{ postgresql_password }}"
+        postgresql_password: "{{ postgresql_password }}"

@@ -1,8 +1,8 @@
 - name: 'Validation des variables'
   ansible.builtin.assert:
     that:
-      - postgresql_with_data_user
-      - postgresql_with_data_password
+      - postgresql_user
+      - postgresql_password
 
 - name: 'Télécharger la clé GPG de PostgreSQL'
   ansible.builtin.get_url:
@@ -31,8 +31,8 @@
     enabled: yes
     state: started
 
-- name: "Configuration du mot de passe pour {{ postgresql_with_data_user }}"
+- name: "Configuration du mot de passe pour {{ postgresql_user }}"
   become: true
   shell: >
-    sudo -u {{ postgresql_with_data_user }} psql -c
-    "ALTER USER {{ postgresql_with_data_user }} WITH ENCRYPTED PASSWORD '{{ postgresql_with_data_password }}';"
+    sudo -u {{ postgresql_user }} psql -c
+    "ALTER USER {{ postgresql_user }} WITH ENCRYPTED PASSWORD '{{ postgresql_password }}';"
