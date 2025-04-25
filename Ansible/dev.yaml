@@ -36,12 +36,12 @@
     # #   ansible.builtin.include_role:
     # #     name: nginx
 
-    # - name: Appel du role git-clone
-    #   ansible.builtin.include_role:
-    #     name: git-clone
-    #   vars:
-    #     git_clone_url: "{{ git_url }}"
-    #     git_clone_local_path: "{{ git_local_path }}"
+    - name: Appel du role git-clone
+      ansible.builtin.include_role:
+        name: git-clone
+      vars:
+        git_clone_url: "{{ git_url }}"
+        git_clone_local_path: "{{ git_local_path }}"
 
     # - name: Appel du role docker-iperf3
     #   ansible.builtin.include_role:
@@ -141,15 +141,15 @@
     #     docker_python_backend_postgres_password: "{{ backend_postgres_password }}"     
 
 
-    # - name: Appel du role docker-postgresql
-    #   ansible.builtin.include_role:
-    #     name: docker-postgresql
-    #   vars:
-    #     docker_postgresql_password: "{{ postgresql_password }}"
-
-    - name: Appel du role postgresql
+    - name: Appel du role docker-postgresql
       ansible.builtin.include_role:
-        name: postgresql
+        name: docker-postgresql
       vars:
-        postgresql_user: "{{ postgres_user }}"
-        postgresql_password: "{{ postgres_password }}"
+        docker_postgresql_password: "{{ postgres_password }}"
+
+    # - name: Appel du role postgresql
+    #   ansible.builtin.include_role:
+    #     name: postgresql
+    #   vars:
+    #     postgresql_user: "{{ postgres_user }}"
+    #     postgresql_password: "{{ postgres_password }}"

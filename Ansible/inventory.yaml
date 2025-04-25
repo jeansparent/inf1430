@@ -2,7 +2,7 @@
 dev:
   hosts:
     dev-server:
-      ansible_host: 4.205.248.192
+      ansible_host: x.x.x.x
       ansible_user: 'administrateur'
 
 bastion:
