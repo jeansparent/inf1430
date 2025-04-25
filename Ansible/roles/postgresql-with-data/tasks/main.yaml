@@ -1,0 +1,44 @@
+- name: 'Validation des variables'
+  ansible.builtin.assert:
+    that:
+      - postgresql_with_data_csv_path
+      - postgresql_with_data_script_path
+      - postgresql_with_data_user
+      - postgresql_with_data_password
+
+- name: 'Télécharger la clé GPG de PostgreSQL'
+  ansible.builtin.get_url:
+    url: "{{ postgresql_gpg_url }}"
+    dest: "/etc/apt/trusted.gpg.d/postgres.asc"
+    mode: '0644'
+
+- name: 'Ajouter le dépôt PostgreSQL'
+  ansible.builtin.apt_repository:
+    repo: "deb {{ postgresql_repo_url }} {{ ansible_distribution_release }}-pgdg main"
+    state: present
+    filename: postgres
+
+- name: 'Installation du logiciel PostgreSQL'
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  loop:
+    - 'postgresql-17'
+    - 'postgresql-client-17'
+
+- name: 'Enable PostgreSQL service'
+  ansible.builtin.systemd:
+    name: postgresql
+    enabled: yes
+    state: started
+
+- name: "Configuration du mot de passe pour {{ postgresql_with_data_user }}"
+  become: true
+  shell: >
+    sudo -u {{ postgresql_with_data_user }} psql -c
+    "ALTER USER {{ postgresql_with_data_user }} WITH ENCRYPTED PASSWORD '{{ postgresql_with_data_password }}';"
+
+- name: 'Importation des données dans PostgreSQL'
+  shell:
+    cmd: "bash {{ postgresql_with_data_script_path }} --host localhost --csv {{ postgresql_with_data_csv_path }}"

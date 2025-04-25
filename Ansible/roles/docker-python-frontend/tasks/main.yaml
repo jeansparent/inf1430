@@ -1,0 +1,28 @@
+- name: 'Validation des variables'
+  ansible.builtin.assert:
+    that:
+      - docker_python_frontend_repo
+      - docker_python_frontend_csv_path
+      - docker_python_frontend_records_per_page
+      - docker_python_frontend_api_url
+
+- name: Télécharger l'image {{ docker_python_frontend_repo }} depuis Docker Hub
+  community.docker.docker_image:
+    name: "{{ docker_python_frontend_repo }}"
+    tag: 'latest'
+    source: pull
+
+- name: Démarrer le conteneur {{ docker_python_frontend_repo }} avec auto-restart
+  community.docker.docker_container:
+    name: "python-frontend"
+    image: "{{ docker_python_frontend_repo }}:latest"
+    state: started
+    restart_policy: always
+    ports:
+        - "8080:8080/tcp"
+    env:
+        PYTHON_FRONTEND_CSV_PATH: "/app/{{ docker_python_frontend_csv_name }}"
+        PYTHON_FRONTEND_RECORDS_PER_PAGE: "{{ docker_python_frontend_records_per_page }}"
+        PYTHON_FRONTEND_API_URL : "{{ docker_python_frontend_api_url }}"
+    volumes:
+      - "{{ docker_python_frontend_csv_path }}:/app/{{ docker_python_frontend_csv_name }}"

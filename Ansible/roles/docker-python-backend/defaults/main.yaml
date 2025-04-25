@@ -1,0 +1,7 @@
+docker_python_backend_repo: ''
+docker_python_backend_csv_path: ''
+docker_python_backend_csv_name: ''
+docker_python_backend_postgres_host: ''
+docker_python_backend_postgres_db: ''
+docker_python_backend_postgres_user: ''
+docker_python_backend_postgres_password: ''  

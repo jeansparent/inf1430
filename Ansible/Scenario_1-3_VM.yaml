@@ -1,0 +1,50 @@
+---
+- name: Installation environnement Applicatif_VM
+  hosts: Applicatif_VM
+  become: true
+
+  tasks:
+    - name: 'Appel du role commun'
+      ansible.builtin.include_role:
+        name: 'commun'
+      vars:
+        commun_applications: "{{ applications }}"
+        commun_hosts: "{{ hosts }}"
+
+    - name: 'Appel du role git-clone'
+      ansible.builtin.include_role:
+        name: 'git-clone'
+      vars:
+        git_clone_url: "{{ git_url }}"
+        git_clone_local_path: "{{ git_local_path }}"
+
+    - name: 'Appel du role postgresql-with-data'
+      ansible.builtin.include_role:
+        name: 'postgresql-with-data'
+      vars:
+        postgresql_with_data_csv_path: "{{ postgres_csv_path }}"
+        postgresql_with_data_script_path: "{{ postgres_script_path }}"
+        postgresql_with_data_user: "{{ postgres_user }}"
+        postgresql_with_data_password: "{{postgres_password}}"
+
+    - name: 'Appel du role python-frontend'
+      ansible.builtin.include_role:
+        name: 'python-frontend'
+      vars:
+        python_frontend_path: "{{ frontend_path }}"
+        python_frontend_csv_path: "{{ frontend_csv_path }}"
+        python_frontend_records_per_page: "{{ frontend_records_per_page }}"
+        python_frontend_api_url : "{{ frontend_api_url }}"
+        python_frontend_env_path: "{{ frontend_env_path }}"
+
+    - name: 'Appel du role python-backend'
+      ansible.builtin.include_role:
+        name: 'python-backend'
+      vars:
+        python_backend_path: "{{ backend_path }}"
+        python_backend_csv_path: "{{ backend_csv_path }}"
+        python_backend_env_path: "{{ backend_env_path }}"
+        python_backend_postgres_host: "{{ backend_postgres_host }}"
+        python_backend_postgres_db: "{{ backend_postgres_db }}"
+        python_backend_postgres_user: "{{ backend_postgres_user }}"
+        python_backend_postgres_password: "{{ backend_postgres_password }}"   

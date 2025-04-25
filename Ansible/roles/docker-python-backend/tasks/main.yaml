@@ -1,0 +1,33 @@
+- name: 'Validation des variables'
+  ansible.builtin.assert:
+    that:
+      - docker_python_backend_repo
+      - docker_python_backend_csv_path
+      - docker_python_backend_csv_name
+      - docker_python_backend_postgres_host
+      - docker_python_backend_postgres_db
+      - docker_python_backend_postgres_user
+      - docker_python_backend_postgres_password 
+
+- name: Télécharger l'image {{ docker_python_backend_repo }} depuis Docker Hub
+  community.docker.docker_image:
+    name: "{{ docker_python_backend_repo }}"
+    tag: 'latest'
+    source: pull
+
+- name: Démarrer le conteneur {{ docker_python_backend_repo }} avec auto-restart
+  community.docker.docker_container:
+    name: "python-backend"
+    image: "{{ docker_python_backend_repo }}:latest"
+    state: started
+    restart_policy: always
+    ports:
+        - "5000:5000/tcp"
+    env:
+        PYTHON_BACKEND_CSV_PATH: "/app/{{ docker_python_backend_csv_name }}"
+        PYTHON_BACKEND_POSTGRES_HOST: "{{ docker_python_backend_postgres_host }}"
+        PYTHON_BACKEND_POSTGRES_DB : "{{ docker_python_backend_postgres_db }}"
+        PYTHON_BACKEND_POSTGRES_USER: "{{ docker_python_backend_postgres_user }}"
+        PYTHON_BACKEND_POSTGRES_PASSWORD : "{{ docker_python_backend_postgres_password }}"
+    volumes:
+      - "{{ docker_python_backend_csv_path }}:/app/{{ docker_python_backend_csv_name }}"

@@ -17,11 +17,11 @@
     # #   vars:
     # #     bastion_applications: "{{ additionals_applications }}"
 
-    # # - name: Appel du role docker-ce
-    # #   ansible.builtin.include_role:
-    # #     name: docker-ce
-    # #   vars:
-    # #     docker_ce_version: "{{ docker_version }}"
+    - name: Appel du role docker-ce
+      ansible.builtin.include_role:
+        name: docker-ce
+      vars:
+        docker_ce_version: "{{ docker_version }}"
 
     # # - name: Appel du role docker-nginx
     # #   ansible.builtin.include_role:
@@ -36,12 +36,12 @@
     # #   ansible.builtin.include_role:
     # #     name: nginx
 
-    - name: Appel du role git-clone
-      ansible.builtin.include_role:
-        name: git-clone
-      vars:
-        git_clone_url: "{{ git_url }}"
-        git_clone_local_path: "{{ git_local_path }}"
+    # - name: Appel du role git-clone
+    #   ansible.builtin.include_role:
+    #     name: git-clone
+    #   vars:
+    #     git_clone_url: "{{ git_url }}"
+    #     git_clone_local_path: "{{ git_local_path }}"
 
     # - name: Appel du role docker-iperf3
     #   ansible.builtin.include_role:
@@ -89,24 +89,63 @@
     #   vars: 
     #     docker_sysbench_repo: "{{ sysbench_repo }}"
 
-    - name: Appel du role python-frontend
-      ansible.builtin.include_role:
-        name: python-frontend
-      vars:
-        python_frontend_path: "{{ frontend_path }}"
-        python_frontend_csv_path: "{{ frontend_csv_path }}"
-        python_frontend_records_per_page: "{{ frontend_records_per_page }}"
-        python_frontend_api_url : "{{ frontend_api_url }}"
-        python_frontend_env_path: "{{ frontend_env_path }}"
+    # - name: Appel du role postgresql-with-data
+    #   ansible.builtin.include_role:
+    #     name: postgresql-with-data
+    #   vars:
+    #     postgresql_with_data_csv_path: "{{ postgres_csv_path }}"
+    #     postgresql_with_data_script_path: "{{ postgres_script_path }}"
+    #     postgresql_with_data_user: "{{ postgres_user }}"
+    #     postgresql_with_data_password: "{{postgres_password}}"
 
-    - name: Appel du role python-backend
+    # - name: Appel du role python-frontend
+    #   ansible.builtin.include_role:
+    #     name: python-frontend
+    #   vars:
+    #     python_frontend_path: "{{ frontend_path }}"
+    #     python_frontend_csv_path: "{{ frontend_csv_path }}"
+    #     python_frontend_records_per_page: "{{ frontend_records_per_page }}"
+    #     python_frontend_api_url : "{{ frontend_api_url }}"
+    #     python_frontend_env_path: "{{ frontend_env_path }}"
+
+    # - name: Appel du role python-backend
+    #   ansible.builtin.include_role:
+    #     name: python-backend
+    #   vars:
+    #     python_backend_path: "{{ backend_path }}"
+    #     python_backend_csv_path: "{{ backend_csv_path }}"
+    #     python_backend_env_path: "{{ backend_env_path }}"
+    #     python_backend_postgres_host: "{{ backend_postgres_host }}"
+    #     python_backend_postgres_db: "{{ backend_postgres_db }}"
+    #     python_backend_postgres_user: "{{ backend_postgres_user }}"
+    #     python_backend_postgres_password: "{{ backend_postgres_password }}"        
+
+    - name: Appel du role docker-postgresql-with-data
       ansible.builtin.include_role:
-        name: python-backend
+        name: docker-postgresql-with-data
       vars:
-        python_backend_path: "{{ backend_path }}"
-        python_backend_csv_path: "{{ backend_csv_path }}"
-        python_backend_env_path: "{{ backend_env_path }}"
-        python_backend_postgres_host: "{{ backend_postgres_host }}"
-        python_backend_postgres_db: "{{ backend_postgres_db }}"
-        python_backend_postgres_user: "{{ backend_postgres_user }}"
-        python_backend_postgres_password: "{{ backend_postgres_password }}"        
+        docker_postgresql_with_data_password: "{{ postgresql_with_data_password }}"
+        docker_postgresql_with_data_script_path: "{{ postgres_script_path }}"
+        docker_postgresql_with_data_csv_path: "{{ postgres_csv_path }}"
+
+    - name: Appel du role docker-python-frontend
+      ansible.builtin.include_role:
+        name: docker-python-frontend
+      vars:
+        docker_python_frontend_repo: "{{ docker_frontend_repo }}"
+        docker_python_frontend_csv_path: "{{ frontend_csv_path }}"
+        docker_python_frontend_csv_name: "{{ docker_frontend_csv_name }}"
+        docker_python_frontend_records_per_page: "{{ frontend_records_per_page }}"
+        docker_python_frontend_api_url : "{{ docker_frontend_api }}"
+
+    - name: Appel du role docker-python-backend
+      ansible.builtin.include_role:
+        name: docker-python-backend
+      vars:
+        docker_python_backend_repo: "{{ docker_backend_repo }}"
+        docker_python_backend_csv_path: "{{ backend_csv_path }}"
+        docker_python_backend_csv_name: "{{ docker_backend_csv_name }}"
+        docker_python_backend_postgres_host: "{{ docker_backend_postgres_host }}"
+        docker_python_backend_postgres_db: "{{ backend_postgres_db }}"
+        docker_python_backend_postgres_user: "{{ backend_postgres_user }}"
+        docker_python_backend_postgres_password: "{{ backend_postgres_password }}"     
