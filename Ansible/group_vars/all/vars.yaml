@@ -48,3 +48,18 @@ iperf3_repo: 'jseb00/iperf3'
 scp_repo: 'jseb00/scp'
 
 sysbench_repo: 'jseb00/sysbench'
+
+
+frontend_path: '/home/administrateur/inf1430/Python/python-frontend'
+frontend_csv_path: '/home/administrateur/inf1430/SQL/Dataset/PT_priority_claim_2000001_to_4000000_2024-10-11.csv'
+frontend_records_per_page: 1000
+frontend_api_url: 'http://192.168.0.106:5000'
+frontend_env_path: "{{ frontend_path }}/.env"
+
+backend_path: '/home/administrateur/inf1430/Python/python-backend'
+backend_csv_path: '/home/administrateur/inf1430/SQL/Dataset/PT_priority_claim_2000001_to_4000000_2024-10-11.csv'
+backend_env_path: "{{ python_backend_path }}/.env"
+backend_postgres_host: 'localhost'
+backend_postgres_db: 'patent'
+backend_postgres_user: 'postgres'
+backend_postgres_password: 'Bonjour123!'
