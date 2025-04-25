@@ -11,37 +11,37 @@
         commun_applications: "{{ applications }}"
         commun_hosts: "{{ hosts }}"
 
-    # - name: Appel du role bastion
-    #   ansible.builtin.include_role:
-    #     name: bastion
-    #   vars:
-    #     bastion_applications: "{{ additionals_applications }}"
+    # # - name: Appel du role bastion
+    # #   ansible.builtin.include_role:
+    # #     name: bastion
+    # #   vars:
+    # #     bastion_applications: "{{ additionals_applications }}"
 
-    - name: Appel du role docker-ce
+    # # - name: Appel du role docker-ce
+    # #   ansible.builtin.include_role:
+    # #     name: docker-ce
+    # #   vars:
+    # #     docker_ce_version: "{{ docker_version }}"
+
+    # # - name: Appel du role docker-nginx
+    # #   ansible.builtin.include_role:
+    # #     name: docker-nginx
+    # #   vars:
+    # #     docker_nginx_version: "{{ nginx_version }}"
+    # #     docker_nginx_server_name: "{{ nginx_server_name | default('') }}"
+    # #     docker_nginx_backend_servers: "{{ nginx_backend_servers | default([]) }}"
+    # #     docker_nginx_volumes: "{{ nginx_volumes | default([]) }}"
+
+    # # - name: Appel du role nginx
+    # #   ansible.builtin.include_role:
+    # #     name: nginx
+
+    - name: Appel du role git-clone
       ansible.builtin.include_role:
-        name: docker-ce
+        name: git-clone
       vars:
-        docker_ce_version: "{{ docker_version }}"
-
-    # - name: Appel du role docker-nginx
-    #   ansible.builtin.include_role:
-    #     name: docker-nginx
-    #   vars:
-    #     docker_nginx_version: "{{ nginx_version }}"
-    #     docker_nginx_server_name: "{{ nginx_server_name | default('') }}"
-    #     docker_nginx_backend_servers: "{{ nginx_backend_servers | default([]) }}"
-    #     docker_nginx_volumes: "{{ nginx_volumes | default([]) }}"
-
-    # - name: Appel du role nginx
-    #   ansible.builtin.include_role:
-    #     name: nginx
-
-    # - name: Appel du role git-clone
-    #   ansible.builtin.include_role:
-    #     name: git-clone
-    #   vars:
-    #     git_clone_url: "{{ git_url }}"
-    #     git_clone_local_path: "{{ git_local_path }}"
+        git_clone_url: "{{ git_url }}"
+        git_clone_local_path: "{{ git_local_path }}"
 
     # - name: Appel du role docker-iperf3
     #   ansible.builtin.include_role:
@@ -79,13 +79,34 @@
     #   ansible.builtin.include_role:
     #     name: iperf3
 
-    - name: Appel du role sysbench
-      ansible.builtin.include_role:
-        name: sysbench
+    # - name: Appel du role sysbench
+    #   ansible.builtin.include_role:
+    #     name: sysbench
 
-    - name: Appel du role docker-sysbench
+    # - name: Appel du role docker-sysbench
+    #   ansible.builtin.include_role:
+    #     name: docker-sysbench
+    #   vars: 
+    #     docker_sysbench_repo: "{{ sysbench_repo }}"
+
+    - name: Appel du role python-frontend
       ansible.builtin.include_role:
-        name: docker-sysbench
-      vars: 
-        docker_sysbench_repo: "{{ sysbench_repo }}"
-        
+        name: python-frontend
+      vars:
+        python_frontend_path: "{{ frontend_path }}"
+        python_frontend_csv_path: "{{ frontend_csv_path }}"
+        python_frontend_records_per_page: "{{ frontend_records_per_page }}"
+        python_frontend_api_url : "{{ frontend_api_url }}"
+        python_frontend_env_path: "{{ frontend_env_path }}"
+
+    - name: Appel du role python-backend
+      ansible.builtin.include_role:
+        name: python-backend
+      vars:
+        python_backend_path: "{{ backend_path }}"
+        python_backend_csv_path: "{{ backend_csv_path }}"
+        python_backend_env_path: "{{ backend_env_path }}"
+        python_backend_postgres_host: "{{ backend_postgres_host }}"
+        python_backend_postgres_db: "{{ backend_postgres_db }}"
+        python_backend_postgres_user: "{{ backend_postgres_user }}"
+        python_backend_postgres_password: "{{ backend_postgres_password }}"        
