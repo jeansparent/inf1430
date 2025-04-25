@@ -1,6 +1,6 @@
 ---
-- name: Installation environnement SCP_VM
-  hosts: SCP_VM
+- name: Installation environnement Applicatif_VM
+  hosts: Applicatif_VM
   become: true
 
   tasks:
@@ -11,5 +11,9 @@
         commun_applications: "{{ applications }}"
         commun_hosts: "{{ hosts }}"
 
-
- # ssh-key -- traité si docker et mettre la clé ailleur
+    - name: Appel du role postgresql
+      ansible.builtin.include_role:
+        name: postgresql
+      vars:
+        postgresql_user: "{{ postgres_user }}"
+        postgresql_password: "{{ postgres_password }}"

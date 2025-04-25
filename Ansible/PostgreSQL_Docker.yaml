@@ -1,17 +1,24 @@
 ---
-- name: Installation environnement SCP_Docker
-  hosts: SCP_Docker
+- name: Installation environnement Applicatif_Docker
+  hosts: Applicatif_Docker
   become: true
 
   tasks:
-    - name: Appel du role commun
+    - name: 'Appel du role commun'
       ansible.builtin.include_role:
-        name: commun
+        name: 'commun'
       vars:
         commun_applications: "{{ applications }}"
         commun_hosts: "{{ hosts }}"
 
+    - name: 'Appel du role docker-ce'
+      ansible.builtin.include_role:
+        name: 'docker-ce'
+      vars:
+        docker_ce_version: "{{ docker_version }}"
 
-# ssh-key -- traité si docker et mettre la clé ailleur pour faire le mount
-# Refaire l'image docker sans la clé
-# Faire attention de mettre le docker sur un autre port à cause du 22 déjà pris
+    - name: Appel du role docker-postgresql
+      ansible.builtin.include_role:
+        name: docker-postgresql
+      vars:
+        docker_postgresql_password: "{{ postgres_password }}"
