@@ -151,5 +151,5 @@
       ansible.builtin.include_role:
         name: postgresql
       vars:
-        postgresql_user: "{{ postgresql_password }}"
-        postgresql_password: "{{ postgresql_password }}"
+        postgresql_user: "{{ postgres_user }}"
+        postgresql_password: "{{ postgres_password }}"

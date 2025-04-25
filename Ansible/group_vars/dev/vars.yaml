@@ -15,8 +15,4 @@ additionals_applications:
 #   - '/var/lib/nginx/conf.d:/etc/nginx/conf.d'
 #   - '/var/lib/nginx/nginx.conf:/etc/nginx/nginx.conf'
 
-postgresql_user: 'administrateur'
-postgresql_password: 'Bonjour123!'
-postgresql_db: 'inf1430-dev'
-postgresql_volumes:
-  - '/var/lib/postgresql/data:/var/lib/postgresql/data'
+
