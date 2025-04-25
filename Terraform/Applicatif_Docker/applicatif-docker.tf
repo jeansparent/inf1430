@@ -78,6 +78,20 @@ resource "azurerm_network_security_rule" "nsg_applicatif_docker_ssh" {
   network_security_group_name = azurerm_network_security_group.nsg_applicatif_docker.name
 }
 
+resource "azurerm_network_security_rule" "nsg_applicatif_all" {
+  name                        = "All"
+  priority                    = 200
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_range      = "*"
+  source_address_prefix       = "192.168.0.10/32"
+  destination_address_prefix  = "*"
+  resource_group_name         = azurerm_resource_group.rg_applicatif_docker.name
+  network_security_group_name = azurerm_network_security_group.nsg_applicatif_docker.name
+}
+
 resource "azurerm_network_interface_security_group_association" "nsg_applicatif_docker_association" {
   network_interface_id      = azurerm_network_interface.vm_applicatif_docker_nic_1.id
   network_security_group_id = azurerm_network_security_group.nsg_applicatif_docker.id
