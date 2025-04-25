@@ -9,7 +9,7 @@ variable "public_rsa" {
 
 variable "vm_size" {
   type = string
-  default = "Standard_B1s"
+  default = "Standard_D2s_v6"
 }
 
 variable "vm_username" {
