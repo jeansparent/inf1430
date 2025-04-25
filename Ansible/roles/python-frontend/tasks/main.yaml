@@ -1,0 +1,43 @@
+- name: 'Validation des variables'
+  ansible.builtin.assert:
+    that:
+      - python_frontend_path
+      - python_frontend_csv_path
+      - python_frontend_records_per_page
+      - python_frontend_api_url
+      - python_frontend_env_path
+
+- name: 'Installation de Python et ses dépendances'
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - 'python3'
+    - 'python3-pip'
+    - 'python3-venv'
+
+- name: 'Création du fichier env'
+  ansible.builtin.copy:
+    content: |
+      PYTHON_FRONTEND_CSV_PATH={{ python_frontend_csv_path }}
+      PYTHON_FRONTEND_RECORDS_PER_PAGE={{ python_frontend_records_per_page }}
+      PYTHON_FRONTEND_API_URL={{ python_frontend_api_url }}
+    dest: "{{ python_frontend_env_path }}"
+    owner: 'administrateur'
+    group: 'administrateur'
+    mode: 0755
+
+- name: "Création de l'environnement virtuel"
+  ansible.builtin.command: 
+    cmd: python3 -m venv {{ python_frontend_path }}/venv
+  args:
+    creates: "{{ python_frontend_path }}/venv/bin/activate"
+
+- name: 'Installation des dépendances Python'
+  ansible.builtin.command: 
+    cmd: "{{ python_frontend_path }}/venv/bin/pip install -r {{ python_frontend_path }}/requirements.txt"
+
+- name: 'Activation du code Python'
+  shell: 
+    cmd: |
+      nohup bash -c 'source {{ python_frontend_path }}/venv/bin/activate && export $(cat {{ python_frontend_env_path }} | xargs) && python {{ python_frontend_path }}/src/main.py' > /tmp/frontend.log 2>&1 &

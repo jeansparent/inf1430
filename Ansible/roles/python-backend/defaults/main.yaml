@@ -1,0 +1,7 @@
+python_backend_csv_path: ''
+python_backend_env_path: ''
+python_backend_path: ''
+python_backend_postgres_host: 'localhost'
+python_backend_postgres_db: 'patent'
+python_backend_postgres_user: 'postgres'
+python_backend_postgres_password: 'Bonjour123!'

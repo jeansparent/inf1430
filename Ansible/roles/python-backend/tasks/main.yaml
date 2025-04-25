@@ -1,0 +1,47 @@
+- name: 'Validation des variables'
+  ansible.builtin.assert:
+    that:
+      - python_backend_path
+      - python_backend_csv_path
+      - python_backend_env_path
+      - python_backend_postgres_host
+      - python_backend_postgres_db
+      - python_backend_postgres_user
+      - python_backend_postgres_password    
+
+- name: 'Installation de Python et ses dépendances'
+  ansible.builtin.apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - 'python3'
+    - 'python3-pip'
+    - 'python3-venv'
+
+- name: 'Création du fichier env'
+  ansible.builtin.copy:
+    content: |
+      PYTHON_BACKEND_CSV_PATH={{ python_backend_csv_path }}
+      PYTHON_BACKEND_POSTGRES_HOST={{ python_backend_postgres_host }}
+      PYTHON_BACKEND_POSTGRES_DB={{ python_backend_postgres_db }}
+      PYTHON_BACKEND_POSTGRES_USER={{ python_backend_postgres_user }}
+      PYTHON_BACKEND_POSTGRES_PASSWORD={{ python_backend_postgres_password }}
+    dest: "{{ python_backend_env_path }}"
+    owner: 'administrateur'
+    group: 'administrateur'
+    mode: 0755
+
+- name: "Création de l'environnement virtuel"
+  ansible.builtin.command: 
+    cmd: python3 -m venv {{ python_backend_path }}/venv
+  args:
+    creates: "{{ python_backend_path }}/venv/bin/activate"
+
+- name: 'Installation des dépendances Python'
+  ansible.builtin.command: 
+    cmd: "{{ python_backend_path }}/venv/bin/pip install -r {{ python_backend_path }}/requirements.txt"
+
+- name: 'Activation du code Python'
+  shell: 
+    cmd: |
+      nohup bash -c 'source {{ python_backend_path }}/venv/bin/activate && export $(cat {{ python_backend_env_path }} | xargs) && python {{ python_backend_path }}/src/main.py' > /tmp/backend.log 2>&1 &
