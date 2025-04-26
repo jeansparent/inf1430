@@ -1,0 +1,30 @@
+- name: 'Validation des variables'
+  ansible.builtin.assert:
+    that:
+      - file_generator_size_gb
+      - file_generator_path
+
+- name: 'Validation que le fichier existe'
+  ansible.builtin.stat:
+    path: "{{ file_generator_path }}"
+  register: generated_file
+
+- name: 'Creation du fichier'
+  block:
+
+  - name: 'Convertion de la grosseur du fichier pour dd'
+    ansible.builtin.set_fact:
+      dd_count: "{{ (file_generator_size_gb | int) * 1024 }}"
+
+  - name: "Création d'un fichier de {{ file_generator_size_gb }} Go"
+    ansible.builtin.command:
+      cmd: "dd if=/dev/zero of={{ file_generator_path }} bs=1M count={{ dd_count }}"
+
+  when: not generated_file.stat.exists
+
+- name: 'Mise en place des permissions'
+  ansible.builtin.file:
+    path: "{{ file_generator_path }}"
+    owner: 'administrateur'
+    group: 'administrateur'
+    mode: 0644
