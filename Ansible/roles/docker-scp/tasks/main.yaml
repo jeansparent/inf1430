@@ -4,11 +4,11 @@
     tag: 'latest'
     source: pull
 
-- name: Démarrer le conteneur scp avec auto-restart
-  community.docker.docker_container:
-    name: "scp"
-    image: "{{ docker_scp_repo }}:latest"
-    state: started
-    restart_policy: always
-    ports:
-      - "2222:22"
+# - name: Démarrer le conteneur scp avec auto-restart
+#   community.docker.docker_container:
+#     name: "scp"
+#     image: "{{ docker_scp_repo }}:latest"
+#     state: started
+#     restart_policy: always
+#     ports:
+#       - "2222:22"
