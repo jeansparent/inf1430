@@ -80,3 +80,7 @@ docker_backend_csv_name: 'PT_priority_claim_2000001_to_4000000_2024-10-11.csv'
 docker_backend_csv_path: "/home/administrateur/inf1430/SQL/Dataset/{{ docker_frontend_csv_name }}"
 
 postgresql_with_data_password: 'Bonjour123!'
+
+
+scp_file_size: 10
+scp_file_path: '/home/administrateur/10GFile'
