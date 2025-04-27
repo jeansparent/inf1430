@@ -53,7 +53,7 @@ ssh -P 22 administrateur@$IP "nohup pidstat -r 1 > pidstat_mem.log 2>&1 &"
 pidstat_mem_pid=$!
 
 echo "Transferring file"
-scp -P 2222 /home/administrateur/10GBfile root@$IP:./10f.txt
+scp -P 2222 /home/administrateur/10GFile root@$IP:./10f.txt
 
 echo "Transfert pidstat file"
 scp -P 22 administrateur@$IP:pidstat* ./
