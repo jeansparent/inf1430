@@ -3,7 +3,9 @@
 - name: Installation environnement bastion
   hosts: bastion
   become: true
-
+  vars:
+      ansible_ssh_common_args: ''
+      
   tasks:
     - name: Appel du role file-generator
       ansible.builtin.include_role:
