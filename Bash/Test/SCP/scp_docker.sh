@@ -4,26 +4,59 @@
 # Date: 26 avril 2025
 # Ce script doit être exécuter à partir d'un instance bastion afin d'avoir test valide sans prendre Internet en compte.
 
+help=false
+
+# Options du script
+while [[ "$#" -gt 0 ]]; do
+    case "$1" in
+        --ip) 
+            if [[ -n "$2" && ! "$2" =~ ^-- ]]; then
+                IP="$2"
+                shift
+            fi
+            ;;
+        --help) 
+            help=true
+            ;;
+        --) 
+            shift
+            break
+            ;;
+        *) 
+            echo "Option inconnue : $1"
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+if $help; then
+    echo "Usage: $0 [--ip <valeur>] [--help]"
+    echo "  --ip val    Spécifie l'ip ou FQDN"
+    echo "  --help         Affiche cette aide"
+    exit 0
+fi
+
 echo "Cleanup VM"
-ssh -P 22 administrateur@52.233.2.41 "rm -rf /home/administrateur/pid*.log"
+ssh -P 22 administrateur@$IP "rm -rf /home/administrateur/pid*.log"
 
 echo "Pull latest jseb00/scp image"
-ssh -P 22 administrateur@52.233.2.41 "docker pull jseb00/scp:latest"
+ssh -P 22 administrateur@$IP "docker pull jseb00/scp:latest"
 
 echo "Start docker"
-ssh -P 22 administrateur@52.233.2.41 "docker run -d -p 2222:22 jseb00/scp:latest"
+ssh -P 22 administrateur@$IP "docker run -d -p 2222:22 jseb00/scp:latest"
 
 echo "Starting pidstat"
-ssh -P 22 administrateur@52.233.2.41 "nohup pidstat -u 1 > pidstat_cpu.log 2>&1 &"
+ssh -P 22 administrateur@$IP "nohup pidstat -u 1 > pidstat_cpu.log 2>&1 &"
 pidstat_cpu_pid=$!
-ssh -P 22 administrateur@52.233.2.41 "nohup pidstat -r 1 > pidstat_mem.log 2>&1 &"
+ssh -P 22 administrateur@$IP "nohup pidstat -r 1 > pidstat_mem.log 2>&1 &"
 pidstat_mem_pid=$!
 
 echo "Transferring file"
-scp -P 2222 /home/jsparent/10GBfile root@52.233.2.41:./10f.txt
+scp -P 2222 /home/jsparent/10GBfile root@$IP:./10f.txt
 
 echo "Transfert pidstat file"
-scp -P 22 administrateur@52.233.2.41:pidstat* ./
+scp -P 22 administrateur@$IP:pidstat* ./
 
 echo "========== PIDSTAT REPORT for SSHD =========="
 cpu_values=$(grep "sshd-session" pidstat_cpu.log | tr -s ' ' | cut -d ' ' -f 8)
@@ -46,6 +79,6 @@ echo "Mean MEM (RSS) for SSHD: $mem_mean KB"
 echo "============================================="
 
 echo "Clean Docker file"
-ssh -P 22 administrateur@52.233.2.41 "docker system prune --all --force"
+ssh -P 22 administrateur@$IP "docker system prune --all --force"
 
-ssh -P 22 administrateur@52.233.2.41 "sudo reboot"
+ssh -P 22 administrateur@$IP "sudo reboot"
