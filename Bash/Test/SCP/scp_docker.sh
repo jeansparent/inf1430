@@ -39,6 +39,7 @@ fi
 
 echo "Cleanup VM"
 ssh -P 22 administrateur@$IP "rm -rf /home/administrateur/pid*.log"
+rm -rf /home/administrateur/pid*.log
 
 echo "Pull latest jseb00/scp image"
 ssh -P 22 administrateur@$IP "docker pull jseb00/scp:latest"

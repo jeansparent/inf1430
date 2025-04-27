@@ -39,7 +39,8 @@ fi
 
 echo "Cleanup VM"
 ssh -P 22 administrateur@$IP "rm -rf /home/administrateur/pid*.log"
-ssh -P 22 administrateur@$IP "rm -rf /home/administrateur/*.txt"
+ssh -P 22 administrateur@$IP "rm -rf /home/administrateur/10GFile"
+rm -rf /home/administrateur/pid*.log
 
 echo "Starting pidstat"
 ssh -P 22 administrateur@$IP "nohup pidstat -u 1 > pidstat_cpu.log 2>&1 &"
