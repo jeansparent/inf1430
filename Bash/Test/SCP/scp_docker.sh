@@ -40,6 +40,7 @@ fi
 echo "Cleanup VM"
 ssh -P 22 administrateur@$IP "rm -rf /home/administrateur/pid*.log"
 rm -rf /home/administrateur/pid*.log
+ssh -P 22 administrateur@$IP "docker system prune --all --force"
 
 echo "Pull latest jseb00/scp image"
 ssh -P 22 administrateur@$IP "docker pull jseb00/scp:latest"
@@ -78,8 +79,5 @@ echo "Mean CPU usage for SSHD: $cpu_mean %"
 echo "Max MEM (RSS) for SSHD: $mem_max KB"
 echo "Mean MEM (RSS) for SSHD: $mem_mean KB"
 echo "============================================="
-
-echo "Clean Docker file"
-ssh -P 22 administrateur@$IP "docker system prune --all --force"
 
 ssh -P 22 administrateur@$IP "sudo reboot"
