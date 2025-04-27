@@ -80,7 +80,7 @@ resource "azurerm_network_security_rule" "nsg_scp_docker_ssh" {
 
 resource "azurerm_network_security_rule" "nsg_scp_docker_ssh-session" {
   name                        = "ssh-session"
-  priority                    = 100
+  priority                    = 200
   direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "Tcp"
