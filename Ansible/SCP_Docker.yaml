@@ -5,7 +5,7 @@
   become: true
   vars:
       ansible_ssh_common_args: ''
-      
+
   tasks:
     - name: Appel du role file-generator
       ansible.builtin.include_role:
@@ -26,6 +26,12 @@
       vars:
         commun_applications: "{{ applications }}"
         commun_hosts: "{{ hosts }}"
+
+    - name: Appel du role docker-ce
+      ansible.builtin.include_role:
+        name: docker-ce
+      vars:
+        docker_ce_version: "{{ docker_version }}"
 
     - name: Appel du role docker-scp
       ansible.builtin.include_role:
