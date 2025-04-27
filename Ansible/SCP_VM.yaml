@@ -1,4 +1,18 @@
 ---
+
+- name: Installation environnement bastion
+  hosts: bastion
+  become: true
+
+  tasks:
+    - name: Appel du role file-generator
+      ansible.builtin.include_role:
+        name: file-generator
+      vars:
+        file_generator_size_gb: "{{ scp_file_size | default(1) }}"
+        file_generator_path: "{{ scp_file_path }}"
+
+
 - name: Installation environnement SCP_VM
   hosts: SCP_VM
   become: true
@@ -10,6 +24,3 @@
       vars:
         commun_applications: "{{ applications }}"
         commun_hosts: "{{ hosts }}"
-
-
- # ssh-key -- traité si docker et mettre la clé ailleur

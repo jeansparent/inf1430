@@ -1,4 +1,18 @@
 ---
+
+- name: Installation environnement bastion
+  hosts: bastion
+  become: true
+
+  tasks:
+    - name: Appel du role file-generator
+      ansible.builtin.include_role:
+        name: file-generator
+      vars:
+        file_generator_size_gb: "{{ scp_file_size | default(1) }}"
+        file_generator_path: "{{ scp_file_path }}"
+  
+
 - name: Installation environnement SCP_Docker
   hosts: SCP_Docker
   become: true
@@ -11,7 +25,8 @@
         commun_applications: "{{ applications }}"
         commun_hosts: "{{ hosts }}"
 
-
-# ssh-key -- traité si docker et mettre la clé ailleur pour faire le mount
-# Refaire l'image docker sans la clé
-# Faire attention de mettre le docker sur un autre port à cause du 22 déjà pris
+    - name: Appel du role docker-scp
+      ansible.builtin.include_role:
+        name: docker-scp
+      vars:
+        docker_scp_repo: "{{ scp_repo }}"
