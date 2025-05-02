@@ -80,13 +80,13 @@ resource "azurerm_network_security_rule" "nsg_applicatif_vm_ssh" {
 
 resource "azurerm_network_security_rule" "nsg_applicatif_vm_all" {
   name                        = "all"
-  priority                    = 100
+  priority                    = 200
   direction                   = "Inbound"
   access                      = "Allow"
   protocol                    = "Tcp"
   source_port_range           = "*"
   destination_port_range      = "*"
-  source_address_prefix       = "192.168.0.10/32"
+  source_address_prefix       = "*"
   destination_address_prefix  = "*"
   resource_group_name         = azurerm_resource_group.rg_applicatif_vm.name
   network_security_group_name = azurerm_network_security_group.nsg_applicatif_vm.name

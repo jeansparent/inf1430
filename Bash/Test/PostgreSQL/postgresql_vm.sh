@@ -78,6 +78,9 @@ pidstat_mem_pid=$!
 echo "Importing CSV"
 time PGPASSWORD=$DB_PASS psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d $DB_NAME -c "\copy patent FROM '$CSV_FILE' DELIMITER '|' CSV HEADER;"
 
+echo "Selecting all records"
+time PGPASSWORD=$DB_PASS psql -h $DB_HOST -p $DB_PORT -U $DB_USER -d $DB_NAME -c "select * from patent"
+
 echo "Transfert pidstat file"
 scp -P 22 administrateur@$DB_HOST:pidstat* ./
 

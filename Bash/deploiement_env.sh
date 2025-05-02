@@ -6,6 +6,7 @@
 ENVIRONNEMENT=""
 REGION=""
 SIZE=""
+ANSIBLE_PLAYBOOK=""
 help=false
 
 # Options du script
@@ -33,6 +34,12 @@ while [[ "$#" -gt 0 ]]; do
                 shift  
             fi
             ;;
+        --ansible)
+            if [[ -n "$2" && ! "$2" =~ ^-- ]]; then
+                ANSIBLE_PLAYBOOK="$2"
+                shift  
+            fi
+            ;;
         --help) 
             help=true
             ;;
@@ -51,6 +58,7 @@ done
 if $help; then
     echo "Usage: $0 [--env <valeur>] [--instance <valeur>] [--region <valeur>] [--help]"
     echo "  --env val    Spécifie l'environnement"
+    echo "  --ansible val    Spécifie le playbook ansible"
     echo "  --instance val    Spécifie l'instance"
     echo "  --region val    Spécifie la région (ex: eastus)"
     echo "  --help         Affiche cette aide"
@@ -89,5 +97,8 @@ while ! ssh -o StrictHostKeyChecking=no -o ProxyCommand="ssh -W %h:%p administra
     sleep 5
 done
 
-
-ansible-playbook -i $PWD/Ansible/inventory.yaml $PWD/Ansible/$ENVIRONNEMENT.yaml  --ssh-common-args="-o StrictHostKeyChecking=no -o ProxyJump=administrateur@$external_ip"
+if [[ -z "$ANSIBLE_PLAYBOOK" ]]; then
+    ansible-playbook -i "$PWD/Ansible/inventory.yaml" "$PWD/Ansible/$ENVIRONNEMENT.yaml"  --ssh-common-args="-o StrictHostKeyChecking=no -o ProxyJump=administrateur@$external_ip"
+else
+    ansible-playbook -i "$PWD/Ansible/inventory.yaml" "$PWD/Ansible/$ANSIBLE_PLAYBOOK.yaml"  --ssh-common-args="-o StrictHostKeyChecking=no -o ProxyJump=administrateur@$external_ip"
+fi
