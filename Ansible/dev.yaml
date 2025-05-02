@@ -141,11 +141,11 @@
     #     docker_python_backend_postgres_password: "{{ backend_postgres_password }}"     
 
 
-    # - name: Appel du role docker-postgresql
-    #   ansible.builtin.include_role:
-    #     name: docker-postgresql
-    #   vars:
-    #     docker_postgresql_password: "{{ postgres_password }}"
+    - name: Appel du role docker-postgresql
+      ansible.builtin.include_role:
+        name: docker-postgresql
+      vars:
+        docker_postgresql_password: "{{ postgres_password }}"
 
     # - name: Appel du role postgresql
     #   ansible.builtin.include_role:
@@ -154,15 +154,15 @@
     #     postgresql_user: "{{ postgres_user }}"
     #     postgresql_password: "{{ postgres_password }}"
 
-    - name: Appel du role file-generator
-      ansible.builtin.include_role:
-        name: file-generator
-      vars:
-        file_generator_size_gb: "{{ scp_file_size | default(1) }}"
-        file_generator_path: "{{ scp_file_path }}"
+    # - name: Appel du role file-generator
+    #   ansible.builtin.include_role:
+    #     name: file-generator
+    #   vars:
+    #     file_generator_size_gb: "{{ scp_file_size | default(1) }}"
+    #     file_generator_path: "{{ scp_file_path }}"
 
-    - name: Appel du role docker-scp
-      ansible.builtin.include_role:
-        name: docker-scp
-      vars:
-        docker_scp_repo: "{{ scp_repo }}"
+    # - name: Appel du role docker-scp
+    #   ansible.builtin.include_role:
+    #     name: docker-scp
+    #   vars:
+    #     docker_scp_repo: "{{ scp_repo }}"
