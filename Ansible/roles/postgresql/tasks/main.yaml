@@ -36,3 +36,21 @@
   shell: >
     sudo -u {{ postgresql_user }} psql -c
     "ALTER USER {{ postgresql_user }} WITH ENCRYPTED PASSWORD '{{ postgresql_password }}';"
+
+- name: 'Modification du fichier pg_hba.conf'
+  ansible.builtin.blockinfile:
+    path: '/etc/postgresql/17/main/pg_hba.conf'
+    append_newline: true
+    prepend_newline: true
+    block: |
+      host    all     all             0.0.0.0/0            scram-sha-256
+  notify: 'Redémarrer PostgreSQL'
+
+- name: 'Modification du fichier postgresql.conf'
+  ansible.builtin.blockinfile:
+    path: '/etc/postgresql/17/main/postgresql.conf'
+    append_newline: true
+    prepend_newline: true
+    block: |
+      listen_addresses = '*'
+  notify: 'Redémarrer PostgreSQL'

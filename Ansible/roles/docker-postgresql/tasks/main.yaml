@@ -10,21 +10,21 @@
     tag: "{{ docker_postgresql_version }}"
     source: pull
 
-- name: Démarrer le conteneur PostgreSQL avec auto-restart
-  community.docker.docker_container:
-    name: postgresql
-    image: "postgres:{{ docker_postgresql_version }}"
-    state: started
-    restart_policy: always
-    env:
-      POSTGRES_PASSWORD: "{{ docker_postgresql_password }}"
-    ports:
-      - "5432:5432"
+# - name: Démarrer le conteneur PostgreSQL avec auto-restart
+#   community.docker.docker_container:
+#     name: postgresql
+#     image: "postgres:{{ docker_postgresql_version }}"
+#     state: started
+#     restart_policy: always
+#     env:
+#       POSTGRES_PASSWORD: "{{ docker_postgresql_password }}"
+#     ports:
+#       - "5432:5432"
 
-- name: 'Attendre que PostgreSQL soit prêt'
-  wait_for:
-    host: "127.0.0.1"
-    port: 5432
-    delay: 5
-    timeout: 60
-    state: started
+# - name: 'Attendre que PostgreSQL soit prêt'
+#   wait_for:
+#     host: "127.0.0.1"
+#     port: 5432
+#     delay: 5
+#     timeout: 60
+#     state: started
