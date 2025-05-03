@@ -88,6 +88,8 @@ for i in {1..5}; do
     echo "Max MEM (RSS) for Application: $mem_max KB"
     echo "Mean MEM (RSS) for Application: $mem_mean KB"
     echo "============================================="
+
+    sleep 60
 done
 
 
