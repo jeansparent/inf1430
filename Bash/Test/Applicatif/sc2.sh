@@ -41,6 +41,6 @@ if $help; then
 fi
 
 for i in {1..5}; do
-    echo "Test SC1 Page: $i concurent: 10 Total: 100"
-    ab -n 100 -c 10 "$URL/CSV?records=1000&page=$i"
+    echo "Test SC2 Page: $i concurent: 10 Total: 100"
+    ab -n 100 -c 10 "$URL/CSV-API?records=1000&page=$i"
 done
