@@ -70,14 +70,14 @@ for i in {1..5}; do
     scp -P 22 administrateur@$IP:pidstat* ./
 
     echo "========== PIDSTAT REPORT for SSHD =========="
-    cpu_values=$(grep -a "postgres" pidstat_cpu.log | tr -s ' ' | cut -d ' ' -f 8)
+    cpu_values=$(grep -a "python|nginx|postgres" pidstat_cpu.log | tr -s ' ' | cut -d ' ' -f 8)
     cpu_number_value=$(echo "$cpu_values" | wc -l)
     cpu_sum=$(echo "$cpu_values" | awk '{sum+=$1} END {print sum}')
     cpu_mean=$(echo "$cpu_sum / $cpu_number_value" | bc -l)
     cpu_max=$(echo "$cpu_values" | sort -nr | head -1)
 
 
-    mem_values=$(grep -a "postgres" pidstat_mem.log | tr -s ' ' | cut -d ' ' -f 7)
+    mem_values=$(grep -aE "python|nginx|postgres" pidstat_mem.log | tr -s ' ' | cut -d ' ' -f 7)
     mem_number_value=$(echo "$mem_values" | wc -l)
     mem_sum=$(echo "$mem_values" | awk '{sum+=$1} END {print sum}')
     mem_mean=$(echo "$mem_sum / $mem_number_value" | bc -l)
