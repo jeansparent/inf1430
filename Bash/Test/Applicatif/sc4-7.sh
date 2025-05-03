@@ -49,48 +49,43 @@ if $help; then
     exit 0
 fi
 
-for i in {1..5}; do
-    echo "Cleanup VM"
-    ssh -P 22 administrateur@$IP "rm -rf /home/administrateur/pid*.log"
-    rm -rf /home/administrateur/pid*.log
 
-    echo "Starting pidstat"
-    ssh -P 22 administrateur@$IP "nohup pidstat -u 1 > pidstat_cpu.log 2>&1 &"
-    pidstat_cpu_pid=$!
-    ssh -P 22 administrateur@$IP "nohup pidstat -r 1 > pidstat_mem.log 2>&1 &"
-    pidstat_mem_pid=$!
+echo "Cleanup VM"
+ssh -P 22 administrateur@$IP "rm -rf /home/administrateur/pid*.log"
+rm -rf /home/administrateur/pid*.log
 
-    echo "Test SC4-7 concurent: 10 Total: 5000"
-    ab -n 500 -c 10 "$URL/DB-API?records=1000&page=$i"
+echo "Starting pidstat"
+ssh -P 22 administrateur@$IP "nohup pidstat -u 1 > pidstat_cpu.log 2>&1 &"
+pidstat_cpu_pid=$!
+ssh -P 22 administrateur@$IP "nohup pidstat -r 1 > pidstat_mem.log 2>&1 &"
+pidstat_mem_pid=$!
 
-    echo "Stop pidstat"
-    ssh -P 22 administrateur@$IP "pkill -f pistart"
+echo "Test SC4-7 concurent: 10 Total: 5000"
+ab -n 500 -c 10 "$URL/DB-API?records=1000&page=1"
 
-    echo "Transfert pidstat file"
-    scp -P 22 administrateur@$IP:pidstat* ./
+echo "Stop pidstat"
+ssh -P 22 administrateur@$IP "pkill -f pistart"
 
-    echo "========== PIDSTAT REPORT for Application =========="
-    cpu_values=$(grep -aE "python|nginx|postgres" pidstat_cpu.log | tr -s ' ' | cut -d ' ' -f 8)
-    cpu_number_value=$(echo "$cpu_values" | wc -l)
-    cpu_sum=$(echo "$cpu_values" | awk '{sum+=$1} END {print sum}')
-    cpu_mean=$(echo "$cpu_sum / $cpu_number_value" | bc -l)
-    cpu_max=$(echo "$cpu_values" | sort -nr | head -1)
+echo "Transfert pidstat file"
+scp -P 22 administrateur@$IP:pidstat* ./
 
-
-    mem_values=$(grep -aE "python|nginx|postgres" pidstat_mem.log | tr -s ' ' | cut -d ' ' -f 7)
-    mem_number_value=$(echo "$mem_values" | wc -l)
-    mem_sum=$(echo "$mem_values" | awk '{sum+=$1} END {print sum}')
-    mem_mean=$(echo "$mem_sum / $mem_number_value" | bc -l)
-    mem_max=$(echo "$mem_values" | sort -nr | head -1)
-
-    echo "Max CPU usage for Application: $cpu_max %"
-    echo "Mean CPU usage for Application: $cpu_mean %"
-    echo "Max MEM (RSS) for Application: $mem_max KB"
-    echo "Mean MEM (RSS) for Application: $mem_mean KB"
-    echo "============================================="
-
-    sleep 60
-done
+echo "========== PIDSTAT REPORT for Application =========="
+cpu_values=$(grep -aE "python|nginx|postgres" pidstat_cpu.log | tr -s ' ' | cut -d ' ' -f 8)
+cpu_number_value=$(echo "$cpu_values" | wc -l)
+cpu_sum=$(echo "$cpu_values" | awk '{sum+=$1} END {print sum}')
+cpu_mean=$(echo "$cpu_sum / $cpu_number_value" | bc -l)
+cpu_max=$(echo "$cpu_values" | sort -nr | head -1)
 
 
+mem_values=$(grep -aE "python|nginx|postgres" pidstat_mem.log | tr -s ' ' | cut -d ' ' -f 7)
+mem_number_value=$(echo "$mem_values" | wc -l)
+mem_sum=$(echo "$mem_values" | awk '{sum+=$1} END {print sum}')
+mem_mean=$(echo "$mem_sum / $mem_number_value" | bc -l)
+mem_max=$(echo "$mem_values" | sort -nr | head -1)
+
+echo "Max CPU usage for Application: $cpu_max %"
+echo "Mean CPU usage for Application: $cpu_mean %"
+echo "Max MEM (RSS) for Application: $mem_max KB"
+echo "Mean MEM (RSS) for Application: $mem_mean KB"
+echo "============================================="
 
