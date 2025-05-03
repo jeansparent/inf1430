@@ -42,7 +42,7 @@ fi
 
 for i in {1..5}; do
     echo "Test SC3 Page: $i concurent: 10 Total: 100"
-    ab -n 100 -c 10 "$URL/CSV-API?records=1000&page=$i"
+    ab -n 100 -c 10 "$URL/DB-API?records=1000&page=$i"
 
     echo "Test SC3 concurent: 10 Total: 5000"
     ab -n 5000 -c 10 "$URL/DB-API?records=1000&page=$i"
