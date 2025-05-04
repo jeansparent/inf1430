@@ -45,6 +45,13 @@ resource "azurerm_resource_group" rg_applicatif_docker {
   location = var.region
 }
 
+resource "azurerm_public_ip" "vnet_pip_applicatif_docker" {
+  name                = "pip-applicatif-docker"
+  resource_group_name = azurerm_resource_group.rg_applicatif_docker.name
+  location            = azurerm_resource_group.rg_applicatif_docker.location
+  allocation_method   = "Static"
+}
+
 resource "azurerm_network_interface" "vm_applicatif_docker_nic_1" {
   name                = "vm-applicatif-docker-nic-1"
   location            = azurerm_resource_group.rg_applicatif_docker.location
@@ -55,6 +62,7 @@ resource "azurerm_network_interface" "vm_applicatif_docker_nic_1" {
     subnet_id                     = data.azurerm_subnet.vnet_sub1.id
     private_ip_address_allocation = "Static"
     private_ip_address            = var.vm_ip
+    public_ip_address_id          = azurerm_public_ip.vnet_pip_applicatif_docker.id
   }
 }
 
@@ -86,7 +94,7 @@ resource "azurerm_network_security_rule" "nsg_applicatif_all" {
   protocol                    = "Tcp"
   source_port_range           = "*"
   destination_port_range      = "*"
-  source_address_prefix       = "192.168.0.10/32"
+  source_address_prefix       = "0.0.0.0/0"
   destination_address_prefix  = "*"
   resource_group_name         = azurerm_resource_group.rg_applicatif_docker.name
   network_security_group_name = azurerm_network_security_group.nsg_applicatif_docker.name
