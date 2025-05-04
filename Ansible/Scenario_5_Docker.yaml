@@ -1,0 +1,85 @@
+---
+- name: Installation environnement Applicatif_Docker
+  hosts: Applicatif_Docker
+  become: true
+
+  tasks:
+    - name: 'Appel du role commun'
+      ansible.builtin.include_role:
+        name: 'commun'
+      vars:
+        commun_applications: "{{ applications }}"
+        commun_hosts: "{{ hosts }}"
+
+    - name: 'Appel du role git-clone'
+      ansible.builtin.include_role:
+        name: 'git-clone'
+      vars:
+        git_clone_url: "{{ git_url }}"
+        git_clone_local_path: "{{ git_local_path }}"
+
+    - name: 'Appel du role docker-ce'
+      ansible.builtin.include_role:
+        name: 'docker-ce'
+      vars:
+        docker_ce_version: "{{ docker_version }}"
+
+    - name: 'Appel du role docker-postgresql-with-data'
+      ansible.builtin.include_role:
+        name: 'docker-postgresql-with-data'
+      vars:
+        docker_postgresql_with_data_password: "{{ postgresql_with_data_password }}"
+        docker_postgresql_with_data_script_path: "{{ postgres_script_path }}"
+        docker_postgresql_with_data_csv_path: "{{ postgres_csv_path }}"
+
+    - name: 'Appel du role docker-python-frontend'
+      ansible.builtin.include_role:
+        name: 'docker-python-frontend'
+      vars:
+        docker_python_frontend_repo: "{{ docker_frontend_repo }}"
+        docker_python_frontend_csv_path: "{{ frontend_csv_path }}"
+        docker_python_frontend_csv_name: "{{ docker_frontend_csv_name }}"
+        docker_python_frontend_records_per_page: "{{ frontend_records_per_page }}"
+        docker_python_frontend_api_url : "{{ docker_frontend_api }}"
+        docker_python_frontend_ports: 
+          - '7000:8080'
+          - '7001:8080'
+
+    - name: 'Appel du role docker-python-backend'
+      ansible.builtin.include_role:
+        name: 'docker-python-backend'
+      vars:
+        docker_python_backend_repo: "{{ docker_backend_repo }}"
+        docker_python_backend_csv_path: "{{ backend_csv_path }}"
+        docker_python_backend_csv_name: "{{ docker_backend_csv_name }}"
+        docker_python_backend_postgres_host: "{{ docker_backend_postgres_host }}"
+        docker_python_backend_postgres_db: "{{ backend_postgres_db }}"
+        docker_python_backend_postgres_user: "{{ backend_postgres_user }}"
+        docker_python_backend_postgres_password: "{{ backend_postgres_password }}"
+        docker_python_backend_ports: 
+          - '6000:5000'
+          - '6001:5000'
+
+    - name: 'Appel du role docker-nginx-frontend'
+      ansible.builtin.include_role:
+        name: 'docker-nginx-frontend'
+      vars:
+        docker_nginx_frontend_version: "{{ nginx_version }}"
+        docker_nginx_frontend_server_name: "{{ nginx_server_name | default('') }}"
+        docker_nginx_frontend_servers:
+          - '192.168.0.206:7000'
+          - '192.168.0.206:7001'
+
+    - name: 'Appel du role docker-nginx-backend'
+      ansible.builtin.include_role:
+        name: 'docker-nginx-backend'
+      vars:
+        docker_nginx_backend_version: "{{ nginx_version }}"
+        docker_nginx_backend_server_name: "{{ nginx_server_name | default('') }}"
+        docker_nginx_backend_servers:
+          - '192.168.0.206:6000'
+          - '192.168.0.206:6001'
+
+    - name: 'Redémarrage de la VM'
+      ansible.builtin.reboot:
+        reboot_timeout: 600
