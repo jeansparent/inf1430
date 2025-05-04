@@ -1,0 +1,24 @@
+worker_processes auto;  # Automatically determine the number of worker processes based on the available CPU cores
+
+events {
+    worker_connections 1024;  # Max simultaneous connections per worker
+}
+
+http {
+    include       mime.types;  # Load MIME types for various file extensions
+    default_type  application/octet-stream;  # Default MIME type for files that are not recognized
+    include /etc/nginx/conf.d/*.conf;  # Include other Nginx config files from the conf.d directory
+
+    send_timeout 30s;  # Timeout for sending data to the client
+    proxy_read_timeout 90s;  # Timeout for reading from the backend server
+    proxy_connect_timeout 90s;  # Timeout for connecting to the backend server
+    client_max_body_size 100M;  # Max request body size; increase if uploading large files
+
+    # You can add more settings for handling specific things like buffering or WebSockets
+    proxy_buffer_size 16k;
+    proxy_buffers 4 32k;
+    proxy_busy_buffers_size 64k;
+    
+    # Keep-alive settings (optional, good for API connections)
+    keepalive_timeout 65s;
+}
