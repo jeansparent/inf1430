@@ -3,3 +3,5 @@ docker_python_frontend_csv_path: ''
 docker_python_frontend_records_per_page: ''
 docker_python_frontend_api_url : ''
 docker_python_frontend_csv_name: ''
+docker_python_frontend_ports: 
+  - '8080:8080'

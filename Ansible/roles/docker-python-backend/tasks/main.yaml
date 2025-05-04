@@ -17,12 +17,12 @@
 
 - name: Démarrer le conteneur {{ docker_python_backend_repo }} avec auto-restart
   community.docker.docker_container:
-    name: "python-backend"
+    name: "backend_{{ index }}"
     image: "{{ docker_python_backend_repo }}:latest"
     state: started
     restart_policy: always
     ports:
-        - "5000:5000/tcp"
+      - "{{ item }}/tcp"
     env:
         PYTHON_BACKEND_CSV_PATH: "/app/{{ docker_python_backend_csv_name }}"
         PYTHON_BACKEND_POSTGRES_HOST: "{{ docker_python_backend_postgres_host }}"
@@ -31,3 +31,7 @@
         PYTHON_BACKEND_POSTGRES_PASSWORD : "{{ docker_python_backend_postgres_password }}"
     volumes:
       - "{{ docker_python_backend_csv_path }}:/app/{{ docker_python_backend_csv_name }}"
+  loop: "{{ docker_python_backend_ports }}"
+  loop_control:
+    index_var: index
+    label: "{{ item }}"

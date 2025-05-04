@@ -4,4 +4,6 @@ docker_python_backend_csv_name: ''
 docker_python_backend_postgres_host: ''
 docker_python_backend_postgres_db: ''
 docker_python_backend_postgres_user: ''
-docker_python_backend_postgres_password: ''  
+docker_python_backend_postgres_password: ''
+docker_python_backend_ports: 
+  - '5000:5000'
