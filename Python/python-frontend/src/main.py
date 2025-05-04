@@ -194,4 +194,5 @@ ui.page('/CSV')(create_page(get_csv_data))
 ui.page('/DB-API')(create_page(get_api_db_data))
 ui.page('/CSV-API')(create_page(get_api_csv_data))
 
-ui.run()
+if __name__ in {"__main__", "__mp_main__"}:
+    ui.run()
