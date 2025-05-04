@@ -49,38 +49,5 @@ scp_repo: 'jseb00/scp'
 
 sysbench_repo: 'jseb00/sysbench'
 
-
-frontend_path: '/home/administrateur/inf1430/Python/python-frontend'
-frontend_csv_path: '/home/administrateur/inf1430/SQL/Dataset/PT_priority_claim_2000001_to_4000000_2024-10-11.csv'
-frontend_records_per_page: 1000
-frontend_api_url: 'http://localhost:5000'
-frontend_env_path: "{{ frontend_path }}/.env"
-
-backend_path: '/home/administrateur/inf1430/Python/python-backend'
-backend_csv_path: '/home/administrateur/inf1430/SQL/Dataset/PT_priority_claim_2000001_to_4000000_2024-10-11.csv'
-backend_env_path: "{{ python_backend_path }}/.env"
-backend_postgres_host: 'localhost'
-backend_postgres_db: 'patent'
-backend_postgres_user: 'postgres'
-backend_postgres_password: 'Bonjour123!'
-
-postgres_csv_path: '/home/administrateur/inf1430/SQL/Dataset/PT_priority_claim_2000001_to_4000000_2024-10-11.csv'
-postgres_script_path: '/home/administrateur/inf1430/SQL/PostgreSQL/database.sh'
-postgres_user: 'postgres'
-postgres_password: 'Bonjour123!'
-
-docker_frontend_api: 'http://192.168.160.4:5000'
-docker_frontend_repo: 'jseb00/python-frontend'
-docker_frontend_csv_name: 'PT_priority_claim_2000001_to_4000000_2024-10-11.csv'
-docker_frontend_csv_path: "/home/administrateur/inf1430/SQL/Dataset/{{ docker_frontend_csv_name }}"
-
-docker_backend_repo: 'jseb00/python-backend'
-docker_backend_postgres_host: '192.168.160.4'
-docker_backend_csv_name: 'PT_priority_claim_2000001_to_4000000_2024-10-11.csv'
-docker_backend_csv_path: "/home/administrateur/inf1430/SQL/Dataset/{{ docker_frontend_csv_name }}"
-
-postgresql_with_data_password: 'Bonjour123!'
-
-
 scp_file_size: 10
 scp_file_path: '/home/administrateur/10GFile'
