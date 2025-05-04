@@ -1,0 +1,5 @@
+docker_nginx_backend_version: ''
+docker_nginx_backend_server_name: ''
+docker_nginx_backend_backend_servers: ''
+docker_nginx_applicatif_backend_servers:
+  - '192.168.0.206:8080'
