@@ -1,5 +1,5 @@
 upstream backend_servers {
-    {% for backend_servers in nginx_backend_servers %}
+    {% for backend_servers in docker_nginx_backend_servers %}
         server {{ backend_servers }};
     {% endfor %}
 }
