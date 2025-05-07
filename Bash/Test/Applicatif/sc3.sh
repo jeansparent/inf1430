@@ -64,7 +64,7 @@ echo "Test SC3 Page: $i concurent: 10 Total: 100"
 ab -n 100 -c 10 "$URL/DB-API?records=1000&page=1"
 
 echo "Stop pidstat"
-ssh -P 22 administrateur@$IP "pkill -f pidstart"
+ssh -P 22 administrateur@$IP "sudo killall pidstat"
 
 echo "Transfert pidstat file"
 scp -P 22 administrateur@$IP:pidstat* ./
@@ -103,7 +103,7 @@ echo "Test SC3 Page: $i concurent: 10 Total: 5000"
 ab -n 5000 -c 10 "$URL/DB-API?records=1000&page=1"
 
 echo "Stop pidstat"
-ssh -P 22 administrateur@$IP "pkill -f pidstart"
+ssh -P 22 administrateur@$IP "sudo killall pidstat"
 
 echo "Transfert pidstat file"
 scp -P 22 administrateur@$IP:pidstat* ./
