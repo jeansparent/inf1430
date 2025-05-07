@@ -110,7 +110,7 @@ for i in {1..5}; do
     scp -P 22 administrateur@$IP:pidstat* ./
 
     echo "Test SC3 Page: $i concurent: 10 Total: 5000"
-    ab -n 5000 -c 10 "$URL/DB-API?records=5000&page=$i"
+    ab -n 5000 -c 10 "$URL/DB-API?records=1000&page=$i"
 
     echo "========== PIDSTAT REPORT for python =========="
     cpu_values=$(grep -a "python" pidstat_cpu.log | tr -s ' ' | cut -d ' ' -f 8)
