@@ -60,11 +60,50 @@ pidstat_cpu_pid=$!
 ssh -P 22 administrateur@$IP "nohup pidstat -r 1 > pidstat_mem.log 2>&1 &"
 pidstat_mem_pid=$!
 
-echo "Test SC4-7 concurent: 10 Total: 5000"
-ab -n 500 -c 10 "$URL/DB-API?records=1000&page=1"
+echo "Test SC3 Page: $i concurent: 10 Total: 100"
+ab -n 100 -c 10 "$URL/DB-API?records=1000&page=1"
 
 echo "Stop pidstat"
-ssh -P 22 administrateur@$IP "pkill -f pistart"
+ssh -P 22 administrateur@$IP "sudo killall pidstat"
+
+echo "Transfert pidstat file"
+scp -P 22 administrateur@$IP:pidstat* ./
+
+echo "========== PIDSTAT REPORT for python =========="
+cpu_values=$(grep -aE "python|nginx|postgres" pidstat_cpu.log | tr -s ' ' | cut -d ' ' -f 8)
+cpu_number_value=$(echo "$cpu_values" | wc -l)
+cpu_sum=$(echo "$cpu_values" | awk '{sum+=$1} END {print sum}')
+cpu_mean=$(echo "$cpu_sum / $cpu_number_value" | bc -l)
+cpu_max=$(echo "$cpu_values" | sort -nr | head -1)
+
+
+mem_values=$(grep -aE "python|nginx|postgres" pidstat_mem.log | tr -s ' ' | cut -d ' ' -f 7)
+mem_number_value=$(echo "$mem_values" | wc -l)
+mem_sum=$(echo "$mem_values" | awk '{sum+=$1} END {print sum}')
+mem_mean=$(echo "$mem_sum / $mem_number_value" | bc -l)
+mem_max=$(echo "$mem_values" | sort -nr | head -1)
+
+echo "Max CPU usage for python: $cpu_max %"
+echo "Mean CPU usage for python: $cpu_mean %"
+echo "Max MEM (RSS) for python: $mem_max KB"
+echo "Mean MEM (RSS) for python: $mem_mean KB"
+echo "============================================="
+
+echo "Cleanup VM"
+ssh -P 22 administrateur@$IP "rm -rf /home/administrateur/pid*.log"
+rm -rf /home/administrateur/pid*.log
+
+echo "Starting pidstat"
+ssh -P 22 administrateur@$IP "nohup pidstat -u 1 > pidstat_cpu.log 2>&1 &"
+pidstat_cpu_pid=$!
+ssh -P 22 administrateur@$IP "nohup pidstat -r 1 > pidstat_mem.log 2>&1 &"
+pidstat_mem_pid=$!
+
+echo "Test SC3 Page: $i concurent: 10 Total: 5000"
+ab -n 5000 -c 10 "$URL/DB-API?records=1000&page=1"
+
+echo "Stop pidstat"
+ssh -P 22 administrateur@$IP "sudo killall pidstat"
 
 echo "Transfert pidstat file"
 scp -P 22 administrateur@$IP:pidstat* ./
