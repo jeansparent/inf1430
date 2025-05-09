@@ -50,7 +50,7 @@ if $help; then
     exit 0
 fi
 
-for i in {1..1}; do
+for i in {1..5}; do
     echo "Cleanup VM"
     ssh -P 22 administrateur@$IP "rm -rf /home/administrateur/pid*.log"
     rm -rf /home/administrateur/pid*.log

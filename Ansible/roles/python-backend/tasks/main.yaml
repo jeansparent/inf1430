@@ -44,4 +44,4 @@
 - name: 'Activation du code Python'
   shell: 
     cmd: |
-      nohup bash -c 'source {{ python_backend_path }}/venv/bin/activate && export $(cat {{ python_backend_env_path }} | xargs) && gunicorn {{ python_backend_path }}/src/main:app -w 4 -b 0.0.0.0:5000' > /tmp/backend.log 2>&1 &
+      nohup bash -c 'source {{ python_backend_path }}/venv/bin/activate && export $(cat {{ python_backend_env_path }} | xargs) && python3 {{ python_backend_path }}/src/main.py' > /tmp/frontend.log 2>&1 &
