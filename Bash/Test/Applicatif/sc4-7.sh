@@ -60,8 +60,8 @@ pidstat_cpu_pid=$!
 ssh -P 22 administrateur@$IP "nohup pidstat -r 1 > pidstat_mem.log 2>&1 &"
 pidstat_mem_pid=$!
 
-echo "Test SC3 Page: $i concurent: 10 Total: 100"
-ab -n 100 -c 10 "$URL/DB-API?records=1000&page=1"
+echo "Test SC3 concurent: 10 Total: 100"
+ab -n 100 -c 10 "$URL"
 
 echo "Stop pidstat"
 ssh -P 22 administrateur@$IP "sudo killall pidstat"
@@ -99,8 +99,8 @@ pidstat_cpu_pid=$!
 ssh -P 22 administrateur@$IP "nohup pidstat -r 1 > pidstat_mem.log 2>&1 &"
 pidstat_mem_pid=$!
 
-echo "Test SC3 Page: $i concurent: 10 Total: 5000"
-ab -n 5000 -c 10 "$URL/DB-API?records=1000&page=1"
+echo "Test SC3 concurent: 10 Total: 5000"
+ab -n 5000 -c 10 "$URL"
 
 echo "Stop pidstat"
 ssh -P 22 administrateur@$IP "sudo killall pidstat"
