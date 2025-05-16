@@ -1,8 +1,8 @@
-- name: Mettre à jour la liste des paquets
+- name: 'Mettre à jour la liste des paquets'
   apt:
     update_cache: yes
 
-- name: Installer une version spécifique de Nginx
+- name: 'Installer une version spécifique de Nginx'
   apt:
     name: "iperf3"
     state: present

@@ -1,9 +1,9 @@
-- name: Vérification si le dossier existe
+- name: 'Vérification si le dossier existe'
   stat:
     path: "{{ git_clone_local_path }}"
   register: dossier_git
 
-- name: Cloner le dépôt depuis GitHub
+- name: 'Cloner le dépôt depuis GitHub'
   command:
     cmd: "git clone {{ git_clone_url }} {{ git_clone_local_path }}"
   become: false

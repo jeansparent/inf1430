@@ -1,8 +1,8 @@
-- name: Mettre à jour la liste des paquets
+- name: 'Mettre à jour la liste des paquets'
   apt:
     update_cache: yes
 
-- name: Installer de sysbench
+- name: 'Installer de sysbench'
   apt:
     name: 'sysbench'
     state: present

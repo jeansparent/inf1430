@@ -17,7 +17,7 @@
       vars:
         docker_ce_version: "{{ docker_version }}"
 
-    - name: Appel du role docker-postgresql
+    - name: 'Appel du role docker-postgresql'
       ansible.builtin.include_role:
         name: docker-postgresql
       vars:

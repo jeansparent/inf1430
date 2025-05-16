@@ -6,13 +6,13 @@
       - docker_python_frontend_records_per_page
       - docker_python_frontend_api_url
 
-- name: Télécharger l'image {{ docker_python_frontend_repo }} depuis Docker Hub
+- name: "Télécharger l'image {{ docker_python_frontend_repo }} depuis Docker Hub"
   community.docker.docker_image:
     name: "{{ docker_python_frontend_repo }}"
     tag: 'latest'
     source: pull
 
-- name: Démarrer un conteneur frontend avec nom unique
+- name: 'Démarrer un conteneur frontend avec nom unique'
   community.docker.docker_container:
     name: "frontend_{{ index }}"
     image: "{{ docker_python_frontend_repo }}:latest"

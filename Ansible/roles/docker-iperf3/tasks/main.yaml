@@ -1,10 +1,10 @@
-- name: Télécharger l'image iperf3 depuis Docker Hub
+- name: "Télécharger l'image iperf3 depuis Docker Hub"
   community.docker.docker_image:
     name: "{{ docker_iperf3_repo }}"
     tag: 'latest'
     source: pull
 
-- name: Démarrer le conteneur iperf3 avec auto-restart
+- name: 'Démarrer le conteneur iperf3 avec auto-restart'
   community.docker.docker_container:
     name: "iperf3"
     image: "{{ docker_iperf3_repo }}:latest"

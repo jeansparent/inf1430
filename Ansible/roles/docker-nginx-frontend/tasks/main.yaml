@@ -1,4 +1,4 @@
-- name: Deploiement de la configuration d'un site
+- name: "Deploiement de la configuration d'un site"
   block:
     - name: Création du dossier pour nginx
       ansible.builtin.file:
@@ -9,7 +9,7 @@
         mode: 0755
         recurse: yes
 
-    - name: Déploiement de la configuration pour nginx
+    - name: 'Déploiement de la configuration pour nginx'
       ansible.builtin.template:
         src: 'nginx.conf.j2'
         dest: '/var/lib/nginx-frontend/nginx.conf'
@@ -17,7 +17,7 @@
         group: 'root'
         mode: 0644
 
-    - name: Déploiement du gabarit application.conf
+    - name: 'Déploiement du gabarit application.conf'
       ansible.builtin.template:
         src: 'application.conf.j2'
         dest: '/var/lib/nginx-frontend/conf.d/application.conf'
@@ -30,13 +30,13 @@
     - docker_nginx_frontend_servers | length > 0 
 
 
-- name: Télécharger l'image Nginx depuis Docker Hub
+- name: "Télécharger l'image Nginx depuis Docker Hub"
   community.docker.docker_image:
     name: nginx
     tag: "{{ docker_nginx_frontend_version }}"
     source: pull
 
-- name: Démarrer le conteneur Nginx avec auto-restart
+- name: 'Démarrer le conteneur Nginx avec auto-restart'
   community.docker.docker_container:
     name: nginx-frontend
     image: "nginx:{{ docker_nginx_frontend_version }}"

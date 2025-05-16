@@ -1,23 +1,23 @@
 ---
 
-- name: Mise à jour de l'OS
+- name: "Mise à jour de l'OS"
   ansible.builtin.apt:
     upgrade: yes
     update_cache: yes
     cache_valid_time: 86400
   register: apt_update
 
-- name: Redemarrer la VM
+- name: 'Redémarrer la VM'
   ansible.builtin.reboot:
   when: apt_update.changed
 
-- name: Installation des applications communes
+- name: 'Installation des applications communes'
   ansible.builtin.apt:
     name: "{{ item }}"
     state: latest
   loop: "{{ commun_applications }}"
 
-- name: Ajout des IP dans /etc/hosts
+- name: 'Ajout des IP dans /etc/hosts'
   ansible.builtin.template:
      src: 'hosts.j2'
      dest: '/etc/hosts'

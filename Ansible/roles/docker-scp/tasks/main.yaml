@@ -1,4 +1,4 @@
-- name: Télécharger l'image scp depuis Docker Hub
+- name: "Télécharger l'image scp depuis Docker Hub"
   community.docker.docker_image:
     name: "{{ docker_scp_repo }}"
     tag: 'latest'

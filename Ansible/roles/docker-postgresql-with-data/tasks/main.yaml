@@ -12,13 +12,13 @@
     state: present
     update_cache: yes
 
-- name: Télécharger l'image PostgreSQL depuis Docker Hub
+- name: "Télécharger l'image PostgreSQL depuis Docker Hub"
   community.docker.docker_image:
     name: postgres
     tag: "{{ docker_postgresql_with_data_version }}"
     source: pull
 
-- name: Démarrer le conteneur PostgreSQL avec auto-restart
+- name: 'Démarrer le conteneur PostgreSQL avec auto-restart'
   community.docker.docker_container:
     name: postgresql
     image: "postgres:{{ docker_postgresql_with_data_version }}"

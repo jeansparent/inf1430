@@ -1,10 +1,10 @@
-- name: Télécharger l'image Nginx depuis Docker Hub
+- name: "Télécharger l'image Nginx depuis Docker Hub"
   community.docker.docker_image:
     name: python
     tag: "{{ docker_python_version }}"
     source: pull
 
-- name: Démarrer le conteneur Nginx avec auto-restart
+- name: 'Démarrer le conteneur Nginx avec auto-restart'
   community.docker.docker_container:
     name: python
     image: "python:{{ docker_python_version }}"

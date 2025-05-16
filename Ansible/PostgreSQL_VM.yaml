@@ -4,14 +4,14 @@
   become: true
 
   tasks:
-    - name: Appel du role commun
+    - name: 'Appel du role commun'
       ansible.builtin.include_role:
         name: commun
       vars:
         commun_applications: "{{ applications }}"
         commun_hosts: "{{ hosts }}"
 
-    - name: Appel du role postgresql
+    - name: 'Appel du role postgresql'
       ansible.builtin.include_role:
         name: postgresql
       vars:

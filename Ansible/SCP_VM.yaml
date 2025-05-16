@@ -7,7 +7,7 @@
       ansible_ssh_common_args: ''
       
   tasks:
-    - name: Appel du role file-generator
+    - name: 'Appel du role file-generator'
       ansible.builtin.include_role:
         name: file-generator
       vars:
@@ -20,7 +20,7 @@
   become: true
 
   tasks:
-    - name: Appel du role commun
+    - name: 'Appel du role commun'
       ansible.builtin.include_role:
         name: commun
       vars:
