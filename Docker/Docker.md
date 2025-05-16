@@ -35,6 +35,7 @@ Liste des scripts disponible:
 |scp|./Bash/Docker/scp.sh --version x.x|
 |sysbench|./Bash/Docker/sysbench.sh --version x.x|
 |python-frontend|./Bash/Docker/python-frontend.sh --version x.x|
+|python-backend|./Bash/Docker/python-backend.sh --version x.x|
 <br>
 
 Tour les images sont étiquettées avec latest et la version spécifiée.
