@@ -12,8 +12,11 @@ Les images suivante sont disponible sur [Dockerhub](https://hub.docker.com/) dir
 Certaines applications étaient difficilement disponible alors j'ai pris la décision de la construire moi même pour mon projet. Les images sont disponible dans mon dépôt personnel [Docker](https://hub.docker.com/u/jseb00)
 
 - iperf3
+- python-backend
+- pyhton-frontend
 - scp
 - sysbench
+
 
 # Construction des images
 Tous les images ont été construite dans l'environnement de Dev. Lors de son déploiement, le Git est cloné dans le /home d'administrateur. Puisque le dépôt est publique, il est possible de faire un git pull pour le mettre à jour. 
